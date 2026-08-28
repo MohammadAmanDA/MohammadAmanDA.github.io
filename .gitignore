@@ -1,0 +1,29 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# credentials — never commit
+.env
+.env.*
+!.env.example
+
+# Source material, not for publication. The CV PDF carries a mobile number and
+# a home address, so it must never reach a public repo.
+*.pdf
+
+# Private working notes. These contain salary targets, job-search strategy and
+# personal circumstances. This repository is public. Do not commit them.
+dossier.md
+fde_plan.md
+
+# Planning files kept local. They contain open questions and draft reasoning
+# that is useful to us and of no value to a visitor.
+PLAN.md
+OPEN_QUESTIONS.md
+
+# os
+.DS_Store
+Thumbs.db

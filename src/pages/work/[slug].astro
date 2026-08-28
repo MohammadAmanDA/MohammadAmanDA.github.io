@@ -1,0 +1,268 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DraftNote from '../../components/DraftNote.astro';
+import Link from '../../components/Link.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const d = project.data;
+
+const statusLabel: Record<string, string> = {
+  production: 'In production',
+  'in-progress': 'In progress',
+  mvp: 'Working package',
+  analysis: 'Completed analysis',
+  archived: 'Archived',
+};
+
+/** Paragraphs beginning `TK:` are unresolved facts, not copy. */
+const isTk = (s: string) => s.trimStart().startsWith('TK:');
+const stripTk = (s: string) => s.trimStart().replace(/^TK:\s*/, '');
+
+const period = d.period.end
+  ? d.period.start === d.period.end
+    ? d.period.start
+    : `${d.period.start} to ${d.period.end}`
+  : `${d.period.start} to present`;
+---
+
+<BaseLayout title={`${d.title}, case study`} description={d.summary}>
+  <article class="wrap">
+    {/* A <div>, not a <header>. Chrome exposes an article-nested <header> as a
+        second banner landmark, and one page should have one banner. */}
+    <div class="head">
+      <p class="meta-xs">
+        {d.category} · {statusLabel[d.status]} ·{' '}
+        {d.kind === 'personal' ? 'Personal project' : 'Professional work'} · {period}
+      </p>
+      <h1>{d.title}</h1>
+      <p class="lead">{d.summary}</p>
+      <p class="meta"><strong>For:</strong> {d.forWhom}</p>
+      <p class="meta-xs">{d.stack.join(' · ')}</p>
+      {
+        d.confidential && (
+          <p class="nda meta">
+            This system is proprietary. It is described here at capability level only: no internal
+            system names, no architecture detail, and no data.
+          </p>
+        )
+      }
+    </div>
+
+    <section class="section" aria-labelledby="s-context">
+      <p class="section__num" aria-hidden="true">01</p>
+      <h2 id="s-context" class="section__label">Context and constraints</h2>
+      <div class="prose">
+        {d.context.map((p: string) => (isTk(p) ? <DraftNote>{stripTk(p)}</DraftNote> : <p>{p}</p>))}
+      </div>
+      {
+        d.constraints.length > 0 && (
+          <ul class="bullets">
+            {d.constraints.map((c: string) =>
+              isTk(c) ? (
+                <li>
+                  <DraftNote>{stripTk(c)}</DraftNote>
+                </li>
+              ) : (
+                <li>{c}</li>
+              )
+            )}
+          </ul>
+        )
+      }
+    </section>
+
+    <section class="section" aria-labelledby="s-role">
+      <p class="section__num" aria-hidden="true">02</p>
+      <h2 id="s-role" class="section__label">My role</h2>
+      <div class="prose">
+        {d.myRole.map((p: string) => (isTk(p) ? <DraftNote>{stripTk(p)}</DraftNote> : <p>{p}</p>))}
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="s-approach">
+      <p class="section__num" aria-hidden="true">03</p>
+      <h2 id="s-approach" class="section__label">Technical approach</h2>
+      {
+        d.approach.map((item) => (
+          <div class="decision">
+            <h3>{item.decision}</h3>
+            <div class="prose">
+              {item.detail.map((p: string) =>
+                isTk(p) ? <DraftNote>{stripTk(p)}</DraftNote> : <p>{p}</p>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="section" aria-labelledby="s-outcome">
+      <p class="section__num" aria-hidden="true">04</p>
+      <h2 id="s-outcome" class="section__label">Outcome</h2>
+      {
+        d.outcome.metrics.length > 0 && (
+          <dl class="metrics">
+            {d.outcome.metrics.map((m) => (
+              <div class="metric">
+                <dt class="metric__value">{m.value}</dt>
+                <dd class="metric__label meta-xs">{m.label}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+      <div class="prose">
+        {
+          d.outcome.notes.map((p: string) =>
+            isTk(p) ? <DraftNote>{stripTk(p)}</DraftNote> : <p>{p}</p>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="s-limits">
+      <p class="section__num" aria-hidden="true">05</p>
+      <h2 id="s-limits" class="section__label">Limitations and what is next</h2>
+      <ul class="bullets">
+        {
+          d.limitations.map((l: string) =>
+            isTk(l) ? (
+              <li>
+                <DraftNote>{stripTk(l)}</DraftNote>
+              </li>
+            ) : (
+              <li>{l}</li>
+            )
+          )
+        }
+      </ul>
+      {
+        d.nextSteps.length > 0 && (
+          <>
+            <h3 class="next">What I would do next</h3>
+            <ul class="bullets">
+              {d.nextSteps.map((s: string) =>
+                isTk(s) ? (
+                  <li>
+                    <DraftNote>{stripTk(s)}</DraftNote>
+                  </li>
+                ) : (
+                  <li>{s}</li>
+                )
+              )}
+            </ul>
+          </>
+        )
+      }
+    </section>
+
+    {
+      d.links.length > 0 && (
+        <section class="section" aria-labelledby="s-links">
+          <p class="section__num" aria-hidden="true">06</p>
+      <h2 id="s-links" class="section__label">Links</h2>
+          <ul class="bullets">
+            {d.links.map((l) => (
+              <li>
+                <Link href={l.href}>{l.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      d.unresolved.length > 0 && (
+        <section class="section" aria-labelledby="s-open">
+          <p class="section__num" aria-hidden="true">07</p>
+      <h2 id="s-open" class="section__label">Open questions, not for publication</h2>
+          {d.unresolved.map((u) => (
+            <DraftNote id={u.id}>{u.note}</DraftNote>
+          ))}
+        </section>
+      )
+    }
+
+    <p class="back meta"><a href="/#work">Back to all work</a></p>
+  </article>
+</BaseLayout>
+
+<style>
+  .head {
+    padding-top: var(--space-8);
+  }
+
+  .head h1 {
+    margin-top: var(--space-3);
+  }
+
+  .lead {
+    font-size: var(--scale-lg);
+    margin-top: var(--space-6);
+    max-width: var(--measure);
+  }
+
+  .head .meta,
+  .head .meta-xs {
+    margin-top: var(--space-4);
+    max-width: var(--measure);
+  }
+
+  .nda {
+    border-left: 2px solid var(--color-rule);
+    padding-left: var(--space-4);
+  }
+
+  .bullets {
+    padding-left: var(--space-6);
+    max-width: var(--measure);
+  }
+
+  .bullets li + li {
+    margin-top: var(--space-3);
+  }
+
+  .decision + .decision {
+    margin-top: var(--space-12);
+  }
+
+  .decision h3 {
+    margin-bottom: var(--space-4);
+  }
+
+  .next {
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-4);
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: var(--space-6);
+    padding-bottom: var(--space-8);
+    margin-bottom: var(--space-8);
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .metric__value {
+    font-size: var(--scale-xl);
+    font-weight: 600;
+    line-height: var(--leading-tight);
+  }
+
+  .metric__label {
+    margin-top: var(--space-1);
+    margin-left: 0;
+  }
+
+  .back {
+    margin-top: var(--space-24);
+  }
+</style>

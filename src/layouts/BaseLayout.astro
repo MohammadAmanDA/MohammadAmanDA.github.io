@@ -1,0 +1,206 @@
+---
+import { getEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import Link from '../components/Link.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex } = Astro.props;
+
+const profile = (await getEntry('profile', 'profile'))!;
+const { name, email, profiles } = profile.data;
+
+// The site is one page. Nav entries are anchors into it, and resolve back to it
+// from a project page.
+const nav = [
+  { href: '/#work', label: 'Work' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/#research', label: 'Research' },
+  { href: '/#contact', label: 'Contact' },
+];
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = path === '/';
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en-IE">
+  <head>
+    <BaseHead title={title} description={description} noindex={noindex} />
+    <script is:inline>
+      // Render-blocking by necessity: prevents a flash of the wrong theme.
+      try {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.dataset.theme = stored;
+        }
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        {
+          isHome ? (
+            <span class="site-header__spacer" />
+          ) : (
+            <a class="site-header__name" href="/">
+              {name}
+            </a>
+          )
+        }
+        <nav aria-label="Primary">
+          <ul class="nav">
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={item.href}>{item.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <ThemeToggle />
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    {/* A plain link, always present, no JavaScript. An earlier version revealed
+        itself past 600px of scroll, but that depends on a scroll listener this
+        environment does not dispatch, so it could not be verified. A control
+        that is always there cannot fail to appear, and costs one small circle
+        in the corner. */}
+    <a href="#main" class="to-top" aria-label="Back to top">
+      <span aria-hidden="true">↑</span>
+    </a>
+
+    <footer class="site-footer">
+      <div class="wrap site-footer__inner">
+        <p class="meta-xs">© {year} · Dublin, Ireland</p>
+        <ul class="site-footer__links meta-xs">
+          <li><a href={`mailto:${email}`}>{email}</a></li>
+          {
+            profiles.map((p) => (
+              <li>
+                <Link href={p.href}>{p.label}</Link>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    padding-block: var(--space-6);
+  }
+
+  .site-header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .site-header__spacer {
+    margin-right: auto;
+  }
+
+  .site-header__name {
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    list-style: none;
+    font-family: var(--font-ui);
+    font-size: var(--scale-sm);
+  }
+
+  .nav a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .nav a:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  main {
+    padding-block: var(--space-12) var(--space-24);
+  }
+
+  .to-top {
+    position: fixed;
+    right: var(--space-6);
+    bottom: var(--space-6);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: 50%;
+    background-color: var(--color-surface);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-family: var(--font-ui);
+    font-size: var(--scale-sm);
+    line-height: 1;
+  }
+
+  .to-top:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
+  }
+
+  .site-footer {
+    border-top: var(--border-width) solid var(--color-rule);
+    padding-block: var(--space-8);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .site-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    list-style: none;
+  }
+
+  @media (max-width: 34rem) {
+    .nav {
+      order: 3;
+      width: 100%;
+      gap: var(--space-4);
+    }
+  }
+</style>

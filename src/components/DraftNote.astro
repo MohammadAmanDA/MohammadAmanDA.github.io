@@ -1,0 +1,27 @@
+---
+/**
+ * Renders a `TK:` placeholder or an unresolved-question note visibly, so open
+ * facts are impossible to miss during review. These must all be gone before
+ * launch, `npm run check:tk` fails the build while any remain.
+ */
+interface Props {
+  id?: string;
+  children?: unknown;
+}
+const { id } = Astro.props;
+---
+
+<p class="draft-note small">
+  <strong>Draft note{id ? ` · ${id}` : ''}:</strong>
+  <slot />
+</p>
+
+<style>
+  .draft-note {
+    border-left: 3px solid var(--color-accent);
+    background-color: var(--color-accent-weak);
+    color: var(--color-text);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius);
+  }
+</style>

@@ -1,0 +1,61 @@
+# From Mohammad_Aman_Resume.pdf and Linkedin_Profile.pdf.
+# Circle K (April to May 2022) appears on LinkedIn only and is omitted.
+
+- id: fami-ikea-treasury
+  title: Cash & FX Forecast Specialist
+  org: FAMI Ltd, IKEA Group Treasury
+  location: Dublin, Ireland
+  start: "2023-04"
+  end: null
+  order: 1
+  confidential: true
+  bullets:
+    - Lead the cash and FX forecasting system covering end-of-day and short-term liquidity across 27 countries and approximately 2,200 legal entities.
+    - Built an automated model-selection framework that scores and selects a forecasting model per entity, so accuracy scales without hand-tuning thousands of series.
+    - Built the data pipeline that maps external payment platform exports into liquidity categories, and structured bank statement data into consistent history using deterministic parsing with NLP for the free-text fields.
+    - Built a transaction classification workflow for over 50,000 payments a day using DistilBERT, with confidence-scored routing to human review and a feedback loop into retraining. Manual categorisation fell by approximately 85 percent.
+    - Reduced manual forecast preparation by approximately 75 percent, and took one recurring reporting workflow from eight hours to fifteen minutes.
+    - Developed and deployed country-level forecast management applications in R Shiny on Azure, and migrated workflows off SharePoint onto cloud infrastructure.
+    - Built reporting that compares forecast against actuals, so forecast error is visible to the teams relying on it.
+    - The deployment received Silver for Best AI Deployment at the TMI Awards 2023, issued by Treasury Management International in March 2024.
+
+- id: hyworx
+  title: Data Analyst, Tableau consultant
+  org: HyWorx
+  location: Dublin, Ireland
+  start: "2022-12"
+  end: "2023-04"
+  order: 2
+  bullets:
+    - Gathered reporting requirements from business process owners and delivered more than 15 interactive dashboards on Tableau Server.
+    - Built over 50 filters, parameters and calculated fields, using cross tabs, heat maps and divergent Likert-scale visualisations.
+
+- id: capita
+  title: Service Desk Analyst
+  org: Capita
+  location: Dublin, Ireland
+  start: "2022-04"
+  end: "2023-04"
+  order: 3
+  minor: true
+  line: Supported more than 5,000 users across operating systems, proprietary applications and departmental databases, alongside the MSc.
+
+- id: st-theresa
+  title: Lecturer in Mathematics
+  org: St. Theresa International, remote
+  location: Thailand
+  start: "2021"
+  end: "2022"
+  order: 4
+  minor: true
+  line: Taught undergraduate mathematics.
+
+- id: telus
+  title: Trainee Software Engineer
+  org: TELUS International, formerly Xavient Information Systems
+  location: Noida, India
+  start: "2016-06"
+  end: "2017-02"
+  order: 5
+  minor: true
+  line: Java development on the graduate trainee programme.

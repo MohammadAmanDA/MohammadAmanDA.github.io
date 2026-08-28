@@ -1,0 +1,33 @@
+- id: msc-data-analytics
+  qualification: MSc in Data Analytics
+  institution: National College of Ireland
+  location: Dublin, Ireland
+  start: "2022-01"
+  end: "2023-01"
+  order: 1
+  detail: Machine learning, predictive modelling, statistical analysis and big data analytics.
+
+- id: phd-applied-mathematics
+  qualification: PhD in Applied Mathematics
+  institution: Aligarh Muslim University
+  location: Aligarh, India
+  start: "2016-12"
+  end: "2020-12"
+  order: 2
+  detail: 'Thesis: "A study of generalized polynomials and multi-variable generating functions."'
+
+- id: msc-industrial-mathematics
+  qualification: MSc Tech in Industrial Mathematics with Computer Applications
+  institution: Jamia Millia Islamia
+  location: Delhi, India
+  start: "2013-06"
+  end: "2016-08"
+  order: 3
+
+- id: bsc-mathematics
+  qualification: BSc (Hons) in Mathematics
+  institution: Aligarh Muslim University
+  location: Aligarh, India
+  start: "2010-05"
+  end: "2013-06"
+  order: 4

@@ -1,0 +1,29 @@
+---
+/**
+ * A link that sends off-site destinations to a new tab, and says so.
+ *
+ * Opening a new tab without warning is a WCAG 3.2.5 problem, so external links
+ * carry a visually-hidden note that screen readers announce. `rel="noopener"`
+ * prevents the opened page reaching back through `window.opener`.
+ */
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+
+const isExternal = /^https?:\/\//i.test(href);
+const isMail = href.startsWith('mailto:');
+const opensNewTab = isExternal && !isMail;
+---
+
+<a
+  href={href}
+  class={className}
+  target={opensNewTab ? '_blank' : undefined}
+  rel={opensNewTab ? 'noopener noreferrer' : undefined}
+>
+  <slot />
+  {opensNewTab && <span class="visually-hidden"> (opens in a new tab)</span>}
+</a>

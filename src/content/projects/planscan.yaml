@@ -1,0 +1,223 @@
+title: PlanScan
+order: 4
+status: in-progress
+category: Retrieval, vector search, LLM
+kind: personal
+confidential: false
+
+brief:
+  problem: >-
+    Irish planning applications are refused on planning grounds or invalidated on
+    procedural ones. The procedural failures are knowable before submission, but
+    the rules sit across a statutory development plan of several hundred pages
+    that differs for each of the 31 local authorities.
+  approach: >-
+    Development plans are chunked with overlap and embedded locally into a
+    persistent vector store. Retrieval runs separately for each compliance
+    criterion, because the passages covering drainage and overlooking sit in
+    different parts of the document, then the results go to a language model in a
+    single structured call. Fee arithmetic, statutory notice windows and approved
+    newspaper lists are computed deterministically and never reach the model.
+  outcome: >-
+    Working prototype. Two of the 31 development plans indexed so far. Not
+    evaluated against real planning decisions, not deployed, and runs locally
+    only.
+period:
+  start: "2026"
+  end: null
+stack:
+  - Python
+  - ChromaDB
+  - sentence-transformers
+  - Llama 3.3 70B (Groq)
+  - Streamlit
+  - SQLite
+
+# ---- 1. what it does, and who for ----
+summary: >-
+  A pre-submission planning compliance checker for Ireland: it reads a proposed
+  development against the relevant council's development plan and reports what
+  passes, what fails, and what paperwork is missing, before the application is
+  submitted.
+forWhom: >-
+  Applicants, architects and planning consultants who would rather find the
+  invalidating problem now than eight weeks into a decision, and council intake
+  teams who currently find it for them.
+
+# ---- 2. context and constraints ----
+context:
+  - >-
+    An Irish planning application is assessed against the local authority's
+    development plan, a statutory document that runs to hundreds of pages and
+    differs in every one of the country's 31 local authorities. Alongside it
+    sits a layer of purely procedural law: what the newspaper notice must say,
+    which newspapers are approved, how many days may elapse between the notice
+    and the submission, what the fee is.
+  - >-
+    Applications fail against both. Some are refused on planning grounds. Others
+    are declared invalid for procedural reasons unrelated to the merits: a
+    notice placed in a newspaper that is not approved, a description that is
+    inconsistent between the form and the notice, or an absent document.
+  - >-
+    The procedural category is determinable in advance, which is the basis for
+    checking it before submission rather than after.
+constraints:
+  - >-
+    Zero running cost. Embeddings are computed locally and generation runs on a
+    free tier, which caps throughput but keeps the project self-funded.
+  - >-
+    Development plan documents stay on the machine. A local vector store rather
+    than a hosted one matters for the council-facing case, where applicant data
+    would be involved.
+  - >-
+    The system must never fabricate a policy reference. A confidently invented
+    clause number is worse than no answer at all in a compliance context.
+
+# ---- 3. my role ----
+myRole:
+  - >-
+    Sole author, the retrieval pipeline, the deterministic validation layer,
+    the compliance engine, the Eircode resolver, the Streamlit interface and
+    the audit storage.
+  - >-
+    "TK: confirm sole author, and confirm this is a personal project rather than
+    work for a client. (Q-C11)"
+
+# ---- 4. technical approach ----
+approach:
+  - decision: Split the problem into rules and judgement, and use the model only for judgement
+    detail:
+      - >-
+        A substantial proportion of what renders an application invalid is
+        arithmetic and lookup rather than interpretation. Whether a newspaper
+        appears on the council's approved list is a set membership test; whether
+        the notice fell within the statutory window is date arithmetic; the fee
+        is a formula; and consistency between the description on the form and
+        that in the notice is a text similarity comparison.
+      - >-
+        These are implemented deterministically in Python, without a model. They
+        are correct by construction, incur no cost, and cannot fabricate a
+        result.
+      - >-
+        The language model is used only where the question genuinely requires
+        reading a development plan and forming a judgement, whether a proposal
+        is consistent with zoning, whether the height and density fit the core
+        strategy, whether a daylight assessment is going to be required.
+      - >-
+        Establishing which part of the problem must not be delegated to a model
+        accounted for most of the design work.
+  - decision: Retrieve per criterion, then answer in one call
+    detail:
+      - >-
+        Semantic search runs separately for each compliance criterion, because
+        "drainage and SuDS" and "overlooking and privacy" retrieve completely
+        different parts of a development plan. Results are deduplicated,
+        re-ranked by relevance and truncated to the strongest passages.
+      - >-
+        Those passages then go into a single generation call covering all
+        criteria at once, rather than one call per criterion. On a free tier
+        with a daily request cap, that difference decides whether the tool is
+        usable.
+  - decision: Force structured output, and fail visibly rather than silently
+    detail:
+      - >-
+        The model returns strict JSON, a verdict per criterion (pass, warning,
+        fail, or missing information), a confidence score, the finding with its
+        development plan reference, and a recommended action. Temperature is
+        held low for consistency.
+      - >-
+        When parsing fails, the engine returns a structured error report with
+        the raw response attached instead of crashing the interface. When a
+        council's plan has not been indexed yet, retrieval returns nothing and
+        the report is flagged as having no plan behind it, rather than letting
+        the model answer confidently from general knowledge and presenting that
+        as a compliance check.
+  - decision: Keep the whole retrieval stack local and free
+    detail:
+      - >-
+        A small sentence-transformer model computes 384-dimension embeddings on
+        CPU, stored in a persistent local vector store. Development plans are
+        chunked with overlap so a policy split across a page boundary is still
+        retrievable.
+      - >-
+        Nothing about this requires a hosted embedding service, which keeps
+        running cost at zero and keeps documents on the machine.
+  - decision: Route by Eircode
+    detail:
+      - >-
+        Which council governs a site is the first thing the system needs and the
+        last thing an applicant should have to look up, so an Eircode resolver
+        maps a postcode to the right local authority and therefore to the right
+        development plan.
+
+# ---- 5. outcome ----
+outcome:
+  metrics:
+    - value: "31"
+      label: local authorities configured
+      source: config.py, COUNCILS, 31 entries with plan URLs
+    - value: "2"
+      label: development plans actually indexed so far
+      source: verified on disk, Dublin City and Fingal
+    - value: "12"
+      label: compliance criteria, plus a 6-criterion council intake pre-screen
+      source: config.py, COMPLIANCE_CRITERIA and PRESCREEN_CRITERIA
+  notes:
+    - >-
+      All 31 local authorities are configured and the ingestion path is built;
+      two development plans are indexed at the time of writing, with the rest
+      in progress.
+    - >-
+      This has not been evaluated against real planning decisions and has not
+      been used by an applicant or a council. What it currently demonstrates is
+      an architecture, not a validated accuracy claim, and it should be read
+      that way.
+    - >-
+      "TK: has anyone outside you used it? Any comparison of its verdicts
+      against actual planning outcomes? If not, this stays as written. (Q-C3)"
+
+# ---- 6. MANDATORY: limitations and what's next ----
+limitations:
+  - >-
+    Two of 31 development plans are indexed. For every other council the system
+    falls back to general Irish planning law, which is flagged in the report but
+    is much less useful than a real plan-backed answer.
+  - >-
+    No evaluation against real planning decisions. There is no measured accuracy
+    figure for the model-judged criteria, and there will not be an honest one
+    until its verdicts are compared against actual outcomes at scale.
+  - >-
+    Retrieval quality is bounded by a small embedding model running over
+    several-hundred-page statutory documents. Where a development plan is
+    ambiguous, the model's verdict inherits that ambiguity.
+  - >-
+    Runs locally only. There is no deployed instance, so there is nothing to try
+    without cloning and installing it, and the code is not yet on GitHub.
+  - >-
+    The deterministic validation layer covers the councils whose approved
+    newspaper lists have been entered, not all 31.
+nextSteps:
+  - Finish ingesting the remaining development plans and update the number here.
+  - Put the code under version control and publish the repository, after rotating the API key currently sitting in the working directory and starting a clean history.
+  - Deploy a demo instance so the tool can be tried rather than described.
+  - Evaluate verdicts against decided applications to get a real accuracy figure.
+
+# ---- 7. links ----
+# Deliberately empty: not on GitHub, not deployed. Do not add placeholder links.
+links: []
+
+unresolved:
+  - id: Q-C2
+    note: No deployed instance, confirmed by absence of any deployment config. Deploy, or ship a recorded demo?
+  - id: Q-C3
+    note: Any external user or accuracy comparison. Currently written as "none".
+  - id: Q-C4
+    note: Not under version control. Publishing it is a prerequisite for a repo link.
+  - id: Q-C6
+    note: SECURITY, rotate the Groq key in the working directory before any push. Independent of this site.
+  - id: Q-C7
+    note: Is the council intake pre-screen mode a real prospect, a pilot, or an idea?
+  - id: Q-C10
+    note: UI screenshots needed, containing no real applicant data.
+  - id: Q-C11
+    note: Confirm sole author and personal project.

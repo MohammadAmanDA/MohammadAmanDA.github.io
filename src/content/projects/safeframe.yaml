@@ -1,0 +1,238 @@
+title: safeframe
+order: 3
+status: mvp
+category: Python, runtime analysis
+kind: personal
+confidential: false
+
+brief:
+  problem: >-
+    Pandas has a set of failure modes that raise no exception: a merge whose
+    duplicate keys multiply the row count, a join that fills a column with NaN,
+    a value that flips a numeric column to text, an assignment that never lands.
+    The process exits successfully and the result is wrong.
+  approach: >-
+    Five runtime detectors wrapped around a deliberately narrow set of pandas
+    entry points, plus an install-time hook that runs at interpreter start and
+    stays dormant until pandas is imported. Nothing has to be added to the code
+    being checked, which also means an automated coding agent sees the warnings
+    in the output of the code it just ran.
+  outcome: >-
+    Working package, 20 tests passing against pandas 2.1.4 and 3.0.3, continuous
+    integration on every push. Not yet on PyPI and not yet validated against a
+    large corpus of real notebooks.
+period:
+  start: "2026"
+  end: null
+stack:
+  - Python
+  - pandas
+  - setuptools
+  - pytest
+  - GitHub Actions
+
+# ---- 1. what it does, and who for ----
+summary: >-
+  A Python package that detects the classes of pandas error which raise no
+  exception and produce an incorrect result rather than a failure.
+forWhom: >-
+  Practitioners running analysis in pandas, and the automated coding agents
+  that increasingly write that code.
+
+# ---- 2. context and constraints ----
+context:
+  - >-
+    Five bug classes account for a large share of silently wrong tabular
+    analysis: a merge whose duplicate keys quietly multiply the row count; an
+    outer join that fills a column with NaN where nothing matched; one stray
+    value flipping a numeric column to text so `.sum()` returns garbage;
+    arithmetic between misaligned indices; and chained assignment,
+    `df[mask]['col'] = x`, which looks like it worked and did nothing at all.
+  - >-
+    None of these raise an exception, and none emit a warning that is reliably
+    noticed. The process exits successfully and the result is incorrect.
+  - >-
+    The existing tooling splits into two camps that both miss this. Data
+    validation frameworks like Great Expectations and Pandera check whether
+    your data matches a schema you wrote. Static linters like ruff and
+    pandas-vet check your source code without knowing anything about the
+    DataFrame it will operate on. Neither one catches a valid-looking operation
+    that corrupts good data at runtime.
+constraints:
+  - >-
+    Support the pandas versions people actually have installed, 1.3 through
+    3.x, across which the chained-assignment API changes incompatibly.
+  - >-
+    One runtime dependency (pandas). MIT licensed. Nothing that requires an
+    account, a key, or a network call.
+
+# ---- 3. my role ----
+myRole:
+  - >-
+    Sole author. The project originated in errors of this kind encountered in my
+    own analysis work, which the available tooling did not detect.
+  - >-
+    The implementation was written with Claude Code. The problem definition and
+    the design decisions are my own: which pandas entry points can be patched
+    safely and which cannot, activation at interpreter start-up rather than by
+    explicit invocation, and dormancy until pandas is imported.
+
+# ---- 4. technical approach ----
+approach:
+  - decision: Patch a deliberately narrow set of pandas entry points
+    detail:
+      - >-
+        The runtime guard wraps `DataFrame.merge`, the module-level `pd.merge`,
+        `pd.read_csv`, and four arithmetic dunders on DataFrame and Series,
+        and nothing else. Every patch is restored on exit.
+      - >-
+        Two omissions are deliberate. `DataFrame.__setitem__` is too frequently
+        executed to wrap without imposing a measurable cost on every assignment.
+        `.join()` routes through `merge` internally, so patching both would
+        report each occurrence twice. Both omissions follow from the same
+        requirement: a guard that is slow or produces duplicate output will be
+        disabled by its users.
+  - decision: Zero-config activation, so nobody has to remember it
+    detail:
+      - >-
+        A context manager, `with safeframe.watch():`, exists and is the
+        conventional design. It is only invoked, however, by a user who already
+        suspects an error. The failure mode addressed here is the unsuspected
+        one, frequently in code the user did not write.
+      - >-
+        So installation drops a one-line `.pth` file at the site-packages root.
+        Python executes `.pth` files at interpreter startup, before any user
+        code, which means every Python process in that environment activates
+        the guard, a terminal session, a scheduled job, or the sandbox an AI
+        coding agent runs its code in.
+      - >-
+        This has a specific consequence for automated coding agents, which
+        already capture the standard error of the code they execute and return
+        it to their own context. The agent therefore receives the diagnostic
+        directly and can revise its output, without an import statement or a
+        context manager being present in the generated code.
+  - decision: Stay completely dormant until pandas is actually imported
+    detail:
+      - >-
+        Running on every interpreter start means the cost of being wrong is
+        paid by every Python process on the machine, including the overwhelming
+        majority that never touch pandas.
+      - >-
+        So the hook wraps `builtins.__import__` and does nothing else. Only
+        when something imports pandas does it activate the detectors, and it
+        then restores the original `__import__`, so the indirection does not
+        persist for the life of the process.
+      - >-
+        One complication required specific handling. pandas' own C extensions
+        re-enter `import pandas` while the module is still initialising;
+        activating at that point operates on a partially constructed module and
+        renders it unusable. The hook therefore tracks import nesting depth and
+        activates only once the outermost import has fully unwound. The
+        `SAFEFRAME_DISABLE` environment variable disables it per process.
+  - decision: Ship the .pth correctly, which setuptools does not make easy
+    detail:
+      - >-
+        The documented route for this is setuptools' `data_files`, which routes
+        through the wheel's `.data/<scheme>/` directory and lands the file in
+        the wrong place on some platforms, so the mechanism silently fails to
+        activate on exactly the machines you cannot test on.
+      - >-
+        The build step copies the `.pth` straight into the wheel's build
+        staging directory instead, which puts it at the site-packages root on
+        every platform.
+  - decision: Attribute findings to the user's code, not to the library's
+    detail:
+      - >-
+        A diagnostic identifying a line within safeframe itself is of no use to
+        the reader. Each finding walks back up the stack to the first frame
+        outside the package, so that the report identifies the file and line in
+        the user's own code.
+      - >-
+        Re-entrancy flags around the merge and arithmetic detectors stop pandas'
+        internal call chains from reporting the same operation several times.
+  - decision: Handle the pandas 3.0 chained-assignment break in both directions
+    detail:
+      - >-
+        pandas below 3.0 signals chained assignment with `SettingWithCopyWarning`;
+        3.0 and above raises `ChainedAssignmentError`. The detector handles both,
+        and the warnings filter is scoped to only the categories being watched,
+        so unrelated warnings pass through untouched rather than being swallowed.
+  - decision: Keep the original static analyser as a second mode
+    detail:
+      - >-
+        `safeframe lint <data.csv> <script.py>` checks a pandas snippet against
+        a real CSV's schema before the code runs, flagging columns the code
+        references that do not exist, which is a common LLM-hallucination
+        failure, and flagging `iterrows()` / `itertuples()` / `range(len(df))`
+        loops with a vectorised rewrite where one can be inferred.
+      - >-
+        Runtime and static checking answer different questions, and the project
+        started as the static one. It was kept rather than replaced.
+
+# ---- 5. outcome ----
+outcome:
+  metrics:
+    - value: "5"
+      label: silent-bug detectors
+      source: safeframe/detectors/, merge explosion, NaN injection, dtype coercion, index misalignment, chained assignment
+    - value: "20"
+      label: tests, passing on pandas 2.1.4 and 3.0.3
+      source: tests/ (20 test functions across 7 files); README project status
+    - value: "0"
+      label: false positives or negatives on the fixture battery
+      source: README project status, hand-written safe/buggy fixtures
+  notes:
+    - >-
+      Continuous integration runs the suite on every push and pull request.
+    - >-
+      There is no external adoption to report yet: the package is not on PyPI
+      at the time of writing, so there are no download numbers and no
+      third-party users. The honest claim is that it is verified against its
+      own fixtures and its own test suite, and nothing broader than that.
+
+# ---- 6. MANDATORY: limitations and what's next ----
+limitations:
+  - >-
+    Not yet validated against a large corpus of real, unmodified public
+    notebooks. Findings on unusual code are worth a second look until that
+    validation happens.
+  - >-
+    Zero-config activation only works on a real install. `pip install -e .`
+    does not process `.pth` files, so development against the package itself
+    gets the manual `watch()` API only, which is what the test suite uses.
+  - >-
+    It only activates in the Python environment safeframe is installed into.
+    A fully offline sandbox that cannot reach an index cannot install it at
+    all, so the environments that would benefit most from an automatic guard
+    are sometimes the ones that cannot have it.
+  - >-
+    Not yet published to PyPI, so `pip install safeframe` does not work today.
+  - >-
+    "TK: guard overhead on large frames has not been measured, is that right?
+    A number here would answer the first question any reviewer asks. (Q-B7)"
+nextSteps:
+  - Publish to PyPI so the zero-config install path works end to end. In progress.
+  - "TK: what else is on the roadmap, or is it feature-complete for now? (Q-B8)"
+
+# ---- 7. links ----
+links:
+  - kind: repo
+    label: GitHub
+    href: https://github.com/MohammadAmanDA/tabular-code-critic
+
+unresolved:
+  - id: Q-B5b
+    note: >-
+      A concrete incident would sharpen section 2, which of the five bug classes
+      actually bit you, and what did it cost you to find? One specific story beats
+      five general ones.
+  - id: Q-B7
+    note: Has guard overhead on large frames been measured?
+  - id: Q-B8
+    note: Roadmap beyond PyPI publication.
+  - id: Q-B10
+    note: Recorded demo of examples/demo.py output.
+  - id: Q-B12
+    note: Repo still named tabular-code-critic; rename to safeframe would fix the link label.
+  - id: Q-B13
+    note: PyPI publication pending, remove the limitation and add an install line once live.

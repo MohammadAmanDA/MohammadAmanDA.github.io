@@ -1,0 +1,207 @@
+# METHOD ONLY. This write-up originates in a take-home assessment (see Q-H5).
+#
+# Deliberately excluded, and to remain excluded: the commissioning company's
+# name, its brief, its evaluation rubric, its dataset, any dataset dimensions,
+# and any revenue figures. Nothing here identifies the source.
+#
+# Included: the modelling decisions and the reasoning behind them, which are the
+# owner's own work and the only part worth reading.
+
+title: Churn prediction and revenue at risk
+order: 2
+status: analysis
+category: Applied ML, built as a technical assessment
+kind: personal
+confidential: false
+
+brief:
+  problem: >-
+    Predict which accounts of a usage-based subscription business will churn in
+    the coming quarter, and quantify the revenue that puts at risk. The failure
+    mode in this kind of work is rarely the classifier; it is a target
+    definition, validation split or metric that produces an encouraging number
+    with no predictive content.
+  approach: >-
+    A monthly snapshot panel with a three-month forward label, with snapshots
+    truncated before the end of the data so outcomes that cannot yet be observed
+    are not recorded as non-events. Validation splits by time rather than at
+    random, because features are time-derived and each account appears in many
+    rows. Selection on average precision and calibration rather than accuracy or
+    ROC-AUC.
+  outcome: >-
+    A regularised logistic regression over nine features, benchmarked once
+    against gradient-boosted trees. Class reweighting was tested and rejected: it
+    left ranking unchanged while raising predicted probabilities an order of
+    magnitude above the base rate, which would have made the revenue projection
+    meaningless.
+period:
+  start: "2026"
+  end: "2026"
+stack:
+  - Python
+  - pandas
+  - scikit-learn
+
+summary: >-
+  A churn model for a usage-based B2B subscription business, framed to answer
+  which accounts are likely to churn within the next quarter and what revenue
+  that places at risk.
+forWhom: >-
+  A finance function that has to plan against net revenue retention, and a
+  technical team that has to maintain the model afterwards.
+
+context:
+  - >-
+    Churn modelling on subscription data is less a modelling problem than a
+    framing problem. The common failure is not a poorly chosen classifier but a
+    target definition, validation split or evaluation metric that produces an
+    encouraging number with no predictive content.
+  - >-
+    This write-up records the framing decisions and the experiments used to
+    settle them. The source material, dataset and commissioning organisation are
+    not described.
+constraints:
+  - >-
+    The model had to be defensible under questioning rather than merely
+    accurate, which favours a specification that can be explained in full over
+    one that performs marginally better.
+  - >-
+    The output had to support a finance decision, so calibrated probabilities
+    were required rather than a ranking alone.
+
+myRole:
+  - >-
+    Sole author of the analysis, the model and the accompanying summary for a
+    non-technical audience.
+
+approach:
+  - decision: Define the target as a monthly snapshot, not as an account
+    detail:
+      - >-
+        One row represents an account observed at the end of a given month, with
+        the label indicating whether it churned in the following three months.
+        An account therefore contributes one row per month of its observed life
+        once sufficient history exists.
+      - >-
+        This matches the question a finance function actually asks, which
+        concerns accounts at risk now rather than the eventual fate of a cohort,
+        and it uses every churn event rather than one observation per account.
+  - decision: Exclude snapshots whose outcome cannot yet be observed
+    detail:
+      - >-
+        Because the label looks three months forward, any snapshot taken within
+        three months of the end of the data has an unobservable outcome.
+        Retaining such rows records "did not churn" where the correct statement
+        is "not yet known", which introduces false negatives into training and
+        inflates measured performance.
+      - >-
+        Snapshots were therefore truncated three months before the end of the
+        observation period, and a minimum history requirement was imposed so
+        that trend features were computable.
+  - decision: Split by time rather than at random
+    detail:
+      - >-
+        Random k-fold cross-validation is invalid on this structure for two
+        reasons: features are derived from time, and each account appears in
+        many rows, so adjacent months of the same account would be divided
+        between training and test while carrying nearly identical values and the
+        same label.
+      - >-
+        Training on earlier periods and testing on later ones reproduces the
+        conditions under which the model would be deployed.
+  - decision: Evaluate on precision-recall and calibration, not on accuracy or ROC-AUC alone
+    detail:
+      - >-
+        With a positive rate of a few per cent, accuracy is uninformative and
+        ROC-AUC is insensitive to the changes that matter. Average precision
+        responds to them, and the Brier score measures whether the predicted
+        probabilities can be relied upon as probabilities.
+      - >-
+        In one comparison, two feature-window specifications differed by 0.028 in
+        ROC-AUC while their average precision differed by approximately a factor
+        of two. Selection on ROC-AUC would have chosen the weaker specification.
+  - decision: Reject class reweighting on calibration grounds
+    detail:
+      - >-
+        Class reweighting is a common default under imbalance. Tested here, it
+        left ranking performance unchanged, a difference of 0.001 in ROC-AUC,
+        while raising the mean predicted probability by an order of magnitude
+        above the observed base rate, and degrading the Brier score accordingly.
+      - >-
+        Since the output was required to support a revenue projection, a model
+        that ranks correctly but reports implausible probabilities was not
+        usable. Reweighting was not applied.
+  - decision: Test whether the behavioural features are doing the work
+    detail:
+      - >-
+        A model of this kind invites the objection that it has merely
+        rediscovered that smaller accounts churn more often. The specification
+        was therefore decomposed and the components evaluated separately.
+      - >-
+        Account segment alone performed close to chance. The behavioural
+        features alone accounted for almost all of the model's performance,
+        confirming that the signal is behavioural rather than structural.
+  - decision: Prefer the interpretable model, but benchmark it once
+    detail:
+      - >-
+        The delivered model is a regularised logistic regression over nine
+        features. A gradient-boosted tree ensemble was run once, on the held-out
+        set, purely to establish what the simpler specification forgoes.
+      - >-
+        Regularisation strength, feature window and feature set were all settled
+        on validation data before the test set was examined.
+
+outcome:
+  metrics: []
+  notes:
+    - >-
+      The exploratory analysis established three properties that shaped the
+      model: churn was confined to a defined window of account tenure rather
+      than distributed across it; usage declined measurably for several months
+      before churn while support contacts rose in the final months; and apparent
+      cohort improvement was an artefact of censoring, since younger cohorts had
+      not yet passed through the period in which churn occurs.
+    - >-
+      Several data quality issues were identified and resolved before modelling,
+      including duplicate records, inconsistent date formats, and records whose
+      churn indicator conflicted with the recorded churn date. Order of
+      operations mattered: date normalisation had to precede deduplication, or
+      records differing only in date format would not have been recognised as
+      duplicates.
+    - >-
+      A uniform rate of zero-usage months across all account segments was
+      treated as a data quality artefact rather than as a disengagement signal,
+      on the grounds that the pattern was implausible for the largest accounts.
+    - >-
+      "TK: the metrics quoted above are your results computed on the source
+      dataset. They are stated as comparisons rather than as absolute
+      performance, and nothing identifies the data. Confirm you are content for
+      them to appear at all. (Q-H6)"
+
+limitations:
+  - >-
+    This is an analysis conducted over a fixed dataset, not a deployed system.
+    There is no monitoring, no retraining schedule and no measurement of
+    performance under distribution shift.
+  - >-
+    The observation period covered a limited span of account tenure, so the
+    finding that churn is confined to a particular window may be a property of
+    that window rather than of the business.
+  - >-
+    The model was validated on a single time-based split. A rolling-origin
+    evaluation would give a more reliable estimate of stability.
+  - >-
+    Because the underlying data cannot be published, the reasoning here is
+    open to inspection but the results are not reproducible by a reader.
+nextSteps:
+  - >-
+    Reconstruct the method on a public dataset so that it can be run and
+    verified rather than only described.
+
+links: []
+
+unresolved:
+  - id: Q-H5
+    note: Confirm this method-only form is what you intended, and that no element of it identifies the source.
+  - id: Q-H6
+    note: Confirm the comparative metrics may appear, or remove them and keep the reasoning alone.

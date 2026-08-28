@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 4321
+    },
+    {
+      "name": "portfolio-prod",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview"],
+      "port": 4322
+    },
+    {
+      "name": "planscan",
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "cd /d C:\\Users\\mohda\\Documents\\planscan && .venv\\Scripts\\python.exe -m streamlit run app.py --server.port 8520 --server.headless true"],
+      "port": 8520
+    }
+  ]
+}

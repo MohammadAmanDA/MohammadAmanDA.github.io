@@ -1,0 +1,45 @@
+# Every item here appears in your CV, your LinkedIn, or the code of a project
+# written up on this site. Nothing added.
+
+- id: languages
+  order: 1
+  group: Languages
+  items: [Python, R, SQL, Java]
+
+- id: forecasting-ml
+  order: 2
+  group: Forecasting and machine learning
+  items:
+    - Prophet
+    - ARIMA
+    - XGBoost
+    - Automated model selection
+    - scikit-learn
+    - pandas
+    - NumPy
+    - DistilBERT
+    - NLP for transaction text
+
+- id: data
+  order: 3
+  group: Data
+  items: [PostgreSQL, SQL Server, Excel, Data pipeline design, Bank statement parsing]
+
+- id: platforms
+  order: 4
+  group: Platforms and deployment
+  items: [Azure, R Shiny, Streamlit, GitHub Actions, Git]
+
+- id: reporting
+  order: 5
+  group: Reporting
+  items: [Power BI, Tableau, Power Automate]
+
+- id: emerging
+  order: 6
+  group: Emerging, from personal projects
+  items:
+    - Retrieval-augmented generation
+    - ChromaDB
+    - sentence-transformers
+    - Prompt design for structured output

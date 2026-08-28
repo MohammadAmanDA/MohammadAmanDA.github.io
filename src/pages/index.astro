@@ -1,0 +1,475 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Link from '../components/Link.astro';
+
+const profile = (await getEntry('profile', 'profile'))!;
+const {
+  name,
+  role,
+  intro,
+  metaDescription,
+  location,
+  workAuthorisation,
+  email,
+  profiles,
+  research,
+  photo,
+} = profile.data;
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const skills = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
+const roles = (await getCollection('roles')).sort((a, b) => a.data.order - b.data.order);
+const education = (await getCollection('education')).sort((a, b) => a.data.order - b.data.order);
+const selectedPubs = (await getCollection('publications'))
+  .filter((p) => p.data.selected)
+  .sort((a, b) => b.data.year - a.data.year);
+
+const scholar = profiles.find((p) => p.kind === 'scholar');
+
+const fmt = (value: string) => {
+  if (!/^\d{4}-\d{2}$/.test(value)) return value;
+  const [y, m] = value.split('-').map(Number);
+  return `${new Date(Date.UTC(y, m - 1)).toLocaleString('en-IE', { month: 'short', timeZone: 'UTC' })} ${y}`;
+};
+const range = (start: string, end: string | null) => `${fmt(start)} to ${end ? fmt(end) : 'present'}`;
+
+const statusLabel: Record<string, string> = {
+  production: 'In production',
+  'in-progress': 'In progress',
+  mvp: 'Working package',
+  analysis: 'Completed analysis',
+  archived: 'Archived',
+};
+---
+
+<BaseLayout title={`${name}, ${role.toLowerCase()}`} description={metaDescription}>
+  <div class="wrap">
+    {/* A <div>, not a <header>. A <header> whose nearest sectioning ancestor is
+        not an article or section is exposed as a banner landmark, and the page
+        already has one in the site header. */}
+    <div class="intro">
+      <div class="intro__head">
+        <div>
+          <h1>{name}</h1>
+          <p class="intro__role">{role}</p>
+        </div>
+        {
+          photo && (
+            <img
+              class="intro__photo"
+              src={photo.src}
+              alt={photo.alt}
+              width="128"
+              height="128"
+              loading="eager"
+            />
+          )
+        }
+      </div>
+      <div class="intro__body prose">
+        {intro.map((p: string) => <p>{p}</p>)}
+      </div>
+      <p class="meta intro__meta">
+        {location}{workAuthorisation ? ` · ${workAuthorisation}` : ''} ·{' '}
+        <a href={`mailto:${email}`}>{email}</a>
+      </p>
+    </div>
+
+    <section class="section" id="services" aria-labelledby="services-h">
+      <p class="section__num" aria-hidden="true">01</p>
+      <h2 id="services-h" class="section__label">What I can help with</h2>
+      <dl class="services">
+        {
+          services.map((s) => (
+            <div class="service">
+              <dt>{s.data.title}</dt>
+              <dd>{s.data.detail}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-h">
+      <p class="section__num" aria-hidden="true">02</p>
+      <h2 id="work-h" class="section__label">Selected work</h2>
+      <div class="projects">
+        {
+          projects.map((p) => (
+            <article class="project">
+              <h3 class="project__title">
+                <a href={`/work/${p.id}`}>{p.data.title}</a>
+              </h3>
+              <p class="meta-xs project__meta">
+                {p.data.category} · {statusLabel[p.data.status]} ·{' '}
+                {p.data.kind === 'personal' ? 'Personal project' : 'Professional work'}
+                {p.data.confidential && <> · Described at capability level under NDA</>}
+              </p>
+
+              <dl class="brief">
+                <dt>Problem</dt>
+                <dd>{p.data.brief.problem}</dd>
+                <dt>Approach</dt>
+                <dd>{p.data.brief.approach}</dd>
+                <dt>Outcome</dt>
+                <dd>{p.data.brief.outcome}</dd>
+              </dl>
+
+              <p class="meta-xs project__stack">{p.data.stack.join(' · ')}</p>
+              <p class="meta-xs">
+                <a href={`/work/${p.id}`}>Full write-up</a>
+                {p.data.links.map((l) => (
+                  <>
+                    {' · '}
+                    <Link href={l.href}>{l.label}</Link>
+                  </>
+                ))}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="exp-h">
+      <p class="section__num" aria-hidden="true">03</p>
+      <h2 id="exp-h" class="section__label">Experience</h2>
+      {
+        roles
+          .filter((r) => !r.data.minor)
+          .map((r) => (
+            <div class="role">
+              <h3>{r.data.title}</h3>
+              <p class="meta-xs">
+                {r.data.org} · {r.data.location} · {range(r.data.start, r.data.end)}
+              </p>
+              <ul class="bullets">
+                {r.data.bullets.map((b: string) => (
+                  <li>{b}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+      }
+      <div class="role role--earlier">
+        <h3>Earlier</h3>
+        <ul class="earlier">
+          {
+            roles
+              .filter((r) => r.data.minor)
+              .map((r) => (
+                <li>
+                  <span class="earlier__title">{r.data.title}</span>
+                  <span class="meta-xs">
+                    {' '}
+                    {r.data.org} · {range(r.data.start, r.data.end)}
+                  </span>
+                  {r.data.line && <p class="earlier__line">{r.data.line}</p>}
+                </li>
+              ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="research" aria-labelledby="res-h">
+      <p class="section__num" aria-hidden="true">04</p>
+      <h2 id="res-h" class="section__label">Research and education</h2>
+
+      <div class="prose">
+        <p>
+          {research.citations} citations, h-index {research.hIndex}, i10-index {research.i10Index}{' '}
+          <span class="meta-xs">(as of {research.asOf})</span>.
+          {scholar && (
+            <>
+              {' '}
+              Full record on <Link href={scholar.href}>Google Scholar</Link>.
+            </>
+          )}
+        </p>
+      </div>
+
+      <ul class="pubs">
+        {
+          selectedPubs.map((p) => (
+            <li>
+              <p class="pub__title">{p.data.title}</p>
+              <p class="meta-xs">
+                {p.data.authors.join(', ')} · <em>{p.data.venue}</em> · {p.data.year}
+                {p.data.href && (
+                  <>
+                    {' · '}
+                    <Link href={p.data.href}>DOI</Link>
+                  </>
+                )}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <ul class="education">
+        {
+          education.map((e) => (
+            <li>
+              <span class="education__q">{e.data.qualification}</span>
+              <span class="meta-xs">
+                {' '}
+                {e.data.institution} · {fmt(e.data.end)}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-h">
+      <p class="section__num" aria-hidden="true">05</p>
+      <h2 id="skills-h" class="section__label">Skills and stack</h2>
+      <dl class="skills">
+        {
+          skills.map((s) => (
+            <div class="skill">
+              <dt class="meta-xs">{s.data.group}</dt>
+              <dd>{s.data.items.join(' · ')}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-h">
+      <p class="section__num" aria-hidden="true">06</p>
+      <h2 id="contact-h" class="section__label">Contact</h2>
+      <div class="prose">
+        <p>
+          Available for consulting and contract work in forecasting, data pipelines and reporting
+          automation, and open to data science roles. Email is the most reliable route.
+        </p>
+        <p class="contact__links">
+          <a href={`mailto:${email}`}>{email}</a>
+          {profiles.map((p) => (
+            <>
+              {' · '}
+              <Link href={p.href}>{p.label}</Link>
+            </>
+          ))}
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-top: var(--space-8);
+  }
+
+  /* The portrait sits beside the name. Without one the row collapses and the
+     name behaves exactly as it does now. */
+  .intro__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+
+  .intro__photo {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+  }
+
+  .intro__role {
+    font-family: var(--font-ui);
+    font-size: var(--scale-lg);
+    color: var(--color-text-muted);
+    margin-top: var(--space-3);
+  }
+
+  .intro__body {
+    margin-top: var(--space-8);
+  }
+
+  .intro__meta {
+    margin-top: var(--space-8);
+  }
+
+  /* ---- services ---- */
+
+  .services {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .service dt {
+    font-weight: 600;
+    font-size: var(--scale-lg);
+  }
+
+  .service dd {
+    margin-top: var(--space-2);
+    margin-left: 0;
+    max-width: var(--measure);
+    color: var(--color-text-muted);
+  }
+
+  /* ---- projects ---- */
+
+  .projects {
+    display: grid;
+    gap: var(--space-16);
+  }
+
+  .project__title {
+    font-size: var(--scale-xl);
+  }
+
+  .project__title a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .project__title a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 0.15em;
+  }
+
+  .project__meta {
+    margin-top: var(--space-2);
+  }
+
+  .brief {
+    margin-top: var(--space-6);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .brief dt {
+    font-family: var(--font-ui);
+    font-size: var(--scale-xs);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+  }
+
+  .brief dd {
+    margin-left: 0;
+    max-width: var(--measure);
+  }
+
+  .project__stack {
+    margin-top: var(--space-6);
+  }
+
+  /* ---- experience ---- */
+
+  .role + .role {
+    margin-top: var(--space-12);
+  }
+
+  .role h3 {
+    font-size: var(--scale-lg);
+  }
+
+  .bullets {
+    margin-top: var(--space-4);
+    padding-left: var(--space-6);
+    max-width: var(--measure);
+  }
+
+  .bullets li + li {
+    margin-top: var(--space-3);
+  }
+
+  .earlier {
+    list-style: none;
+    margin-top: var(--space-4);
+  }
+
+  .earlier li + li {
+    margin-top: var(--space-4);
+  }
+
+  .earlier__title {
+    font-weight: 600;
+  }
+
+  .earlier__line {
+    color: var(--color-text-muted);
+    max-width: var(--measure);
+  }
+
+  /* ---- research ---- */
+
+  .pubs {
+    list-style: none;
+    margin-top: var(--space-8);
+  }
+
+  .pubs li {
+    border-top: var(--border-width) solid var(--color-border);
+    padding-block: var(--space-4);
+    max-width: var(--measure);
+  }
+
+  .pub__title {
+    font-weight: 600;
+  }
+
+  .education {
+    list-style: none;
+    margin-top: var(--space-8);
+  }
+
+  .education li + li {
+    margin-top: var(--space-2);
+  }
+
+  .education__q {
+    font-weight: 600;
+  }
+
+  /* ---- skills ---- */
+
+  .skills {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .skill dt {
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .skill dd {
+    margin-top: var(--space-1);
+    margin-left: 0;
+    max-width: var(--measure);
+  }
+
+  .contact__links {
+    font-family: var(--font-ui);
+    font-size: var(--scale-sm);
+  }
+
+  @media (min-width: 44rem) {
+    .skill {
+      display: grid;
+      grid-template-columns: 12rem 1fr;
+      gap: var(--space-6);
+      align-items: baseline;
+    }
+
+    .skill dd {
+      margin-top: 0;
+    }
+  }
+</style>

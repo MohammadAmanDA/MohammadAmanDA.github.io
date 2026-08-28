@@ -1,0 +1,199 @@
+# Transcribed from Google Scholar (profile ojbD2U8AAAAJ) on 2026-08-02.
+# Citation counts are a snapshot of that date and will drift.
+#
+# Two deliberate edits, both confirmed by the owner:
+#   - "The paradoxical salesperson" (J. Business & Industrial Marketing, 2026)
+#     is NOT his work and has been dropped. It should also be removed from the
+#     Scholar profile itself.
+#   - The shared-mobility paper appeared twice (arXiv preprint + published
+#     chapter). Only the published version is listed.
+#
+# Obvious transcription errors in the Scholar records were corrected against the
+# author's own LinkedIn listing: "Extende beta" -> "Extended beta", "T Usma" ->
+# "T Usman". No other field was altered.
+#
+# DOIs resolved automatically against the Crossref API on 2026-08-03
+# (scripts/find-dois.mjs). Only matches scoring >= 0.93 on a normalised title AND
+# carrying "Aman" in the author list AND agreeing on year were accepted; 11 of 18
+# qualified. The remaining 7 appear in journals Crossref does not index, the
+# Azerbaijan Transactions, Honam, Jangjeon, JMI, Note di Matematica, AIMS and
+# Montes Taurus. Those are left without a link rather than guessed at.
+#
+# Q-I11: if you have DOIs for any of the remaining 7, send them and I will add
+# them. Worth opening one or two of the 11 above to confirm they resolve where
+# you expect.
+
+- id: lifelogging-memory-retrieval
+  title: A Deep Learning Framework for Memory Retrieval from Lifelogging Data
+  authors: [M. Aman, M. Jilani, C. H. Muntean, P. Pathak, P. Stynes]
+  venue: 2024 International Conference Automatics and Informatics (ICAI)
+  detail: pp. 353–357
+  year: 2024
+  citations: 0
+  href: https://doi.org/10.1109/icai63388.2024.10851501
+  theme: machine-learning
+  selected: true
+
+- id: extended-beta-hypergeometric
+  title: Extended beta, hypergeometric and confluent hypergeometric functions
+  authors: [N. U. Khan, T. Usman, M. Aman]
+  venue: Transactions of the National Academy of Sciences of Azerbaijan, Series of Physical-Technical and Mathematical Sciences
+  detail: 39(1), 1–16
+  year: 2019
+  citations: 31
+  theme: special-functions
+  selected: true
+
+- id: generalized-wright-analysis
+  title: Some properties concerning the analysis of generalized Wright function
+  authors: [N. U. Khan, T. Usman, M. Aman]
+  venue: Journal of Computational and Applied Mathematics
+  detail: 376, 112840
+  year: 2020
+  citations: 23
+  href: https://doi.org/10.1016/j.cam.2020.112840
+  theme: special-functions
+  selected: true
+
+- id: legendre-gould-hopper-sheffer
+  title: Legendre–Gould Hopper-based Sheffer polynomials and operational methods
+  authors: [N. Khan, M. Aman, T. Usman, J. Choi]
+  venue: Symmetry
+  detail: 12(12), 2051
+  year: 2020
+  citations: 16
+  href: https://doi.org/10.3390/sym12122051
+  theme: special-functions
+
+- id: integral-formulas-wright
+  title: Computation of certain integral formulas involving generalized Wright function
+  authors: [N. Khan, T. Usman, M. Aman, S. Al-Omari, S. Araci]
+  venue: Advances in Difference Equations
+  detail: 2020(1), 491
+  year: 2020
+  citations: 16
+  href: https://doi.org/10.1186/s13662-020-02948-8
+  theme: special-functions
+
+- id: legendre-poly-bernoulli
+  title: Generating functions for Legendre-based poly-Bernoulli numbers and polynomials
+  authors: [N. U. Khan, T. Usman, M. Aman]
+  venue: Honam Mathematical Journal
+  detail: 39(2), 217–231
+  year: 2017
+  citations: 16
+  theme: special-functions
+
+- id: extended-beta-mittag-leffler
+  title: Extended beta, hypergeometric and confluent hypergeometric functions via multi-index Mittag-Leffler function
+  authors: [N. Khan, M. Aman, T. Usman]
+  venue: Proceedings of the Jangjeon Mathematical Society
+  detail: pp. 43–58
+  year: 2022
+  citations: 11
+  theme: special-functions
+
+- id: laguerre-genocchi
+  title: Construction of partially degenerate Laguerre–Genocchi polynomials with their applications
+  authors: [T. Usman, M. Aman, O. Khan, K. S. Nisar, S. Araci]
+  venue: AIMS Mathematics
+  detail: 5(5), 4399
+  year: 2020
+  citations: 11
+  theme: special-functions
+
+- id: certain-unified-polynomials
+  title: Certain unified polynomials
+  authors: [J. Choi, N. Khan, T. Usman, M. Aman]
+  venue: Integral Transforms and Special Functions
+  detail: 30(1), 28–40
+  year: 2019
+  citations: 11
+  href: https://doi.org/10.1080/10652469.2018.1534847
+  theme: special-functions
+
+- id: integral-transforms-probability
+  title: Integral transforms and probability distributions involving a generalized hypergeometric function
+  authors: [N. Khan, T. Usman, M. Aman, S. Al-Omari, J. Choi]
+  venue: Georgian Mathematical Journal
+  detail: 28(6), 883–894
+  year: 2021
+  citations: 9
+  href: https://doi.org/10.1515/gmj-2021-2105
+  theme: special-functions
+
+- id: wright-extended-beta
+  title: Generalized Wright function and its properties using extended beta function
+  authors: [N. Khan, T. Usman, M. Aman]
+  venue: Tamkang Journal of Mathematics
+  detail: 51(4), 349–363
+  year: 2020
+  citations: 9
+  href: https://doi.org/10.5556/j.tkjm.51.2020.3087
+  theme: special-functions
+
+- id: new-extension-beta
+  title: A new extension of beta function and its properties
+  authors: [N. U. Khan, T. Usman, M. Kamarujjama, M. Aman, M. I. Khan]
+  venue: JMI International Journal of Mathematical Sciences
+  detail: 9, 51–63
+  year: 2018
+  citations: 9
+  theme: special-functions
+
+- id: apostol-legendre-generating
+  title: Certain generating function of generalized Apostol type Legendre-based polynomials
+  authors: [N. U. Khan, T. Usman, M. Aman]
+  venue: Note di Matematica
+  detail: pp. 21–44
+  year: 2017
+  citations: 8
+  theme: special-functions
+
+- id: poly-daehee-apostol-genocchi
+  title: Some generalized properties of poly-Daehee numbers and polynomials based on Apostol–Genocchi polynomials
+  authors: [T. Usman, N. Khan, M. Aman, S. Al-Omari, K. Nonlaopon, J. Choi]
+  venue: Mathematics
+  detail: 10(14), 2502
+  year: 2022
+  citations: 7
+  href: https://doi.org/10.3390/math10142502
+  theme: special-functions
+
+- id: legendre-apostol-family
+  title: A family of generalized Legendre-based Apostol-type polynomials
+  authors: [T. Usman, N. Khan, M. Aman, J. Choi]
+  venue: Axioms
+  detail: 11(1), 29
+  year: 2022
+  citations: 7
+  href: https://doi.org/10.3390/axioms11010029
+  theme: special-functions
+
+- id: multivariable-legendre-poly-genocchi
+  title: A unified family of multivariable Legendre poly-Genocchi polynomials
+  authors: [T. Usman, R. N. U. Khan, M. Aman, Y. Gasimov]
+  venue: Tbilisi Mathematical Journal
+  detail: 14(2), 153–170
+  year: 2021
+  citations: 4
+  href: https://doi.org/10.32513/tmj/19322008130
+  theme: special-functions
+
+- id: srivastava-bivariate
+  title: Generating relations associated with the extended bivariate Srivastava type polynomials
+  authors: [N. Khan, M. Aman, J. Choi]
+  venue: Montes Taurus Journal of Pure and Applied Mathematics
+  detail: 6(3), 208–216
+  year: 2024
+  citations: 2
+  theme: special-functions
+
+- id: shared-mobility-covid
+  title: A Transition of Shared Mobility in Metro Cities, A Challenge Post-Lockdown Covid-19
+  authors: [M. Aman, B. Miftah]
+  venue: Analysis of Infectious Disease Problems (Covid-19) and Their Global Impact
+  year: 2021
+  citations: 1
+  href: https://doi.org/10.1007/978-981-16-2450-6_7
+  theme: other

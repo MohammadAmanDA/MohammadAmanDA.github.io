@@ -1,0 +1,274 @@
+title: Cash & FX Forecasting System
+order: 1
+status: production
+kind: professional
+
+brief:
+  problem: >-
+    Cash and FX forecasting across 27 countries and approximately 2,200 legal
+    entities. Every entity has its own payment rhythm, they aggregate into a
+    daily position that has to be funded before cut-off, and most of the
+    preparation was manual and spread across spreadsheets and SharePoint.
+  approach: >-
+    Automated model selection per entity, because hand-tuning thousands of series
+    is not realistic. A pipeline that maps payment platform exports and bank
+    statement text into liquidity categories. A DistilBERT classifier for payment
+    categorisation with confidence scoring, so low-confidence cases route to human
+    review and those decisions feed retraining. R Shiny applications on Azure so
+    country teams manage their own forecasts.
+  outcome: >-
+    Running in production. Manual forecast preparation reduced by approximately
+    75 percent, manual categorisation by approximately 85 percent, and one
+    recurring reporting workflow from eight hours to fifteen minutes. The
+    deployment received Silver for Best AI Deployment at the TMI Awards 2023.
+# You suggested "SaaS". I have not used it, because it would be inaccurate: this
+# is an internal system built for one treasury and deployed on the employer's
+# own Azure tenancy, not software sold as a service to customers. A technical
+# reader would query it immediately. Say the word if you want it anyway.
+category: Production ML · time-series forecasting
+confidential: true
+period:
+  start: "2023-04"
+  end: null
+stack:
+  - R
+  - R Shiny
+  - Python
+  - Prophet
+  - ARIMA
+  - XGBoost
+  - DistilBERT
+  - SQL
+  - PostgreSQL
+  - Azure
+  - Power BI
+
+# ---- 1. what it does, and who for ----
+summary: >-
+  An end-to-end cash and FX forecasting system running in production in a
+  multinational group treasury, predicting end-of-day and short-term liquidity
+  across 27 countries and roughly 2,200 legal entities.
+forWhom: >-
+  Treasury, Tax and Finance teams who have to fund the right accounts, in the
+  right currencies, before the market closes.
+
+# ---- 2. context and constraints ----
+context:
+  - >-
+    A group treasury of this scale does not present a single forecasting
+    problem. Each legal entity in each country has its own payment periodicity,
+    seasonality and set of inbound platforms, and these aggregate into a daily
+    position that must be funded before cut-off.
+  - >-
+    The system covers the flows that determine that position: sales receipts,
+    tax, finance and controlling flows, and supplier payments. Error in either
+    direction carries a cost, since surplus balances are unremunerated and
+    shortfalls require short-notice borrowing.
+  - >-
+    Prior to this system much of the preparation was manual, and the supporting
+    workflow was distributed across spreadsheets and SharePoint.
+constraints:
+  - >-
+    No budget. There were no unlimited cloud resources and no paid
+    subscriptions available for this, so the entire forecasting system was built
+    on open-source components and ran at zero software cost.
+  - >-
+    It had to work locally before it could work anywhere else. The system began
+    as a local R Shiny application and was only later hosted on Azure, so the
+    architecture had to be something that ran on a laptop and then scaled up,
+    not something that assumed a platform from day one.
+  - >-
+    "TK: were there other hard constraints, a daily cut-off the pipeline had to
+    finish inside, data residency rules, an audit or explainability
+    requirement? I removed three plausible-sounding constraints I had written
+    from inference rather than from you. (Q-F17)"
+
+# ---- 3. my role ----
+myRole:
+  - >-
+    Cash & FX Forecast Specialist at FAMI Ltd (IKEA Group Treasury) since April
+    2023, working with Treasury, Tax and Finance stakeholders to turn
+    operational requirements into working systems.
+  - >-
+    Built with one colleague, with me as the lead. Every machine learning model
+    in the system is mine, as are the data managers that feed them, the
+    reporting layer around them, and the dashboards treasury teams use.
+  - >-
+    The scope extended beyond forecasting. It comprised identifying and
+    separating the distinct categories of liquidity item, implementing the
+    processes that read and map incoming transactions, assembling consistent
+    historical series from bank statement data that did not arrive in a usable
+    form, the forecasting itself, and the visualisation layer through which the
+    output was consumed.
+
+# ---- 4. technical approach ----
+approach:
+  - decision: Automate model selection rather than pick one model
+    detail:
+      - >-
+        With entities numbering in the thousands, no single forecasting model
+        is right for all of them, a large national sales entity and a small
+        holding company have nothing in common statistically.
+      - >-
+        Rather than hand-tune, the system scores candidate models per entity and
+        selects the best performer automatically. The candidate set spans
+        Prophet, ARIMA and XGBoost, which cover different shapes of series:
+        strong seasonality, autocorrelated residuals, and cases where exogenous
+        features carry more signal than the history does.
+      - >-
+        That turns a modelling problem that does not scale into an evaluation
+        problem that does.
+  - decision: Treat the data pipeline as the real product
+    detail:
+      - >-
+        Forecast quality is bounded by input quality, and treasury inputs
+        arrive as bank statements and platform reports rather than as clean
+        series.
+      - >-
+        The pipeline ingests multiple external payment platforms, including
+        PayPal and Amex, and maps their output automatically into liquidity
+        categories, so new sources plug into a known shape rather than
+        requiring bespoke handling.
+      - >-
+        Bank statement data was structured into reliable historical series by
+        combining deterministic parsing logic with NLP for the free-text fields,
+        where the description is the only clue to what a line item actually is.
+  - decision: Classify transactions with a model, but keep humans in the loop
+    detail:
+      - >-
+        Payment volume runs above 50,000 a day, which is far past the point
+        where manual categorisation is viable. A DistilBERT-based classifier
+        assigns categories, and every prediction carries a confidence score.
+      - >-
+        Low-confidence predictions route to a human review queue rather than
+        flowing straight through, and those human decisions feed back into
+        retraining. The model gets better where it is weakest, and the cases it
+        is unsure about never silently become wrong data downstream.
+      - >-
+        "TK: the confidence threshold, the share of volume routed to review, and
+        whether retraining runs on a schedule or is triggered manually. Real
+        numbers or none, this is the most interesting part of the design and
+        it is currently unquantified. (Q-G5, Q-G6)"
+  - decision: Deploy as applications treasury teams operate themselves
+    detail:
+      - >-
+        The forecasting system and the supporting country-level applications
+        are R Shiny apps deployed on Azure, so country teams manage their own
+        forecasts directly instead of requesting changes through a central
+        queue.
+      - >-
+        Separate applications cover tax flows and finance-and-controlling flows,
+        which have different owners and different review cycles.
+      - >-
+        Workflows that previously lived in SharePoint were migrated onto cloud
+        infrastructure as part of the same programme.
+  - decision: Report forecast against actuals as a first-class output
+    detail:
+      - >-
+        A forecasting system that does not publish its own error is asking to be
+        trusted rather than earning it. Reporting frameworks compare forecast to
+        actuals so the teams relying on the number can see how it has been
+        performing.
+  - decision: Add an agentic layer on top, not underneath
+    detail:
+      - >-
+        An agentic AI workflow built on internal tooling and R pipelines fetches
+        live data, evaluates the current forecasts against it, and produces
+        presentation-ready insight for stakeholders.
+      - >-
+        It sits above a deterministic forecasting core rather than replacing any
+        part of it, the numbers are produced by models that can be audited, and
+        the agent handles retrieval, evaluation and communication.
+
+# ---- 5. outcome ----
+outcome:
+  metrics:
+    - value: "27"
+      label: countries covered
+      source: owner-supplied, approved for publication 2026-08-02
+    - value: "~2,200"
+      label: legal entities
+      source: owner-supplied, approved for publication 2026-08-02
+    - value: "~75%"
+      label: reduction in manual forecast preparation
+      source: owner-supplied, approved for publication 2026-08-02
+    - value: "50,000+"
+      label: payments classified daily
+      source: owner-supplied, approved for publication 2026-08-02
+    - value: "~85%"
+      label: reduction in manual transaction categorisation
+      source: owner-supplied, approved for publication 2026-08-02
+    - value: 8 hrs to 15 min
+      label: recurring reporting workflow
+      source: owner-supplied, approved for publication 2026-08-02
+    - value: "€0"
+      label: software cost to run the system
+      source: owner-supplied 2026-08-03
+  notes:
+    - >-
+      The deployment was recognised externally: Silver for Best AI Deployment at
+      the TMI Awards 2023, issued by Treasury Management International in March
+      2024.
+    - >-
+      No headline accuracy figure is quoted here. An unqualified percentage
+      invites the reader to assume a metric and a horizon that were never
+      stated, and forecast error in a treasury context is not a single number:
+      it varies by entity, by liquidity item and by how far ahead the question
+      is asked.
+    - >-
+      The greater part of the difficulty lies upstream of the model in any case.
+      Establishing what the distinct liquidity items are, mapping transactions
+      reliably, and constructing consistent history from data that does not
+      arrive in that condition determine the result more than the choice of
+      model does. A model fitted to inconsistent history produces confident and
+      incorrect forecasts, and that error does not appear in the model's own
+      diagnostics.
+    - >-
+      The operating condition is worth stating plainly, because it shaped every
+      decision above: a daily cycle, a position that has to be funded before
+      cut-off, thousands of entities behind it, and no budget for paid tooling.
+
+# ---- 6. MANDATORY: limitations and what's next ----
+limitations:
+  - >-
+    This system runs inside a group treasury under contract. It is described
+    here at capability level only: no internal system names, no architecture
+    detail, and no data. There is no repository to inspect and no demo to run,
+    and that is a real limitation of this case study as evidence, the external
+    award and the published outcomes are the verifiable parts.
+  - >-
+    The binding constraint throughout was budget, not technique. Without
+    unlimited cloud resources or paid subscriptions, model choice and compute
+    were bounded by what open-source tooling could do on the hardware available,
+    which rules out approaches that would have been worth testing.
+  - >-
+    It ran locally before it ran on Azure, which limited how much could be
+    scheduled, monitored or recovered automatically during that period.
+  - >-
+    "TK: beyond budget, which entity types or flows forecast worst? Where does
+    automated model selection pick badly? What breaks when a new country is
+    onboarded? If these cannot be described under NDA, say so and I will publish
+    that sentence instead. The section stays either way. (Q-F11)"
+nextSteps:
+  - "TK: what would you do next with it, at a level you can describe? (Q-F11)"
+
+# ---- 7. links ----
+# No repo and no demo: proprietary. The award is third-party verifiable.
+links:
+  - kind: press
+    label: TMI Awards, Treasury Management International
+    href: https://treasurymanagement.com/
+
+unresolved:
+  - id: Q-F17
+    note: Other hard constraints besides budget (timing cut-off, data residency, explainability).
+  - id: Q-F11
+    note: Section 6 technical limitations, or explicit confirmation they are confidential.
+  - id: Q-F12
+    note: Has anyone at the employer reviewed and approved this text? Get it in writing before launch.
+  - id: Q-F15b
+    note: Deep-link to the specific TMI award listing rather than the site root, if one exists.
+  - id: Q-G5
+    note: Confidence threshold and share of volume routed to human review.
+  - id: Q-G6
+    note: Is feedback retraining scheduled and running, or manual?

@@ -1,0 +1,97 @@
+# Positioning set by the owner on 2026-08-03:
+#   Lead:      data scientist and forecasting specialist, production treasury
+#              experience, applied-mathematics PhD.
+#   Secondary: AI automation, presented as an emerging, project-based
+#              capability. Beginner. No professional AI experience.
+#
+# The second rule is why the intro names safeframe and PlanScan as personal
+# projects and says so in plain words. See Q-N1 for the one place where this
+# framing and the CV disagree.
+
+- id: profile
+  name: Dr Mohammad Aman
+
+  role: Data scientist and forecasting specialist
+
+  # Written by the owner, 2026-08-03, lightly edited: em dashes removed, and the
+  # phrase "used AI to automate the forecasting analysis" changed to plain
+  # "automating" so the page keeps one consistent line on AI (see Q-N1). The
+  # entity count is left out here because the case study gives the exact figure.
+  intro:
+    - >-
+      I started out in pure mathematics. My PhD was on generalized polynomials
+      and generating functions, about as abstract as maths gets. Over time I got
+      more interested in what happens when you point that kind of thinking at
+      real, messy data, and that is what pulled me into data science.
+    - >-
+      What I do now is build things end to end. I like taking a problem from the
+      rawest, messiest version of the data all the way through to a working model
+      that is in use: wrangling and cleaning the data, building the pipelines that
+      move it around, developing the models, and deploying them so people can
+      rely on them day to day.
+    - >-
+      For the last three years at IKEA Group Treasury I have done exactly that
+      for cash and liquidity forecasting. That has meant using NLP to turn
+      chaotic bank statement data into clean historical datasets, building the
+      data pipelines behind the workflows, developing forecasting models with
+      Prophet, ARIMA and XGBoost across the entity base, automating model
+      selection so the best model wins per entity, deploying it all on Azure, and
+      automating much of the forecasting analysis that used to be done by hand.
+    - >-
+      Finance is the domain I know, but the toolkit is general. Where I am
+      heading next is deeper into AI: agentic workflows, retrieval-augmented
+      generation, and getting more of the routine analysis handled automatically
+      rather than manually. That work is at personal-project scale for now.
+      safeframe detects pandas errors that raise no exception, and PlanScan
+      checks Irish planning applications against local development plans.
+
+  metaDescription: >-
+    Data scientist and forecasting specialist. Production cash and FX forecasting
+    at IKEA Group Treasury. PhD in applied mathematics.
+
+  location: Clontarf, Dublin, Ireland
+  workAuthorisation: Stamp 4
+
+  # Space is reserved in the layout. Drop the file into public/ and uncomment.
+  # photo:
+  #   src: /portrait.jpg
+  #   alt: Portrait of Mohammad Aman
+
+  email: mohdaman.maths@gmail.com
+
+  profiles:
+    - kind: linkedin
+      label: LinkedIn
+      href: https://www.linkedin.com/in/mohammad-aman
+    - kind: github
+      label: GitHub
+      href: https://github.com/MohammadAmanDA
+    - kind: scholar
+      label: Google Scholar
+      href: https://scholar.google.com/citations?user=ojbD2U8AAAAJ&hl=en
+
+  # No CV download. Decided 2026-08-03: the PDF carries a mobile number and a
+  # home address, and LinkedIn covers the same ground. Do not add one back
+  # without a redacted file.
+
+  research:
+    citations: 192
+    hIndex: 9
+    i10Index: 8
+    asOf: "2026-08-02"
+
+  unresolved:
+    - id: Q-N1
+      note: >-
+        Your instruction is that you have no professional AI experience. Your CV
+        and LinkedIn describe a DistilBERT transaction classifier and an agentic
+        workflow built in the treasury role, and the TMI award is named Best AI
+        Deployment. I have resolved this by treating the treasury machine
+        learning as data science, which is your stated strength, and reserving
+        the AI framing for safeframe and PlanScan as personal projects. Confirm
+        that reading, or tell me to cut the classifier detail entirely.
+    - id: Q-A7
+      note: >-
+        Site address not set yet. Deploying to Cloudflare Pages gives a free
+        one; your own domain can be attached later without changing anything
+        else.
