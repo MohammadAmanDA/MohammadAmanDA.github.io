@@ -26,74 +26,55 @@ const stages = (await getCollection('pipeline')).sort((a, b) => a.data.order - b
  * and 210 leaves only 176. Widening is better than shrinking the type below
  * what is comfortable to read. Every card uses this one width. */
 const NODE_W = 232;
-/* 156, not the reference's 125. Its stage titles are short enough to sit on
- * one line; several of these ("Statement & Platform Ingest", "Automated Model
- * Selection") take two, and at 132 the summary line was being clipped. */
-const NODE_H = 156;
-/* 320, not 260. The gap between cards is PITCH - NODE_W, and the connector
- * label sits in that gap. At 260 the gap was 50px against labels around
- * 100px wide, so every label overlapped the cards on each side. */
-const PITCH = 340;
-const ROWGAP = 250;
+/* 118. The reference's cards are deliberately light: a short title, one line
+ * of summary, a thin footer. Mine had grown to 156 because the summary was
+ * wrapping to two lines, which is what made the graph read as a wall of
+ * boxes rather than as a diagram. The summary now truncates to one line and
+ * the full text lives in the panel, where there is room for it. */
+const NODE_H = 118;
+/* The geometry that actually makes the reference look like a diagram.
+ *
+ * Every node alternates between a top band and a bottom band, so the vertical
+ * swing (260) is five times the horizontal gap (PITCH - NODE_W = 50). Each
+ * connector is therefore a long, steep S-curve rather than a short hop, and
+ * each label lands in the empty band between the two rows instead of being
+ * crammed into the gap between two cards.
+ *
+ * The previous serpentine put consecutive stages side by side in the same
+ * row, which produced short horizontal runs and labels wedged between cards.
+ * That is the single thing that made it read as a flat grid. */
+const PITCH = 282;
+const SWING = 330;
 const PAD = 40;
-const COLS = 3;
-const UTURN = 60;
 
-const rowOf = (i: number) => Math.floor(i / COLS);
-const colOf = (i: number) => (rowOf(i) % 2 === 0 ? i % COLS : COLS - 1 - (i % COLS));
-const xOf = (i: number) => PAD + colOf(i) * PITCH;
-const yOf = (i: number) => PAD + rowOf(i) * ROWGAP;
+const xOf = (i: number) => PAD + i * PITCH;
+const yOf = (i: number) => PAD + (i % 2 === 0 ? 0 : SWING);
 const cyOf = (i: number) => yOf(i) + NODE_H / 2;
 
 const pos = stages.map((_s, i) => ({ x: xOf(i), y: yOf(i) }));
-const rows = Math.ceil(stages.length / COLS);
 
-const CONTENT_W = PAD * 2 + (COLS - 1) * PITCH + NODE_W + UTURN;
-const CONTENT_H = PAD * 2 + (rows - 1) * ROWGAP + NODE_H;
+const CONTENT_W = PAD * 2 + (stages.length - 1) * PITCH + NODE_W;
+const CONTENT_H = PAD * 2 + SWING + NODE_H;
 
-/* Connectors, plus which side of each card carries a handle dot. A row that
- * runs right to left has its inbound handle on the right, so the dots always
- * sit where a connector actually meets the card. */
-const handles = stages.map(() => ({ in: '', out: '' }));
-
+/* Connectors leave the right edge of one card and arrive at the left edge of
+ * the next. Control points sit on the midpoint x, which gives the flat-then-
+ * steep-then-flat curve the reference uses. */
 const edges = stages.slice(0, -1).map((s, i) => {
-  const a = i;
-  const b = i + 1;
-  const sameRow = rowOf(a) === rowOf(b);
-  const rightward = rowOf(a) % 2 === 0;
-  const sy = cyOf(a);
-  const ty = cyOf(b);
-  let sx: number;
-  let tx: number;
-  let d: string;
-  let lx: number;
-
-  if (sameRow) {
-    sx = rightward ? pos[a].x + NODE_W : pos[a].x;
-    tx = rightward ? pos[b].x : pos[b].x + NODE_W;
-    const mx = (sx + tx) / 2;
-    d = `M${sx},${sy} C${mx},${sy} ${mx},${ty} ${tx},${ty}`;
-    lx = mx;
-    handles[a].out = rightward ? 'r' : 'l';
-    handles[b].in = rightward ? 'l' : 'r';
-  } else {
-    // The turn at the end of a row: out and back in on the same side.
-    const side = rightward ? 1 : -1;
-    sx = rightward ? pos[a].x + NODE_W : pos[a].x;
-    tx = rightward ? pos[b].x + NODE_W : pos[b].x;
-    const off = side * UTURN;
-    d = `M${sx},${sy} C${sx + off},${sy} ${tx + off},${ty} ${tx},${ty}`;
-    lx = sx + off * 0.9;
-    handles[a].out = rightward ? 'r' : 'l';
-    handles[b].in = rightward ? 'r' : 'l';
-  }
-
-  return { d, label: s.data.edge, lx, ly: (sy + ty) / 2 };
+  const sx = pos[i].x + NODE_W;
+  const sy = cyOf(i);
+  const tx = pos[i + 1].x;
+  const ty = cyOf(i + 1);
+  const mx = (sx + tx) / 2;
+  return {
+    d: `M${sx},${sy} C${mx},${sy} ${mx},${ty} ${tx},${ty}`,
+    label: s.data.edge,
+    lx: mx,
+    ly: (sy + ty) / 2,
+  };
 });
 
-/* Stage three opens by default, so the panel is never an empty frame waiting
- * to be clicked. The reference does the same. */
-const DEFAULT_INDEX = Math.min(2, stages.length - 1);
+/* Stage one opens by default. */
+const DEFAULT_INDEX = 0;
 const defaultId = stages[DEFAULT_INDEX].id;
 
 const stageNo = (i: number) => String(i + 1).padStart(2, '0');
@@ -146,8 +127,8 @@ const stageNo = (i: number) => String(i + 1).padStart(2, '0');
             type="button"
             class="wb__card"
             data-stage={s.id}
-            data-in={handles[i].in}
-            data-out={handles[i].out}
+            data-in={i > 0 ? 'l' : ''}
+            data-out={i < stages.length - 1 ? 'r' : ''}
             style={`left:${pos[i].x}px; top:${pos[i].y}px; width:${NODE_W}px; height:${NODE_H}px`}
             aria-controls="wb-panel"
             aria-pressed={s.id === defaultId ? 'true' : 'false'}
@@ -253,6 +234,25 @@ const stageNo = (i: number) => String(i + 1).padStart(2, '0');
         <path d="M4 4l8 8M12 4l-8 8" />
       </svg>
     </button>
+
+    {/* Walk the pipeline without hunting for a node. The later stages sit
+        under this panel, exactly as they do on the reference, so stepping is
+        the honest way to reach them. */}
+    <div class="wb__step">
+      <button type="button" id="wb-prev" class="wb__step-btn">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"
+          ><path d="M9.5 3.5L5 8l4.5 4.5" /></svg
+        >
+        <span>Prev</span>
+      </button>
+      <p class="wb__step-count" id="wb-count" aria-live="polite"></p>
+      <button type="button" id="wb-next" class="wb__step-btn">
+        <span>Next</span>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"
+          ><path d="M6.5 3.5L11 8l-4.5 4.5" /></svg
+        >
+      </button>
+    </div>
   </aside>
 </div>
 
@@ -306,15 +306,37 @@ const stageNo = (i: number) => String(i + 1).padStart(2, '0');
         return;
       }
 
-      // Fit into the area the panel is not covering, so no stage starts life
-      // hidden behind it.
-      const pw = panel.hidden ? 0 : panel.getBoundingClientRect().width;
-      const availW = pane.clientWidth - left - 20 - (pw ? pw + 28 : 0);
+      /* Fit to the whole frame, not to the strip left of the panel. The
+         reference does the same: its later stages sit under the panel and you
+         drag or step to them. Reserving the panel's width instead would shrink
+         the diagram by a third and undo the point of the layout. */
+      const availW = pane.clientWidth - left - 20;
       const availH = pane.clientHeight - top - 44;
       scale = Math.max(MIN, Math.min(MAX, Math.min(availW / contentW, availH / contentH)));
       tx = left + (availW - contentW * scale) / 2;
       ty = top + (availH - contentH * scale) / 2;
       apply();
+      revealSelected();
+    };
+
+    /* Because the panel overlays the right of the canvas, a stage can be
+       selected while sitting behind it. Slide the canvas just enough that the
+       selected card is fully in the clear, and no further. This is the part
+       the reference leaves to the reader. */
+    const revealSelected = () => {
+      if (isPhone() || panel.hidden) return;
+      const card = root.querySelector('.wb__card[aria-pressed="true"]');
+      if (!card) return;
+      const pr = pane.getBoundingClientRect();
+      const cr = card.getBoundingClientRect();
+      const clearRight = panel.getBoundingClientRect().left - 20;
+      let shift = 0;
+      if (cr.right > clearRight) shift = clearRight - cr.right;
+      if (cr.left + shift < pr.left + 20) shift = pr.left + 20 - cr.left;
+      if (shift) {
+        tx += shift;
+        apply();
+      }
     };
 
     /* Zoom about a fixed point, so the diagram grows under the cursor or the
@@ -406,6 +428,8 @@ const stageNo = (i: number) => String(i + 1).padStart(2, '0');
       panel.hidden = false;
       cards.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.stage === id)));
       if (wasHidden) fit();
+      else revealSelected();
+      syncStepper();
     };
 
     cards.forEach((card) => {
@@ -428,6 +452,37 @@ const stageNo = (i: number) => String(i + 1).padStart(2, '0');
       if (e.key === 'Escape' && !panel.hidden) document.getElementById('wb-close').click();
     });
 
+    const ids = cards.map((c) => c.dataset.stage);
+    const prevBtn = document.getElementById('wb-prev');
+    const nextBtn = document.getElementById('wb-next');
+    const count = document.getElementById('wb-count');
+
+    const currentIndex = () => ids.indexOf(root.querySelector('.wb__card[aria-pressed="true"]')?.dataset.stage);
+
+    function syncStepper() {
+      const i = currentIndex();
+      prevBtn.disabled = i <= 0;
+      nextBtn.disabled = i < 0 || i >= ids.length - 1;
+      count.textContent = i < 0 ? '' : 'Stage ' + (i + 1) + ' of ' + ids.length;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      const i = currentIndex();
+      if (i > 0) select(ids[i - 1]);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const i = currentIndex();
+      if (i > -1 && i < ids.length - 1) select(ids[i + 1]);
+    });
+
+    // Left and right arrows step the pipeline once the diagram has focus.
+    root.addEventListener('keydown', (e) => {
+      if (panel.hidden) return;
+      if (e.key === 'ArrowRight') nextBtn.click();
+      else if (e.key === 'ArrowLeft') prevBtn.click();
+    });
+
     // Pause and resume the travelling dashes.
     const pulse = document.getElementById('wb-pulse');
     pulse.addEventListener('click', () => {
@@ -441,6 +496,7 @@ const stageNo = (i: number) => String(i + 1).padStart(2, '0');
       cards.forEach((c) => c.setAttribute('aria-pressed', 'false'));
     }
 
+    syncStepper();
     fit();
     let t;
     addEventListener('resize', () => {
