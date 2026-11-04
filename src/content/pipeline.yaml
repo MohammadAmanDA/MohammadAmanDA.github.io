@@ -15,6 +15,10 @@
     - Handles formats as they arrive rather than requiring a fixed schema.
     - Records what landed, so a missing file is visible rather than silent.
   safeguard: No data leaves the organisation's own infrastructure.
+  tech:
+    - Python
+    - SQL
+    - Azure
 
 - id: clean
   order: 2
@@ -29,6 +33,9 @@
     - Applies NLP only to the free-text description, where it is the single clue to what a line item is.
     - Flags rows it cannot parse instead of guessing at them.
   safeguard: Unparseable rows are escalated, never silently dropped.
+  tech:
+    - Python
+    - SQL
 
 - id: map
   order: 3
@@ -43,6 +50,9 @@
     - Routes low-confidence cases to a human review queue rather than letting them through.
     - Feeds those human decisions back into retraining, so the model improves where it is weakest.
   safeguard: Uncertain predictions never reach downstream reporting unreviewed.
+  tech:
+    - TF-IDF
+    - Python
 
 - id: series
   order: 4
@@ -57,6 +67,9 @@
     - Reconciles platform exports against bank statement records.
     - Produces the series the models are actually fitted on.
   safeguard: A model fitted to inconsistent history forecasts confidently and wrongly, so this stage gates the next.
+  tech:
+    - SQL
+    - PostgreSQL
 
 - id: models
   order: 5
@@ -71,6 +84,11 @@
     - Covers different shapes of series, strong seasonality, autocorrelated residuals, and exogenous drivers.
     - Turns a modelling problem that does not scale into an evaluation problem that does.
   safeguard: No entity depends on a single hand-tuned model.
+  tech:
+    - R
+    - Prophet
+    - ARIMA
+    - XGBoost
 
 - id: forecast
   order: 6
@@ -85,3 +103,7 @@
     - Country teams manage their own forecasts rather than queueing for a central change.
     - Compares forecast against actuals so the error stays visible.
   safeguard: A forecasting system that does not publish its own error is asking to be trusted rather than earning it.
+  tech:
+    - R Shiny
+    - Azure
+    - Power BI

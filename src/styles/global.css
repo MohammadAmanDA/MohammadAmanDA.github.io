@@ -127,6 +127,20 @@
   --border-width: 1px;
   --border-hairline: 1px solid var(--color-border);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --radius-lg: 12px;
+  --space-5: 1.25rem;
+
+  /* ---- diagram surface ----
+   * Non-text marks, so these sit below the 4.5:1 text floor by design. */
+  --color-grid-dot: #94a3b8;
+  --color-edge: #9aa3ad;
+  --color-border-faint: #f0f2f4;
+  --color-accent-border: #a7f3d0;
+  --color-accent-wash: #ecfdf5;
+  --color-panel: rgba(255, 255, 255, 0.95);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -139,6 +153,16 @@
     --color-text-muted: #9da4aa; /*  7.32:1 on bg, 6.64:1 on surface */
     --color-accent: #7fb5c5;     /*  8.20:1 on bg */
     --color-accent-weak: #1a2a31;
+    /* Previously missing, which left body text at 1.79:1 and chip text at
+       1.52:1 in dark mode. Measured: 11.41:1 and 9.27:1. */
+    --color-text-body: #c6ccd2;
+    --color-accent-on: #a8d4e0;
+    --color-grid-dot: #3a4044;
+    --color-edge: #5a6066;
+    --color-border-faint: #22262a;
+    --color-accent-border: #2f4d56;
+    --color-accent-wash: #16242a;
+    --color-panel: rgba(18, 20, 21, 0.95);
     --color-focus: #7fb5c5;
   }
 }
@@ -152,6 +176,14 @@
   --color-text-muted: #9da4aa;
   --color-accent: #7fb5c5;
   --color-accent-weak: #1a2a31;
+  --color-text-body: #c6ccd2;
+  --color-accent-on: #a8d4e0;
+  --color-grid-dot: #3a4044;
+  --color-edge: #5a6066;
+  --color-border-faint: #22262a;
+  --color-accent-border: #2f4d56;
+  --color-accent-wash: #16242a;
+  --color-panel: rgba(18, 20, 21, 0.95);
   --color-focus: #7fb5c5;
 }
 
@@ -862,149 +894,183 @@ a.card:focus-visible .card__arrow {
 
 
 /* ---------- architecture workbench ----------
- * Node graph with animated dashed edges. The reference uses React Flow, whose
- * moving arrows are a dashed stroke with an animated dash offset. Same effect
- * here in plain SVG, no library. */
+ * A pannable, zoomable node graph. The reference is React Flow inside Next.js;
+ * this is the same construction by hand, so the page still ships no framework.
+ *
+ * Measured off the reference on 2026-11-04 and matched here:
+ *   frame      580px tall, 12px radius, hairline border, shadow-lg, clipped
+ *   dot grid   24px pitch, 0.5px dots
+ *   node       210px wide, 8px radius, hairline border, shadow-sm
+ *   edge       dashed stroke on an animated dashoffset, labelled at midpoint
+ *   panel      overlaid, inset 16px from top/right/bottom, blurred backdrop
+ *
+ * One deliberate departure: the reference paints its small stage labels in
+ * #9ca3af, which measures 2.54:1 on white. This file uses --color-text-muted
+ * at 4.83:1 instead, because 4.5:1 is an acceptance criterion here.
+ */
 
 .wb {
-  border: var(--border-hairline);
-  border-radius: var(--radius-card);
-  background-color: var(--color-bg);
+  position: relative;
+  height: 580px;
+  width: 100%;
   overflow: hidden;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-lg);
 }
 
-.wb__bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  align-items: center;
-  padding: var(--space-4);
-  border-bottom: var(--border-hairline);
-}
-
-.wb__title {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--scale-xs);
-  padding: 0.4rem 0.75rem;
-  border: var(--border-hairline);
-  border-radius: 999px;
-}
-
-.wb__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--color-accent);
-}
-
-.wb__pulse {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--scale-xs);
-  padding: 0.4rem 0.75rem;
-  border: var(--border-hairline);
-  border-radius: 999px;
-  background-color: transparent;
-  color: var(--color-text);
-  cursor: pointer;
-}
-
-.wb__pulse svg {
-  width: 0.75rem;
-  height: 0.75rem;
-  color: var(--color-accent);
-}
-
-.wb__pulse:hover {
-  border-color: var(--color-text-muted);
-}
-
-/* Canvas left, detail panel right, as in the reference. Below 72rem the panel
- * drops underneath so neither column gets squeezed. */
-.wb__body {
-  display: grid;
-}
-
-@media (min-width: 72rem) {
-  .wb__body.has-panel {
-    grid-template-columns: minmax(0, 1fr) 22rem;
+@media (max-width: 760px) {
+  .wb {
+    height: 520px;
   }
 }
 
-.wb__canvas {
-  position: relative;
-  min-height: 34rem;
-  padding: var(--space-8) 0;
+/* ---- the pannable surface, and the grid painted on it ---- */
+
+.wb__pane {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  touch-action: none;
+  /* Size and position are driven from script so the grid stays locked to the
+     diagram while it pans and zooms. */
+  background-image: radial-gradient(circle at center, var(--color-grid-dot) 0.5px, transparent 0.6px);
+  background-size: 24px 24px;
 }
+
+.wb__pane.is-grabbing {
+  cursor: grabbing;
+}
+
+.wb__viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* ---- edges ---- */
 
 .wb__edges {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: visible;
 }
 
-.wb__edge-path {
+/* The travelling dash. Heavier than the reference's 1px stroke and 5px dash:
+ * at the zoom this diagram sits at, a 1px dash is nearly invisible, which was
+ * exactly the complaint. */
+.wb__edge {
   fill: none;
-  stroke: var(--color-text-muted);
-  stroke-width: 0.25;
-  stroke-dasharray: 1.4 1.2;
-  vector-effect: non-scaling-stroke;
+  stroke: var(--color-edge);
+  stroke-width: 1.6;
+  stroke-dasharray: 6 4;
+  stroke-linecap: round;
   animation: wb-dash 0.6s linear infinite;
 }
 
 @keyframes wb-dash {
+  from {
+    stroke-dashoffset: 20;
+  }
   to {
-    stroke-dashoffset: -2.6;
+    stroke-dashoffset: 0;
   }
 }
 
-.wb.is-paused .wb__edge-path {
+.wb.is-paused .wb__edge {
   animation-play-state: paused;
 }
 
-/* Fills the canvas so the nodes' percentage offsets have something to resolve
- * against. Without this the ul collapses to zero height and every node lands
- * on the same line. */
-.wb__nodes {
-  list-style: none;
-  position: absolute;
-  inset: var(--space-8) var(--space-4);
+.wb__edge-label rect {
+  fill: var(--color-bg);
 }
 
-.wb__node {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: clamp(8.5rem, 14vw, 11.5rem);
+.wb__edge-label text {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.01em;
+  fill: var(--color-text-muted);
 }
+
+/* ---- nodes ---- */
 
 .wb__card {
-  display: block;
-  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 14px 16px;
   text-align: left;
-  padding: var(--space-3);
-  border: var(--border-hairline);
-  border-radius: var(--radius);
-  background-color: var(--color-bg);
-  cursor: pointer;
   font: inherit;
   color: inherit;
+  background: var(--color-bg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
   transition:
-    border-color 180ms ease-out,
-    box-shadow 180ms ease-out,
-    transform 180ms ease-out;
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
 }
 
-.wb__card:hover,
-.wb__card.is-active {
+/* Connector handles: a small accent dot each side, ringed in the page
+   background so it reads as a port rather than a stray dot. */
+.wb__card::before,
+.wb__card::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid var(--color-bg);
+  box-sizing: content-box;
+}
+
+/* ::before is the inbound handle, ::after the outbound one. Which side each
+   sits on comes from the component, because a row that runs right to left
+   takes its connector in on the right. A card with no value for one of them,
+   the first and last stage, simply does not paint that dot. */
+.wb__card::before,
+.wb__card::after {
+  display: none;
+}
+
+.wb__card[data-in='l']::before {
+  display: block;
+  left: -6px;
+}
+
+.wb__card[data-in='r']::before {
+  display: block;
+  right: -6px;
+}
+
+.wb__card[data-out='l']::after {
+  display: block;
+  left: -6px;
+}
+
+.wb__card[data-out='r']::after {
+  display: block;
+  right: -6px;
+}
+
+.wb__card:hover {
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.wb__card[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  box-shadow:
+    0 0 0 1px var(--color-accent),
+    var(--shadow-md);
 }
 
 .wb__card-top {
@@ -1012,231 +1078,504 @@ a.card:focus-visible .card__arrow {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
+  margin-bottom: var(--space-1);
 }
 
-.wb__stage,
-.wb__latency,
-.wb__secured {
+.wb__stage {
   font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.06em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
 
 .wb__tag {
+  padding: 1px 6px;
   font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.04em;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 0.15rem 0.4rem;
-  border-radius: 3px;
-  background-color: var(--color-accent-weak);
-  color: var(--color-accent);
+  color: var(--color-accent-on);
+  background: var(--color-accent-weak);
+  border: var(--border-width) solid var(--color-accent-border);
+  border-radius: var(--radius);
+  white-space: nowrap;
 }
 
 .wb__card-title {
-  display: block;
-  margin-top: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
   font-weight: 700;
-  font-size: var(--scale-sm);
-  line-height: 1.3;
+  line-height: 1.25;
+  color: var(--color-text);
+  /* Two lines is the budget the card height is sized for. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .wb__card-sub {
-  display: block;
-  margin-top: 0.15rem;
-  font-size: var(--scale-xs);
+  font-size: 0.6875rem;
+  line-height: 1.35;
   color: var(--color-text-muted);
-  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .wb__card-foot {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.25rem var(--space-2);
-  margin-top: var(--space-3);
+  gap: var(--space-2);
+  margin-top: auto;
   padding-top: var(--space-2);
-  border-top: var(--border-hairline);
+  border-top: var(--border-width) solid var(--color-border-faint);
+  font-family: var(--font-mono);
+  /* 9px, not the reference's 10px. Its footer strings are short ("Secured");
+     these run to "Deterministic first", which needs the extra room. */
+  font-size: 9px;
+  letter-spacing: -0.01em;
 }
 
-.wb__edge-label {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  font-size: 0.6875rem;
-  color: var(--color-text-muted);
-  background-color: var(--color-bg);
-  padding: 0 0.3rem;
+.wb__latency,
+.wb__secured {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  /* The two items together can exceed the card width, for instance
+     "50,000+ / day" beside "Human in the loop". Let the governance label be
+     the one that gives, with an ellipsis rather than a hard clip. */
+  min-width: 0;
   white-space: nowrap;
-  pointer-events: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ---- detail panel ---- */
+.wb__latency {
+  flex: none;
+}
+
+.wb__secured {
+  flex: 0 1 auto;
+}
+
+.wb__latency {
+  color: var(--color-text-body);
+}
+
+.wb__secured {
+  color: var(--color-text-muted);
+}
+
+.wb__latency svg,
+.wb__secured svg {
+  width: 10px;
+  height: 10px;
+  flex: none;
+}
+
+.wb__latency svg {
+  color: var(--color-accent);
+}
+
+/* ---- overlays: title strip, controls, hint ---- */
+
+.wb__topbar {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.wb__title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.wb__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex: none;
+}
+
+.wb__pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-body);
+  background: var(--color-bg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition:
+    color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.wb__pulse svg {
+  width: 9px;
+  height: 9px;
+  flex: none;
+}
+
+.wb__pulse:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.wb__pulse[aria-pressed='false'] svg {
+  opacity: 0.4;
+}
+
+@media (max-width: 760px) {
+  .wb__pulse span {
+    display: none;
+  }
+}
+
+.wb__controls {
+  position: absolute;
+  bottom: 46px;
+  left: var(--space-4);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.wb__controls button {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-bottom: var(--border-width) solid var(--color-border);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.wb__controls button:last-child {
+  border-bottom: none;
+}
+
+.wb__controls button:hover {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.wb__controls svg {
+  width: 12px;
+  height: 12px;
+}
+
+.wb__hint {
+  position: absolute;
+  bottom: var(--space-3);
+  left: var(--space-4);
+  z-index: 10;
+  margin: 0;
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: var(--border-width) solid var(--color-border-faint);
+  border-radius: var(--radius);
+}
+
+/* The hint matters more on a phone, not less: that is the one viewport where
+   the diagram opens larger than the frame and has to be dragged. */
+@media (max-width: 760px) {
+  .wb__hint {
+    right: var(--space-4);
+    font-size: 0.5625rem;
+    text-align: center;
+  }
+}
+
+/* ---- detail panel, overlaid on the canvas ---- */
 
 .wb__panel {
-  position: relative;
-  border-top: var(--border-hairline);
-  padding: var(--space-6);
-  background-color: var(--color-surface);
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 20;
+  width: 360px;
+  padding: var(--space-5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--color-panel);
+  backdrop-filter: blur(10px);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-xl);
+  animation: wb-slide var(--duration-slow) var(--ease-out);
 }
 
-@media (min-width: 72rem) {
+.wb__panel[hidden] {
+  display: none;
+}
+
+@keyframes wb-slide {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1040px) {
   .wb__panel {
-    border-top: 0;
-    border-left: var(--border-hairline);
-    align-self: stretch;
-    overflow-y: auto;
-    max-height: 42rem;
+    width: 320px;
+  }
+}
+
+/* Below the tablet break the panel becomes a bottom sheet: a 320px overlay on
+   a 360px screen would leave no diagram to look at. */
+@media (max-width: 760px) {
+  .wb__panel {
+    top: auto;
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: var(--space-3);
+    width: auto;
+    max-height: 62%;
+    padding: var(--space-4);
   }
 }
 
 .wb__close {
   position: absolute;
-  top: var(--space-6);
-  right: var(--space-6);
-  width: 2rem;
-  height: 2rem;
+  top: var(--space-4);
+  right: var(--space-4);
   display: grid;
   place-items: center;
-  border: var(--border-hairline);
-  border-radius: var(--radius);
-  background-color: var(--color-bg);
+  width: 24px;
+  height: 24px;
+  padding: 0;
   color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-radius: var(--radius);
   cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
 }
 
 .wb__close svg {
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 13px;
+  height: 13px;
 }
 
 .wb__close:hover {
   color: var(--color-text);
-  border-color: var(--color-text-muted);
+  background: var(--color-surface);
+}
+
+.wb__detail[hidden] {
+  display: none;
 }
 
 .wb__detail-eyebrow {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  padding-right: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
   font-family: var(--font-mono);
-  font-size: var(--scale-xs);
-  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-text-muted);
 }
 
 .wb__detail-title {
-  margin-top: var(--space-3);
+  margin: 0 0 var(--space-1);
   font-family: var(--font-body);
-  font-size: var(--scale-xl);
+  font-size: 1.0625rem;
   font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
 }
 
 .wb__detail-sub {
-  margin-top: 0.2rem;
+  margin: 0 0 var(--space-5);
+  font-size: 0.75rem;
+  line-height: 1.5;
   color: var(--color-text-muted);
-  font-size: var(--scale-sm);
 }
 
 .wb__meta {
   display: grid;
-  gap: var(--space-4);
-  margin-top: var(--space-6);
-  padding: var(--space-4);
-  border: var(--border-hairline);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border-faint);
   border-radius: var(--radius);
-  background-color: var(--color-bg);
-}
-
-@media (min-width: 34rem) {
-  .wb__meta {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 .wb__meta-label {
+  margin: 0 0 1px;
   font-family: var(--font-mono);
-  font-size: 0.625rem;
+  font-size: 10px;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: var(--color-text-muted);
 }
 
 .wb__meta-value {
+  margin: 0;
   font-family: var(--font-mono);
-  font-size: var(--scale-sm);
-  font-weight: 600;
-  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text);
 }
 
 .wb__meta-value--accent {
   color: var(--color-accent);
+  font-weight: 600;
 }
 
-.wb__detail-head {
-  margin-top: var(--space-6);
+.wb__sec-head {
+  display: block;
+  margin: 0 0 var(--space-3);
   font-family: var(--font-mono);
-  font-size: var(--scale-xs);
-  text-transform: uppercase;
+  font-size: 0.6875rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
-  color: var(--color-text-muted);
+  text-transform: uppercase;
+  color: var(--color-text);
 }
 
 .wb__detail-list {
+  margin: 0 0 var(--space-5);
+  padding: 0;
   list-style: none;
-  margin-top: var(--space-3);
   display: grid;
-  gap: var(--space-3);
-  max-width: var(--measure);
+  gap: var(--space-2);
 }
 
 .wb__detail-list li {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--space-3);
-  font-size: var(--scale-sm);
+  display: flex;
+  gap: var(--space-2);
+  font-size: 0.75rem;
+  line-height: 1.55;
   color: var(--color-text-body);
 }
 
 .wb__detail-list svg {
-  width: 1rem;
-  height: 1rem;
-  margin-top: 0.2em;
+  width: 13px;
+  height: 13px;
+  flex: none;
+  margin-top: 3px;
   color: var(--color-accent);
 }
 
 .wb__safeguard {
-  margin-top: var(--space-3);
-  font-size: var(--scale-sm);
-  color: var(--color-text-body);
-  max-width: var(--measure);
+  margin-bottom: var(--space-5);
+  padding: var(--space-3);
+  background: var(--color-accent-wash);
+  border: var(--border-width) solid var(--color-accent-border);
+  border-radius: var(--radius);
 }
 
-/* Stacked on narrow screens: the zig-zag needs width to read. */
-@media (max-width: 60rem) {
-  .wb__canvas {
-    min-height: 0;
-    padding: var(--space-6);
-  }
-  .wb__edges,
-  .wb__edge-label {
-    display: none;
-  }
-  .wb__nodes {
-    display: grid;
-    gap: var(--space-4);
-  }
-  .wb__node {
-    position: static;
-    transform: none;
-    width: 100%;
-  }
+.wb__safeguard-head {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-accent-on);
+}
+
+.wb__safeguard-body {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--color-text-body);
+}
+
+.wb__techwrap {
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.wb__tech-head {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.wb__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wb__tech li {
+  padding: 2px 7px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-body);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wb__edge-path {
+  .wb__edge,
+  .wb__panel {
     animation: none;
   }
 }

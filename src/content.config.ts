@@ -116,6 +116,10 @@ const pipeline = defineCollection({
     governance: z.string().min(1),
     responsibilities: z.array(z.string().min(1)).min(2),
     safeguard: z.string().min(1),
+    // The tools this stage actually used. Every entry must already appear in
+    // the Cash & FX case study's published stack, so the workbench cannot
+    // introduce a technology the case study does not stand behind.
+    tech: z.array(z.string().min(1)).min(1),
   }),
 });
 

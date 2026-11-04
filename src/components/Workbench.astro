@@ -3,88 +3,210 @@ import { getCollection } from 'astro:content';
 
 const stages = (await getCollection('pipeline')).sort((a, b) => a.data.order - b.data.order);
 
-/* Node geometry. Stages zig-zag between two rows, as in the reference, so the
- * edges read as a flow rather than a straight line. Coordinates are in the
- * SVG viewBox space and the cards are positioned with the same percentages. */
-const COLS = stages.length;
-const x = (i: number) => (100 / COLS) * i + 100 / COLS / 2;
-const y = (i: number) => (i % 2 === 0 ? 26 : 74);
+/* Node geometry, in real pixels inside the pannable viewport.
+ *
+ * Two things the previous version got wrong.
+ *
+ * First, it drew the edges into a `viewBox="0 0 100 100"` SVG with
+ * `preserveAspectRatio="none"`, which scales x and y by different factors, so
+ * every bezier came out sheared and the dashes crawled at different speeds on
+ * the horizontal and vertical runs. Here the edge SVG is sized to the content
+ * in px and never stretched, so a curve is the curve that was authored.
+ *
+ * Second, it put all six stages in one row. The reference has five nodes in
+ * 1250px of content and fits them comfortably; six at the same pitch is
+ * 1630px, which only fits beside the detail panel at 0.35 scale, far too
+ * small to read. So the stages serpentine instead: left to right along the
+ * top row, a U-turn on the right, then right to left along the bottom. That
+ * is 890px of content, which fits at ~0.63 scale, giving an on-screen card
+ * width of 133px against the reference's measured 134px.
+ */
+/* 232, not the reference's 210. Measured: the widest footer pair here,
+ * "50,000+ / day" beside "Human in the loop", needs 193px of inner width,
+ * and 210 leaves only 176. Widening is better than shrinking the type below
+ * what is comfortable to read. Every card uses this one width. */
+const NODE_W = 232;
+/* 156, not the reference's 125. Its stage titles are short enough to sit on
+ * one line; several of these ("Statement & Platform Ingest", "Automated Model
+ * Selection") take two, and at 132 the summary line was being clipped. */
+const NODE_H = 156;
+/* 320, not 260. The gap between cards is PITCH - NODE_W, and the connector
+ * label sits in that gap. At 260 the gap was 50px against labels around
+ * 100px wide, so every label overlapped the cards on each side. */
+const PITCH = 340;
+const ROWGAP = 250;
+const PAD = 40;
+const COLS = 3;
+const UTURN = 60;
+
+const rowOf = (i: number) => Math.floor(i / COLS);
+const colOf = (i: number) => (rowOf(i) % 2 === 0 ? i % COLS : COLS - 1 - (i % COLS));
+const xOf = (i: number) => PAD + colOf(i) * PITCH;
+const yOf = (i: number) => PAD + rowOf(i) * ROWGAP;
+const cyOf = (i: number) => yOf(i) + NODE_H / 2;
+
+const pos = stages.map((_s, i) => ({ x: xOf(i), y: yOf(i) }));
+const rows = Math.ceil(stages.length / COLS);
+
+const CONTENT_W = PAD * 2 + (COLS - 1) * PITCH + NODE_W + UTURN;
+const CONTENT_H = PAD * 2 + (rows - 1) * ROWGAP + NODE_H;
+
+/* Connectors, plus which side of each card carries a handle dot. A row that
+ * runs right to left has its inbound handle on the right, so the dots always
+ * sit where a connector actually meets the card. */
+const handles = stages.map(() => ({ in: '', out: '' }));
+
+const edges = stages.slice(0, -1).map((s, i) => {
+  const a = i;
+  const b = i + 1;
+  const sameRow = rowOf(a) === rowOf(b);
+  const rightward = rowOf(a) % 2 === 0;
+  const sy = cyOf(a);
+  const ty = cyOf(b);
+  let sx: number;
+  let tx: number;
+  let d: string;
+  let lx: number;
+
+  if (sameRow) {
+    sx = rightward ? pos[a].x + NODE_W : pos[a].x;
+    tx = rightward ? pos[b].x : pos[b].x + NODE_W;
+    const mx = (sx + tx) / 2;
+    d = `M${sx},${sy} C${mx},${sy} ${mx},${ty} ${tx},${ty}`;
+    lx = mx;
+    handles[a].out = rightward ? 'r' : 'l';
+    handles[b].in = rightward ? 'l' : 'r';
+  } else {
+    // The turn at the end of a row: out and back in on the same side.
+    const side = rightward ? 1 : -1;
+    sx = rightward ? pos[a].x + NODE_W : pos[a].x;
+    tx = rightward ? pos[b].x + NODE_W : pos[b].x;
+    const off = side * UTURN;
+    d = `M${sx},${sy} C${sx + off},${sy} ${tx + off},${ty} ${tx},${ty}`;
+    lx = sx + off * 0.9;
+    handles[a].out = rightward ? 'r' : 'l';
+    handles[b].in = rightward ? 'r' : 'l';
+  }
+
+  return { d, label: s.data.edge, lx, ly: (sy + ty) / 2 };
+});
+
+/* Stage three opens by default, so the panel is never an empty frame waiting
+ * to be clicked. The reference does the same. */
+const DEFAULT_INDEX = Math.min(2, stages.length - 1);
+const defaultId = stages[DEFAULT_INDEX].id;
+
+const stageNo = (i: number) => String(i + 1).padStart(2, '0');
 ---
 
-<div class="wb">
-  <div class="wb__bar">
-    <p class="wb__title"><span class="wb__dot" aria-hidden="true"></span>Cash &amp; FX Forecasting Pipeline</p>
+<div class="wb" id="wb" data-content-w={CONTENT_W} data-content-h={CONTENT_H}>
+  {/* Title strip, overlaid on the canvas rather than stacked above it, so the
+      framed area is all diagram. */}
+  <div class="wb__topbar">
+    <p class="wb__title">
+      <span class="wb__dot" aria-hidden="true"></span>Cash &amp; FX Forecasting Pipeline
+    </p>
     <button type="button" class="wb__pulse" id="wb-pulse" aria-pressed="true">
       <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.5l7 4.5-7 4.5z" /></svg>
-      Simulate signal pulse
+      <span>Simulate signal pulse</span>
     </button>
   </div>
 
-  <div class="wb__body" id="wb-body">
-  <div class="wb__canvas">
-    {/* Edge layer. Dashed strokes with an animated dashoffset, the same
-        technique the reference uses for its moving arrows. */}
-    <svg class="wb__edges" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-      {
-        stages.slice(0, -1).map((_s, i) => {
-          const x1 = x(i);
-          const y1 = y(i);
-          const x2 = x(i + 1);
-          const y2 = y(i + 1);
-          const mx = (x1 + x2) / 2;
-          return (
-            <g class="wb__edge">
-              <path class="wb__edge-path" d={`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`} />
+  {/* The pannable surface. The dot grid is a background on this element and is
+      re-offset on pan, so it reads as graph paper the diagram sits on. */}
+  <div class="wb__pane" id="wb-pane">
+    <div class="wb__viewport" id="wb-viewport" style={`width:${CONTENT_W}px; height:${CONTENT_H}px`}>
+      <svg
+        class="wb__edges"
+        width={CONTENT_W}
+        height={CONTENT_H}
+        viewBox={`0 0 ${CONTENT_W} ${CONTENT_H}`}
+        aria-hidden="true"
+      >
+        {edges.map((e) => <path class="wb__edge" d={e.d} />)}
+        {
+          edges.map((e) => (
+            <g class="wb__edge-label" transform={`translate(${e.lx} ${e.ly})`}>
+              <rect
+                x={-(e.label.length * 2.8 + 5)}
+                y="-8"
+                width={e.label.length * 5.6 + 10}
+                height="16"
+                rx="2"
+              />
+              <text text-anchor="middle" dy="0.32em">{e.label}</text>
             </g>
-          );
-        })
-      }
-    </svg>
+          ))
+        }
+      </svg>
 
-    <ul class="wb__nodes">
       {
         stages.map((s, i) => (
-          <li class="wb__node" style={`left:${x(i)}%; top:${y(i)}%`}>
-            <button
-              type="button"
-              class="wb__card"
-              data-stage={s.id}
-              aria-expanded="false"
-              aria-controls="wb-panel"
-            >
-              <span class="wb__card-top">
-                <span class="wb__stage">Stage {String(i + 1).padStart(2, '0')}</span>
-                <span class="wb__tag">{s.data.tag}</span>
+          <button
+            type="button"
+            class="wb__card"
+            data-stage={s.id}
+            data-in={handles[i].in}
+            data-out={handles[i].out}
+            style={`left:${pos[i].x}px; top:${pos[i].y}px; width:${NODE_W}px; height:${NODE_H}px`}
+            aria-controls="wb-panel"
+            aria-pressed={s.id === defaultId ? 'true' : 'false'}
+          >
+            <span class="wb__card-top">
+              <span class="wb__stage">Stage {stageNo(i)}</span>
+              <span class="wb__tag">{s.data.tag}</span>
+            </span>
+            <span class="wb__card-title">{s.data.title}</span>
+            <span class="wb__card-sub">{s.data.summary}</span>
+            <span class="wb__card-foot">
+              <span class="wb__latency">
+                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
+                  ><path d="M9.6 1.2L3.2 9h3.4l-1.3 5.8 6.5-7.8H8.4z" /></svg
+                >{s.data.latency}
               </span>
-              <span class="wb__card-title">{s.data.title}</span>
-              <span class="wb__card-sub">{s.data.summary}</span>
-              <span class="wb__card-foot">
-                <span class="wb__latency">{s.data.latency}</span>
-                <span class="wb__secured">{s.data.governance}</span>
+              <span class="wb__secured">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
+                  ><path
+                    d="M13.3 8.6c0 3.3-2.3 5-5.1 6a.7.7 0 01-.44 0C5 13.6 2.7 11.9 2.7 8.6V4a.7.7 0 01.66-.67c1.33 0 3-.8 4.16-1.81a.78.78 0 011.01 0C9.67 2.53 11.34 3.33 12.67 3.33a.7.7 0 01.66.67z"
+                  /><path d="M6 8l1.33 1.33L10 6.67" /></svg
+                >{s.data.governance}
               </span>
-            </button>
-          </li>
+            </span>
+          </button>
         ))
       }
-    </ul>
-
-    {
-      stages.slice(0, -1).map((s, i) => (
-        <span class="wb__edge-label" style={`left:${(x(i) + x(i + 1)) / 2}%; top:${(y(i) + y(i + 1)) / 2}%`}>
-          {s.data.edge}
-        </span>
-      ))
-    }
+    </div>
   </div>
 
-  {/* Detail panel. Sits to the right of the canvas on wide screens and below
-      it on narrow ones. Hidden until a stage is chosen. */}
-  <div class="wb__panel" id="wb-panel" hidden>
+  {/* Zoom controls, bottom left, as on the reference. */}
+  <div class="wb__controls" role="group" aria-label="Diagram view">
+    <button type="button" id="wb-in" aria-label="Zoom in">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
+        ><path d="M8 3.5v9M3.5 8h9" /></svg
+      >
+    </button>
+    <button type="button" id="wb-out" aria-label="Zoom out">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
+        ><path d="M3.5 8h9" /></svg
+      >
+    </button>
+    <button type="button" id="wb-fit" aria-label="Fit diagram to view">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
+        ><path d="M6 2.5H2.5V6M10 2.5h3.5V6M6 13.5H2.5V10M10 13.5h3.5V10" /></svg
+      >
+    </button>
+  </div>
+
+  <p class="wb__hint">Click a stage, drag to pan, Ctrl and scroll to zoom</p>
+
+  {/* Detail panel. Overlaid on the canvas, inset from three edges, so opening
+      and closing it never resizes the diagram underneath. */}
+  <aside class="wb__panel" id="wb-panel" aria-label="Stage detail">
     {
       stages.map((s, i) => (
-        <article class="wb__detail" data-detail={s.id} hidden>
+        <article class="wb__detail" data-detail={s.id} hidden={s.id !== defaultId}>
           <p class="wb__detail-eyebrow">
-            <span>Stage {String(i + 1).padStart(2, '0')}</span>
+            <span>Stage {stageNo(i)}</span>
             <span class="wb__tag">{s.data.tag}</span>
           </p>
           <h4 class="wb__detail-title">{s.data.title}</h4>
@@ -92,16 +214,16 @@ const y = (i: number) => (i % 2 === 0 ? 26 : 74);
 
           <div class="wb__meta">
             <div>
-              <p class="wb__meta-label">SLA / Throughput</p>
+              <p class="wb__meta-label">Throughput</p>
               <p class="wb__meta-value">{s.data.latency}</p>
             </div>
             <div>
-              <p class="wb__meta-label">Governance</p>
+              <p class="wb__meta-label">Control</p>
               <p class="wb__meta-value wb__meta-value--accent">{s.data.governance}</p>
             </div>
           </div>
 
-          <p class="wb__detail-head">Core responsibilities</p>
+          <p class="wb__sec-head">Core responsibilities</p>
           <ul class="wb__detail-list">
             {s.data.responsibilities.map((r: string) => (
               <li>
@@ -114,67 +236,216 @@ const y = (i: number) => (i % 2 === 0 ? 26 : 74);
             ))}
           </ul>
 
-          <p class="wb__detail-head">Safeguard</p>
-          <p class="wb__safeguard">{s.data.safeguard}</p>
+          <div class="wb__safeguard">
+            <p class="wb__safeguard-head">Safeguard</p>
+            <p class="wb__safeguard-body">{s.data.safeguard}</p>
+          </div>
+
+          <div class="wb__techwrap">
+            <p class="wb__tech-head">Stage technologies</p>
+            <ul class="wb__tech">{s.data.tech.map((t: string) => <li>{t}</li>)}</ul>
+          </div>
         </article>
       ))
     }
     <button type="button" class="wb__close" id="wb-close" aria-label="Close stage detail">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
         <path d="M4 4l8 8M12 4l-8 8" />
       </svg>
     </button>
-  </div>
-  </div>
+  </aside>
 </div>
 
 <script is:inline>
   (() => {
+    const root = document.getElementById('wb');
+    const pane = document.getElementById('wb-pane');
+    const vp = document.getElementById('wb-viewport');
     const panel = document.getElementById('wb-panel');
-    const cards = document.querySelectorAll('.wb__card');
-    const details = document.querySelectorAll('[data-detail]');
-    const closeBtn = document.getElementById('wb-close');
-    const pulse = document.getElementById('wb-pulse');
-    if (!panel || !cards.length) return;
+    if (!root || !pane || !vp || !panel) return;
 
-    const close = () => {
-      panel.hidden = true;
-      document.getElementById('wb-body')?.classList.remove('has-panel');
-      cards.forEach((c) => {
-        c.setAttribute('aria-expanded', 'false');
-        c.classList.remove('is-active');
-      });
+    const cards = [...root.querySelectorAll('.wb__card')];
+    const details = [...root.querySelectorAll('[data-detail]')];
+    const contentW = +root.dataset.contentW;
+    const contentH = +root.dataset.contentH;
+
+    const MIN = 0.3;
+    const MAX = 1.8;
+    const GRID = 24;
+    let scale = 1;
+    let tx = 0;
+    let ty = 0;
+
+    /* The dot grid is painted on the pane, so it has to be re-offset and
+       re-sized by hand to stay locked to the diagram as it moves. */
+    const apply = () => {
+      vp.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
+      const step = GRID * scale;
+      pane.style.backgroundSize = step + 'px ' + step + 'px';
+      pane.style.backgroundPosition = tx + 'px ' + ty + 'px';
     };
 
-    const open = (id, card) => {
-      details.forEach((d) => (d.hidden = d.getAttribute('data-detail') !== id));
+    /* Fit into the area the panel is not covering, so no stage starts life
+       hidden behind it. Below the tablet break the panel is a bottom sheet,
+       so the reserved space is vertical instead. */
+    const isPhone = () => innerWidth <= 760;
+
+    const fit = () => {
+      const left = 20;
+      const top = 52;
+
+      /* On a phone, fitting the whole diagram would mean 0.3 scale and cards
+         70px wide, which is not readable. A diagram is a thing you pan, so
+         below the tablet break it opens at a legible scale anchored top left
+         and the reader drags, which is also why the hint stays visible there. */
+      if (isPhone()) {
+        scale = 0.8;
+        tx = left;
+        ty = top;
+        apply();
+        return;
+      }
+
+      // Fit into the area the panel is not covering, so no stage starts life
+      // hidden behind it.
+      const pw = panel.hidden ? 0 : panel.getBoundingClientRect().width;
+      const availW = pane.clientWidth - left - 20 - (pw ? pw + 28 : 0);
+      const availH = pane.clientHeight - top - 44;
+      scale = Math.max(MIN, Math.min(MAX, Math.min(availW / contentW, availH / contentH)));
+      tx = left + (availW - contentW * scale) / 2;
+      ty = top + (availH - contentH * scale) / 2;
+      apply();
+    };
+
+    /* Zoom about a fixed point, so the diagram grows under the cursor or the
+       centre of the frame rather than sliding away from it. */
+    const zoomAt = (factor, cx, cy) => {
+      const next = Math.max(MIN, Math.min(MAX, scale * factor));
+      if (next === scale) return;
+      tx = cx - ((cx - tx) * next) / scale;
+      ty = cy - ((cy - ty) * next) / scale;
+      scale = next;
+      apply();
+    };
+
+    const zoomCentre = (f) => zoomAt(f, pane.clientWidth / 2, pane.clientHeight / 2);
+
+    document.getElementById('wb-in').addEventListener('click', () => zoomCentre(1.25));
+    document.getElementById('wb-out').addEventListener('click', () => zoomCentre(0.8));
+    document.getElementById('wb-fit').addEventListener('click', fit);
+
+    /* Ctrl or Cmd plus wheel zooms. A bare wheel is left alone deliberately:
+       hijacking it would trap the reader's page scroll inside the diagram. */
+    pane.addEventListener(
+      'wheel',
+      (e) => {
+        if (!e.ctrlKey && !e.metaKey) return;
+        e.preventDefault();
+        const r = pane.getBoundingClientRect();
+        zoomAt(e.deltaY < 0 ? 1.12 : 0.89, e.clientX - r.left, e.clientY - r.top);
+      },
+      { passive: false }
+    );
+
+    // Drag to pan. A drag that moves is not treated as a click on a card.
+    let dragging = false;
+    let moved = false;
+    let ox = 0;
+    let oy = 0;
+
+    pane.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      dragging = true;
+      moved = false;
+      ox = e.clientX - tx;
+      oy = e.clientY - ty;
+      pane.setPointerCapture(e.pointerId);
+      pane.classList.add('is-grabbing');
+    });
+
+    pane.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const nx = e.clientX - ox;
+      const ny = e.clientY - oy;
+      if (Math.abs(nx - tx) > 2 || Math.abs(ny - ty) > 2) moved = true;
+      tx = nx;
+      ty = ny;
+      apply();
+    });
+
+    const endDrag = () => {
+      dragging = false;
+      pane.classList.remove('is-grabbing');
+    };
+    pane.addEventListener('pointerup', endDrag);
+    pane.addEventListener('pointercancel', endDrag);
+
+    // Pinch to zoom on a touch screen.
+    let pinch = 0;
+    pane.addEventListener(
+      'touchmove',
+      (e) => {
+        if (e.touches.length !== 2) return;
+        e.preventDefault();
+        const a = e.touches[0];
+        const b = e.touches[1];
+        const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+        if (pinch) {
+          const r = pane.getBoundingClientRect();
+          zoomAt(d / pinch, (a.clientX + b.clientX) / 2 - r.left, (a.clientY + b.clientY) / 2 - r.top);
+        }
+        pinch = d;
+      },
+      { passive: false }
+    );
+    pane.addEventListener('touchend', () => (pinch = 0));
+
+    const select = (id) => {
+      const wasHidden = panel.hidden;
+      details.forEach((d) => (d.hidden = d.dataset.detail !== id));
       panel.hidden = false;
-      document.getElementById('wb-body')?.classList.add('has-panel');
-      cards.forEach((c) => {
-        const on = c === card;
-        c.setAttribute('aria-expanded', String(on));
-        c.classList.toggle('is-active', on);
-      });
+      cards.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.stage === id)));
+      if (wasHidden) fit();
     };
 
     cards.forEach((card) => {
-      card.addEventListener('click', () => {
-        const id = card.getAttribute('data-stage');
-        if (card.classList.contains('is-active')) close();
-        else open(id, card);
+      card.addEventListener('click', (e) => {
+        if (moved) {
+          e.preventDefault();
+          return;
+        }
+        select(card.dataset.stage);
       });
     });
 
-    closeBtn?.addEventListener('click', close);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !panel.hidden) close();
+    document.getElementById('wb-close').addEventListener('click', () => {
+      panel.hidden = true;
+      cards.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+      fit();
     });
 
-    // Pause and resume the edge animation.
-    pulse?.addEventListener('click', () => {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) document.getElementById('wb-close').click();
+    });
+
+    // Pause and resume the travelling dashes.
+    const pulse = document.getElementById('wb-pulse');
+    pulse.addEventListener('click', () => {
       const on = pulse.getAttribute('aria-pressed') !== 'true';
       pulse.setAttribute('aria-pressed', String(on));
-      document.querySelector('.wb')?.classList.toggle('is-paused', !on);
+      root.classList.toggle('is-paused', !on);
+    });
+
+    if (isPhone()) {
+      panel.hidden = true;
+      cards.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+    }
+
+    fit();
+    let t;
+    addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(fit, 150);
     });
   })();
 </script>
