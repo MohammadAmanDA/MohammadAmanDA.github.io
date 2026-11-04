@@ -12,14 +12,14 @@ brief:
   approach: >-
     Automated model selection per entity, because hand-tuning thousands of series
     is not realistic. A pipeline that maps payment platform exports and bank
-    statement text into liquidity categories. A DistilBERT classifier for payment
+    statement text into liquidity categories. A a TF-IDF matcher for payment
     categorisation with confidence scoring, so low-confidence cases route to human
     review and those decisions feed retraining. R Shiny applications on Azure so
     country teams manage their own forecasts.
   outcome: >-
     Running in production. Manual forecast preparation reduced by approximately
     75 percent, manual categorisation by approximately 85 percent, and one
-    recurring reporting workflow from eight hours to fifteen minutes. The
+    daily close from five or six hours to two or three. The
     deployment received Silver for Best AI Deployment at the TMI Awards 2023.
 # You suggested "SaaS". I have not used it, because it would be inaccurate: this
 # is an internal system built for one treasury and deployed on the employer's
@@ -29,7 +29,7 @@ category: Production ML · time-series forecasting
 confidential: true
 period:
   start: "2023-04"
-  end: null
+  end: "2026-07"
 stack:
   - R
   - R Shiny
@@ -37,7 +37,7 @@ stack:
   - Prophet
   - ARIMA
   - XGBoost
-  - DistilBERT
+  - TF-IDF
   - SQL
   - PostgreSQL
   - Azure
@@ -86,12 +86,12 @@ constraints:
 # ---- 3. my role ----
 myRole:
   - >-
-    Cash & FX Forecast Specialist at FAMI Ltd (IKEA Group Treasury) since April
-    2023, working with Treasury, Tax and Finance stakeholders to turn
-    operational requirements into working systems.
+    Cash & FX Forecast Specialist at FAMI Ltd (IKEA Group Treasury) from April
+    2023 to July 2026, working with Treasury, Tax and Finance stakeholders to
+    turn operational requirements into working systems.
   - >-
     Built with one colleague, with me as the lead. Every machine learning model
-    in the system is mine, as are the data managers that feed them, the
+    in the system was mine, as were the data managers that feed them, the
     reporting layer around them, and the dashboards treasury teams use.
   - >-
     The scope extended beyond forecasting. It comprised identifying and
@@ -137,7 +137,7 @@ approach:
     detail:
       - >-
         Payment volume runs above 50,000 a day, which is far past the point
-        where manual categorisation is viable. A DistilBERT-based classifier
+        where manual categorisation is viable. A TF-IDF matcher
         assigns categories, and every prediction carries a confidence score.
       - >-
         Low-confidence predictions route to a human review queue rather than
@@ -198,8 +198,8 @@ outcome:
     - value: "~85%"
       label: reduction in manual transaction categorisation
       source: owner-supplied, approved for publication 2026-08-02
-    - value: 8 hrs to 15 min
-      label: recurring reporting workflow
+    - value: 5-6 hrs to 2-3
+      label: daily close
       source: owner-supplied, approved for publication 2026-08-02
     - value: "€0"
       label: software cost to run the system

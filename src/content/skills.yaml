@@ -17,7 +17,7 @@
     - scikit-learn
     - pandas
     - NumPy
-    - DistilBERT
+    - TF-IDF
     - NLP for transaction text
 
 - id: data

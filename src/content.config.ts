@@ -86,12 +86,68 @@ const projects = defineCollection({
 });
 
 /** Plain statements of the work taken on. */
+/* Capability cards. Structure mirrors the reference: mono label, ghost number,
+ * heading, sub-line, checked bullets, an impact box, a target metric, and
+ * technology pills. */
 const services = defineCollection({
   loader: file('./src/content/services.yaml'),
   schema: z.object({
+    order: z.number().int(),
+    label: z.string().min(1),
     title: z.string().min(1),
     detail: z.string().min(1),
+    bullets: z.array(z.string().min(1)).min(2),
+    impact: z.string().min(1),
+    metric: z.string().min(1),
+    tech: z.array(z.string().min(1)).min(2),
+  }),
+});
+
+/* Stages in the Architecture Workbench diagram. */
+const pipeline = defineCollection({
+  loader: file('./src/content/pipeline.yaml'),
+  schema: z.object({
     order: z.number().int(),
+    tag: z.string().min(1),
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    latency: z.string().min(1),
+    edge: z.string().min(1),
+    governance: z.string().min(1),
+    responsibilities: z.array(z.string().min(1)).min(2),
+    safeguard: z.string().min(1),
+  }),
+});
+
+const caseStudies = defineCollection({
+  loader: file('./src/content/case-studies.yaml'),
+  schema: z.object({
+    order: z.number().int(),
+    period: z.string().min(1),
+    category: z.string().min(1),
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    role: z.string().min(1),
+    href: z.string().min(1),
+    metrics: z
+      .array(z.object({ label: z.string().min(1), sub: z.string().min(1), value: z.string().min(1) }))
+      .min(2),
+  }),
+});
+
+const trajectory = defineCollection({
+  loader: file('./src/content/trajectory.yaml'),
+  schema: z.object({
+    order: z.number().int(),
+    period: z.string().min(1),
+    status: z.string().min(1),
+    org: z.string().min(1),
+    location: z.string().min(1),
+    title: z.string().min(1),
+    subtitle: z.string().min(1),
+    summary: z.string().min(1),
+    bullets: z.array(z.string().min(1)).min(1),
+    tech: z.array(z.string().min(1)).min(1),
   }),
 });
 
@@ -154,8 +210,30 @@ const profile = defineCollection({
   loader: file('./src/content/profile.yaml'),
   schema: z.object({
     name: z.string().min(1),
-    /** The line under the name. What I do, in one sentence. */
+    /** Small mono label above the headline. The category of work. */
     role: z.string().min(1),
+    /** The hero headline. A statement of what I build, not a slogan. */
+    statement: z.string().min(1),
+    /** The single paragraph under the headline. Two or three lines, no more. */
+    lead: z.string().min(1),
+    /**
+     * Three evidence cards under the hero. Every value must already be
+     * approved for publication; `source` records where it came from so no
+     * number can appear without provenance.
+     */
+    highlights: z
+      .array(
+        z.object({
+          label: z.string().min(1),
+          value: z.string().min(1),
+          detail: z.string().min(1),
+          source: z.string().min(1),
+          /** Makes the card a link into the relevant case study. */
+          href: z.string().optional(),
+        })
+      )
+      .min(3)
+      .max(4),
     /** The positioning paragraphs at the top of the page. */
     intro: prose,
     metaDescription: z.string().min(1).max(160),
@@ -181,4 +259,4 @@ const profile = defineCollection({
   }),
 });
 
-export const collections = { projects, services, skills, publications, roles, education, profile };
+export const collections = { projects, services, pipeline, caseStudies, trajectory, skills, publications, roles, education, profile };

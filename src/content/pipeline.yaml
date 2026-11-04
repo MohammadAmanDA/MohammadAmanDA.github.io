@@ -1,0 +1,87 @@
+# Forecasting workflow stages for the Architecture Workbench.
+# From your described pipeline and resume.md. Throughput values describe the
+# cadence rather than claiming a measured latency.
+
+- id: ingest
+  order: 1
+  tag: Raw Sources
+  title: Statement & Platform Ingest
+  summary: Bank statements and payment platform exports
+  latency: Scheduled
+  edge: Raw records
+  governance: Inside tenancy
+  responsibilities:
+    - Pulls bank statement files and payment platform exports on a schedule.
+    - Handles formats as they arrive rather than requiring a fixed schema.
+    - Records what landed, so a missing file is visible rather than silent.
+  safeguard: No data leaves the organisation's own infrastructure.
+
+- id: clean
+  order: 2
+  tag: Cleaning
+  title: Parsing & Normalisation
+  summary: NLP over free-text statement fields
+  latency: Per batch
+  edge: Parsed rows
+  governance: Deterministic first
+  responsibilities:
+    - Parses structured fields with ordinary rules, not a model.
+    - Applies NLP only to the free-text description, where it is the single clue to what a line item is.
+    - Flags rows it cannot parse instead of guessing at them.
+  safeguard: Unparseable rows are escalated, never silently dropped.
+
+- id: map
+  order: 3
+  tag: Mapping
+  title: Transaction Classification
+  summary: TF-IDF with confidence-scored review
+  latency: 50,000+ / day
+  edge: Categorised flows
+  governance: Human in the loop
+  responsibilities:
+    - Assigns a liquidity category to every payment, with a confidence score attached.
+    - Routes low-confidence cases to a human review queue rather than letting them through.
+    - Feeds those human decisions back into retraining, so the model improves where it is weakest.
+  safeguard: Uncertain predictions never reach downstream reporting unreviewed.
+
+- id: series
+  order: 4
+  tag: History
+  title: Clean Historical Series
+  summary: Consistent history per entity
+  latency: Per entity
+  edge: Training data
+  governance: Reconciled
+  responsibilities:
+    - Assembles consistent history from sources that disagree with each other.
+    - Reconciles platform exports against bank statement records.
+    - Produces the series the models are actually fitted on.
+  safeguard: A model fitted to inconsistent history forecasts confidently and wrongly, so this stage gates the next.
+
+- id: models
+  order: 5
+  tag: Model Selection
+  title: Automated Model Selection
+  summary: Prophet, ARIMA and XGBoost per entity
+  latency: Per entity
+  edge: Selected model
+  governance: Best model wins
+  responsibilities:
+    - Scores candidate models for every entity and selects the best performer automatically.
+    - Covers different shapes of series, strong seasonality, autocorrelated residuals, and exogenous drivers.
+    - Turns a modelling problem that does not scale into an evaluation problem that does.
+  safeguard: No entity depends on a single hand-tuned model.
+
+- id: forecast
+  order: 6
+  tag: Output
+  title: Forecast & Monitoring
+  summary: R Shiny on Azure, forecast against actuals
+  latency: Daily cycle
+  edge: Funding decision
+  governance: Self-served
+  responsibilities:
+    - Publishes end-of-day and short-term liquidity forecasts to the teams that fund the position.
+    - Country teams manage their own forecasts rather than queueing for a central change.
+    - Compares forecast against actuals so the error stays visible.
+  safeguard: A forecasting system that does not publish its own error is asking to be trusted rather than earning it.

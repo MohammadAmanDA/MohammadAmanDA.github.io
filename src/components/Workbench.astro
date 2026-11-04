@@ -1,0 +1,180 @@
+---
+import { getCollection } from 'astro:content';
+
+const stages = (await getCollection('pipeline')).sort((a, b) => a.data.order - b.data.order);
+
+/* Node geometry. Stages zig-zag between two rows, as in the reference, so the
+ * edges read as a flow rather than a straight line. Coordinates are in the
+ * SVG viewBox space and the cards are positioned with the same percentages. */
+const COLS = stages.length;
+const x = (i: number) => (100 / COLS) * i + 100 / COLS / 2;
+const y = (i: number) => (i % 2 === 0 ? 26 : 74);
+---
+
+<div class="wb">
+  <div class="wb__bar">
+    <p class="wb__title"><span class="wb__dot" aria-hidden="true"></span>Cash &amp; FX Forecasting Pipeline</p>
+    <button type="button" class="wb__pulse" id="wb-pulse" aria-pressed="true">
+      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.5l7 4.5-7 4.5z" /></svg>
+      Simulate signal pulse
+    </button>
+  </div>
+
+  <div class="wb__body" id="wb-body">
+  <div class="wb__canvas">
+    {/* Edge layer. Dashed strokes with an animated dashoffset, the same
+        technique the reference uses for its moving arrows. */}
+    <svg class="wb__edges" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      {
+        stages.slice(0, -1).map((_s, i) => {
+          const x1 = x(i);
+          const y1 = y(i);
+          const x2 = x(i + 1);
+          const y2 = y(i + 1);
+          const mx = (x1 + x2) / 2;
+          return (
+            <g class="wb__edge">
+              <path class="wb__edge-path" d={`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`} />
+            </g>
+          );
+        })
+      }
+    </svg>
+
+    <ul class="wb__nodes">
+      {
+        stages.map((s, i) => (
+          <li class="wb__node" style={`left:${x(i)}%; top:${y(i)}%`}>
+            <button
+              type="button"
+              class="wb__card"
+              data-stage={s.id}
+              aria-expanded="false"
+              aria-controls="wb-panel"
+            >
+              <span class="wb__card-top">
+                <span class="wb__stage">Stage {String(i + 1).padStart(2, '0')}</span>
+                <span class="wb__tag">{s.data.tag}</span>
+              </span>
+              <span class="wb__card-title">{s.data.title}</span>
+              <span class="wb__card-sub">{s.data.summary}</span>
+              <span class="wb__card-foot">
+                <span class="wb__latency">{s.data.latency}</span>
+                <span class="wb__secured">{s.data.governance}</span>
+              </span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      stages.slice(0, -1).map((s, i) => (
+        <span class="wb__edge-label" style={`left:${(x(i) + x(i + 1)) / 2}%; top:${(y(i) + y(i + 1)) / 2}%`}>
+          {s.data.edge}
+        </span>
+      ))
+    }
+  </div>
+
+  {/* Detail panel. Sits to the right of the canvas on wide screens and below
+      it on narrow ones. Hidden until a stage is chosen. */}
+  <div class="wb__panel" id="wb-panel" hidden>
+    {
+      stages.map((s, i) => (
+        <article class="wb__detail" data-detail={s.id} hidden>
+          <p class="wb__detail-eyebrow">
+            <span>Stage {String(i + 1).padStart(2, '0')}</span>
+            <span class="wb__tag">{s.data.tag}</span>
+          </p>
+          <h4 class="wb__detail-title">{s.data.title}</h4>
+          <p class="wb__detail-sub">{s.data.summary}</p>
+
+          <div class="wb__meta">
+            <div>
+              <p class="wb__meta-label">SLA / Throughput</p>
+              <p class="wb__meta-value">{s.data.latency}</p>
+            </div>
+            <div>
+              <p class="wb__meta-label">Governance</p>
+              <p class="wb__meta-value wb__meta-value--accent">{s.data.governance}</p>
+            </div>
+          </div>
+
+          <p class="wb__detail-head">Core responsibilities</p>
+          <ul class="wb__detail-list">
+            {s.data.responsibilities.map((r: string) => (
+              <li>
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <circle cx="8" cy="8" r="6.25" />
+                  <path d="M5.4 8.2l1.8 1.8 3.4-3.6" />
+                </svg>
+                <span>{r}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p class="wb__detail-head">Safeguard</p>
+          <p class="wb__safeguard">{s.data.safeguard}</p>
+        </article>
+      ))
+    }
+    <button type="button" class="wb__close" id="wb-close" aria-label="Close stage detail">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M4 4l8 8M12 4l-8 8" />
+      </svg>
+    </button>
+  </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const panel = document.getElementById('wb-panel');
+    const cards = document.querySelectorAll('.wb__card');
+    const details = document.querySelectorAll('[data-detail]');
+    const closeBtn = document.getElementById('wb-close');
+    const pulse = document.getElementById('wb-pulse');
+    if (!panel || !cards.length) return;
+
+    const close = () => {
+      panel.hidden = true;
+      document.getElementById('wb-body')?.classList.remove('has-panel');
+      cards.forEach((c) => {
+        c.setAttribute('aria-expanded', 'false');
+        c.classList.remove('is-active');
+      });
+    };
+
+    const open = (id, card) => {
+      details.forEach((d) => (d.hidden = d.getAttribute('data-detail') !== id));
+      panel.hidden = false;
+      document.getElementById('wb-body')?.classList.add('has-panel');
+      cards.forEach((c) => {
+        const on = c === card;
+        c.setAttribute('aria-expanded', String(on));
+        c.classList.toggle('is-active', on);
+      });
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-stage');
+        if (card.classList.contains('is-active')) close();
+        else open(id, card);
+      });
+    });
+
+    closeBtn?.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) close();
+    });
+
+    // Pause and resume the edge animation.
+    pulse?.addEventListener('click', () => {
+      const on = pulse.getAttribute('aria-pressed') !== 'true';
+      pulse.setAttribute('aria-pressed', String(on));
+      document.querySelector('.wb')?.classList.toggle('is-paused', !on);
+    });
+  })();
+</script>

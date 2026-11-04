@@ -6,15 +6,15 @@
   org: FAMI Ltd, IKEA Group Treasury
   location: Dublin, Ireland
   start: "2023-04"
-  end: null
+  end: "2026-07"
   order: 1
   confidential: true
   bullets:
-    - Lead the cash and FX forecasting system covering end-of-day and short-term liquidity across 27 countries and approximately 2,200 legal entities.
+    - Led the cash and FX forecasting system covering end-of-day and short-term liquidity across 27 countries and approximately 2,200 legal entities.
     - Built an automated model-selection framework that scores and selects a forecasting model per entity, so accuracy scales without hand-tuning thousands of series.
     - Built the data pipeline that maps external payment platform exports into liquidity categories, and structured bank statement data into consistent history using deterministic parsing with NLP for the free-text fields.
-    - Built a transaction classification workflow for over 50,000 payments a day using DistilBERT, with confidence-scored routing to human review and a feedback loop into retraining. Manual categorisation fell by approximately 85 percent.
-    - Reduced manual forecast preparation by approximately 75 percent, and took one recurring reporting workflow from eight hours to fifteen minutes.
+    - Built a transaction classification workflow for over 50,000 payments a day using TF-IDF matching, with confidence-scored routing to human review and a feedback loop into retraining. Manual categorisation fell by approximately 85 percent.
+    - Reduced manual forecast preparation by approximately 75 percent, and cut the daily close from five or six hours to two or three.
     - Developed and deployed country-level forecast management applications in R Shiny on Azure, and migrated workflows off SharePoint onto cloud infrastructure.
     - Built reporting that compares forecast against actuals, so forecast error is visible to the teams relying on it.
     - The deployment received Silver for Best AI Deployment at the TMI Awards 2023, issued by Treasury Management International in March 2024.

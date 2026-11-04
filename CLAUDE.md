@@ -24,6 +24,14 @@ the treasury machine learning as **data science**, which is his stated strength,
 and reserving the **AI** framing for safeframe and PlanScan as personal
 projects. Tracked as Q-N1 and awaiting his confirmation.
 
+### Employment status, confirmed 2026-11-03
+The FAMI Ltd / IKEA Group Treasury role **ended in July 2026**. Confirmed by the
+owner. Everything about it is past tense: `roles.yaml` and the Cash & FX project
+carry `end: "2026-07"`, and the intro reads "For three years at IKEA Group
+Treasury, until July 2026, I did exactly that". Do not reintroduce "present",
+"since April 2023", or any present-tense verb for that role. He is currently
+available, which is what the contact section already says.
+
 ### Structure
 One main page at `/`, with sections: intro, what I can help with, selected work,
 experience, research and education, skills and stack, contact. Nav is four

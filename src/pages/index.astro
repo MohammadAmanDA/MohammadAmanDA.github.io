@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Link from '../components/Link.astro';
+import Workbench from '../components/Workbench.astro';
 
 const profile = (await getEntry('profile', 'profile'))!;
 const {
@@ -15,12 +16,15 @@ const {
   profiles,
   research,
   photo,
+  statement,
+  lead,
+  highlights,
 } = profile.data;
 
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const caseStudies = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);
+const trajectory = (await getCollection('trajectory')).sort((a, b) => a.data.order - b.data.order);
 const skills = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
-const roles = (await getCollection('roles')).sort((a, b) => a.data.order - b.data.order);
 const education = (await getCollection('education')).sort((a, b) => a.data.order - b.data.order);
 const selectedPubs = (await getCollection('publications'))
   .filter((p) => p.data.selected)
@@ -33,27 +37,44 @@ const fmt = (value: string) => {
   const [y, m] = value.split('-').map(Number);
   return `${new Date(Date.UTC(y, m - 1)).toLocaleString('en-IE', { month: 'short', timeZone: 'UTC' })} ${y}`;
 };
-const range = (start: string, end: string | null) => `${fmt(start)} to ${end ? fmt(end) : 'present'}`;
 
-const statusLabel: Record<string, string> = {
-  production: 'In production',
-  'in-progress': 'In progress',
-  mvp: 'Working package',
-  analysis: 'Completed analysis',
-  archived: 'Archived',
+// Section headlines. Structural copy, drafted 2026-11-04, not facts: every one
+// is descriptive of a section already on the page. Edit freely.
+const headline: Record<string, string> = {
+  services: 'Forecasting, pipelines, and the models that run on them.',
+  work: 'Five systems, each written up with what it cannot do.',
+  experience: 'Three years inside a group treasury that runs on forecasts.',
+  research: 'A decade of applied mathematics behind the applied work.',
+  skills: 'Tools I have shipped with, not tools I have read about.',
+  about: 'From generating functions to cash flows.',
+  contact: 'Available now.',
+  workbench: 'Interactive architecture workbench.',
+  cases: 'Selected case studies.',
+  trajectory: 'Career trajectory and milestones.',
 };
 ---
 
 <BaseLayout title={`${name}, ${role.toLowerCase()}`} description={metaDescription}>
-  <div class="wrap">
     {/* A <div>, not a <header>. A <header> whose nearest sectioning ancestor is
         not an article or section is exposed as a banner landmark, and the page
         already has one in the site header. */}
+    <div class="wrap">
     <div class="intro">
+      <p class="intro__eyebrow meta-xs">
+        {location} <span aria-hidden="true">·</span>
+        {/* Your wording, with one change: "AI consulting" became "AI automation
+            consulting". Offering AI consulting outright implies professional AI
+            delivery experience, which is the one thing we agreed not to claim.
+            "AI automation" is the emerging, project-based framing we settled
+            on, and it still says the word. One line to change. */}
+        <span class="intro__available"
+          >Available for technology transformation, data and AI automation consulting</span
+        >
+      </p>
       <div class="intro__head">
         <div>
-          <h1>{name}</h1>
           <p class="intro__role">{role}</p>
+          <h1>{statement}</h1>
         </div>
         {
           photo && (
@@ -68,115 +89,232 @@ const statusLabel: Record<string, string> = {
           )
         }
       </div>
-      <div class="intro__body prose">
-        {intro.map((p: string) => <p>{p}</p>)}
+      <p class="intro__lead" data-reveal>{lead}</p>
+
+      <div class="intro__actions">
+        <a class="btn btn--primary" href={`mailto:${email}`}>
+          Get in touch
+          <svg
+            class="btn__arrow"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
+        </a>
+        <a class="btn btn--secondary" href="#work">View the work</a>
       </div>
-      <p class="meta intro__meta">
-        {location}{workAuthorisation ? ` · ${workAuthorisation}` : ''} ·{' '}
-        <a href={`mailto:${email}`}>{email}</a>
-      </p>
+
+      <div class="cards" data-reveal>
+        {
+          highlights.map((h) => {
+            const Tag = h.href ? 'a' : 'div';
+            return (
+              <Tag class="card" href={h.href}>
+                <p class="card__label">{h.label}</p>
+                <p class="card__value">{h.value}</p>
+                <p class="card__detail">{h.detail}</p>
+                {h.href && (
+                  <svg
+                    class="card__arrow"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M4 12L12 4M6 4h6v6" />
+                  </svg>
+                )}
+              </Tag>
+            );
+          })
+        }
+      </div>
+    </div>
     </div>
 
-    <section class="section" id="services" aria-labelledby="services-h">
+    <section class="section section--band" data-reveal id="services" aria-labelledby="services-h">
+      <div class="wrap">
       <p class="section__num" aria-hidden="true">01</p>
       <h2 id="services-h" class="section__label">What I can help with</h2>
-      <dl class="services">
+      <p class="section__headline">{headline.services}</p>
+      <div class="caps">
         {
-          services.map((s) => (
-            <div class="service">
-              <dt>{s.data.title}</dt>
-              <dd>{s.data.detail}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </section>
+          services.map((sv, i) => (
+            <article class="cap">
+              <div class="cap__top">
+                <span class="cap__icon" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <rect x="2.5" y="2.5" width="11" height="11" rx="2" />
+                    <path d="M2.5 6.5h11M6.5 6.5v7" />
+                  </svg>
+                </span>
+                <p class="cap__label">{sv.data.label}</p>
+                <span class="cap__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              </div>
 
-    <section class="section" id="work" aria-labelledby="work-h">
-      <p class="section__num" aria-hidden="true">02</p>
-      <h2 id="work-h" class="section__label">Selected work</h2>
-      <div class="projects">
-        {
-          projects.map((p) => (
-            <article class="project">
-              <h3 class="project__title">
-                <a href={`/work/${p.id}`}>{p.data.title}</a>
-              </h3>
-              <p class="meta-xs project__meta">
-                {p.data.category} · {statusLabel[p.data.status]} ·{' '}
-                {p.data.kind === 'personal' ? 'Personal project' : 'Professional work'}
-                {p.data.confidential && <> · Described at capability level under NDA</>}
-              </p>
+              <h3 class="cap__title">{sv.data.title}</h3>
+              <p class="cap__detail">{sv.data.detail}</p>
 
-              <dl class="brief">
-                <dt>Problem</dt>
-                <dd>{p.data.brief.problem}</dd>
-                <dt>Approach</dt>
-                <dd>{p.data.brief.approach}</dd>
-                <dt>Outcome</dt>
-                <dd>{p.data.brief.outcome}</dd>
-              </dl>
-
-              <p class="meta-xs project__stack">{p.data.stack.join(' · ')}</p>
-              <p class="meta-xs">
-                <a href={`/work/${p.id}`}>Full write-up</a>
-                {p.data.links.map((l) => (
-                  <>
-                    {' · '}
-                    <Link href={l.href}>{l.label}</Link>
-                  </>
+              <ul class="cap__list">
+                {sv.data.bullets.map((b: string) => (
+                  <li>
+                    <svg class="cap__tick" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                      <circle cx="8" cy="8" r="6.25" />
+                      <path d="M5.4 8.2l1.8 1.8 3.4-3.6" />
+                    </svg>
+                    <span>{b}</span>
+                  </li>
                 ))}
-              </p>
+              </ul>
+
+              <div class="cap__impact">
+                <p class="cap__impact-label">Executive business impact</p>
+                <p>{sv.data.impact}</p>
+              </div>
+
+              <div class="cap__metric">
+                <span class="cap__metric-label">Target<br />Metric:</span>
+                <span class="cap__metric-value">{sv.data.metric}</span>
+              </div>
+
+              <ul class="cap__tech">
+                {sv.data.tech.map((t: string) => <li>{t}</li>)}
+              </ul>
             </article>
           ))
         }
       </div>
-    </section>
-
-    <section class="section" id="experience" aria-labelledby="exp-h">
-      <p class="section__num" aria-hidden="true">03</p>
-      <h2 id="exp-h" class="section__label">Experience</h2>
-      {
-        roles
-          .filter((r) => !r.data.minor)
-          .map((r) => (
-            <div class="role">
-              <h3>{r.data.title}</h3>
-              <p class="meta-xs">
-                {r.data.org} · {r.data.location} · {range(r.data.start, r.data.end)}
-              </p>
-              <ul class="bullets">
-                {r.data.bullets.map((b: string) => (
-                  <li>{b}</li>
-                ))}
-              </ul>
-            </div>
-          ))
-      }
-      <div class="role role--earlier">
-        <h3>Earlier</h3>
-        <ul class="earlier">
-          {
-            roles
-              .filter((r) => r.data.minor)
-              .map((r) => (
-                <li>
-                  <span class="earlier__title">{r.data.title}</span>
-                  <span class="meta-xs">
-                    {' '}
-                    {r.data.org} · {range(r.data.start, r.data.end)}
-                  </span>
-                  {r.data.line && <p class="earlier__line">{r.data.line}</p>}
-                </li>
-              ))
-          }
-        </ul>
       </div>
     </section>
 
-    <section class="section" id="research" aria-labelledby="res-h">
+    <section class="section" data-reveal id="workbench" aria-labelledby="wb-h">
+      <div class="wrap">
+      <p class="section__num" aria-hidden="true">02</p>
+      <h2 id="wb-h" class="section__label">Technical depth</h2>
+      <p class="section__headline">{headline.workbench}</p>
+      <p class="section__lead">
+        A node view of the cash and FX forecasting pipeline. Click any stage to see what it is
+        responsible for, what it guarantees, and what it refuses to do.
+      </p>
+      <Workbench />
+      </div>
+    </section>
+
+    <section class="section" data-reveal id="work" aria-labelledby="work-h">
+      <div class="wrap">
+      <p class="section__num" aria-hidden="true">03</p>
+      <h2 id="work-h" class="section__label">Selected engagements</h2>
+      <p class="section__headline">{headline.cases}</p>
+      <p class="section__lead">
+        Three systems, written up with the decisions that shaped them and what each one still
+        cannot do. Open any card for the full write-up.
+      </p>
+
+      <div class="cs">
+        {
+          caseStudies.map((c, i) => (
+            <a class="cs__card" href={c.data.href}>
+              <span class="cs__head">
+                <span class="cs__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span class="cs__period">{c.data.period}</span>
+              </span>
+              <span class="cs__cat">{c.data.category}</span>
+              <span class="cs__title">{c.data.title}</span>
+              <span class="cs__summary">{c.data.summary}</span>
+              <span class="cs__role">
+                <span class="cs__role-label">Role:</span> {c.data.role}
+              </span>
+
+              <span class="cs__impact">
+                <span class="cs__impact-head">
+                  <span class="cs__impact-title">Verified impact</span>
+                  <span class="cs__impact-note">Key metrics</span>
+                </span>
+                {c.data.metrics.map((m) => (
+                  <span class="cs__row">
+                    <span>
+                      <span class="cs__row-label">{m.label}</span>
+                      <span class="cs__row-sub">{m.sub}</span>
+                    </span>
+                    <span class="cs__row-value">{m.value}</span>
+                  </span>
+                ))}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+      </div>
+    </section>
+
+    <section class="section section--band" data-reveal id="experience" aria-labelledby="exp-h">
+      <div class="wrap">
       <p class="section__num" aria-hidden="true">04</p>
+      <h2 id="exp-h" class="section__label">Professional record</h2>
+      <p class="section__headline">{headline.trajectory}</p>
+      <p class="section__lead">
+        A chronological record spanning production treasury forecasting at IKEA Group Treasury,
+        analytics consulting, and a decade in applied mathematics.
+      </p>
+
+      <ol class="tl">
+        {
+          trajectory.map((t) => (
+            <li class="tl__item">
+              <span class="tl__dot" aria-hidden="true"></span>
+              <article class="tl__card">
+                <div class="tl__top">
+                  <div class="tl__when">
+                    <span class="tl__period">{t.data.period}</span>
+                    <span class="chip">{t.data.status}</span>
+                  </div>
+                  <p class="tl__where">
+                    {t.data.org} <span aria-hidden="true">·</span> {t.data.location}
+                  </p>
+                </div>
+
+                <h3 class="tl__title">{t.data.title}</h3>
+                <p class="tl__subtitle">{t.data.subtitle}</p>
+                <p class="tl__summary">{t.data.summary}</p>
+
+                <p class="tl__head">Key deliverables and outcomes</p>
+                <ul class="tl__list">
+                  {t.data.bullets.map((b: string) => (
+                    <li>
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <circle cx="8" cy="8" r="6.25" />
+                        <path d="M5.4 8.2l1.8 1.8 3.4-3.6" />
+                      </svg>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <ul class="tl__tech">
+                  {t.data.tech.map((x: string) => <li>{x}</li>)}
+                </ul>
+              </article>
+            </li>
+          ))
+        }
+      </ol>
+      </div>
+    </section>
+
+    <section class="section" data-reveal id="research" aria-labelledby="res-h">
+      <div class="wrap">
+      <p class="section__num" aria-hidden="true">05</p>
       <h2 id="res-h" class="section__label">Research and education</h2>
+      <p class="section__headline">{headline.research}</p>
 
       <div class="prose">
         <p>
@@ -223,11 +361,14 @@ const statusLabel: Record<string, string> = {
           ))
         }
       </ul>
+      </div>
     </section>
 
-    <section class="section" id="skills" aria-labelledby="skills-h">
-      <p class="section__num" aria-hidden="true">05</p>
+    <section class="section section--band" data-reveal id="skills" aria-labelledby="skills-h">
+      <div class="wrap">
+      <p class="section__num" aria-hidden="true">06</p>
       <h2 id="skills-h" class="section__label">Skills and stack</h2>
+      <p class="section__headline">{headline.skills}</p>
       <dl class="skills">
         {
           skills.map((s) => (
@@ -238,33 +379,125 @@ const statusLabel: Record<string, string> = {
           ))
         }
       </dl>
-    </section>
-
-    <section class="section" id="contact" aria-labelledby="contact-h">
-      <p class="section__num" aria-hidden="true">06</p>
-      <h2 id="contact-h" class="section__label">Contact</h2>
-      <div class="prose">
-        <p>
-          Available for consulting and contract work in forecasting, data pipelines and reporting
-          automation, and open to data science roles. Email is the most reliable route.
-        </p>
-        <p class="contact__links">
-          <a href={`mailto:${email}`}>{email}</a>
-          {profiles.map((p) => (
-            <>
-              {' · '}
-              <Link href={p.href}>{p.label}</Link>
-            </>
-          ))}
-        </p>
       </div>
     </section>
-  </div>
+
+    <section class="section" data-reveal id="about" aria-labelledby="about-h">
+      <div class="wrap">
+      <p class="section__num" aria-hidden="true">07</p>
+      <h2 id="about-h" class="section__label">About</h2>
+      <p class="section__headline">{headline.about}</p>
+      <div class="prose">
+        {intro.map((p: string) => <p>{p}</p>)}
+      </div>
+      </div>
+    </section>
+
+    <section class="section" data-reveal id="contact" aria-labelledby="contact-h">
+      <div class="wrap">
+      <p class="section__num" aria-hidden="true">07</p>
+      <h2 id="contact-h" class="section__label">Let's connect</h2>
+      <p class="section__headline">{headline.contact}</p>
+
+      <div class="ct">
+        <div class="ct__main">
+          <p class="ct__lead">
+            Available for consulting in forecasting, data pipelines and reporting automation, and
+            open to data science roles. Email is the most reliable route.
+          </p>
+          <div class="ct__actions">
+            <a class="btn btn--primary" href={`mailto:${email}`}>
+              {email}
+              <svg
+                class="btn__arrow"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4.5 11.5l7-7M6 4.5h5.5V10" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <ul class="ct__links">
+          {
+            profiles.map((pr) => (
+              <li>
+                <Link class="ct__link" href={pr.href}>
+                  <span class="ct__link-label">{pr.label}</span>
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M4.5 11.5l7-7M6 4.5h5.5V10" />
+                  </svg>
+                </Link>
+              </li>
+            ))
+          }
+          <li>
+            <span class="ct__link ct__link--static">
+              <span class="ct__link-label">{location}</span>
+              <span class="chip">{workAuthorisation}</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      </div>
+    </section>
 </BaseLayout>
 
 <style>
   .intro {
     padding-top: var(--space-8);
+  }
+
+  /* Eyebrow is the sans at 12px, not mono. The mono is reserved for the
+     category label directly above the headline. */
+  .intro__eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--scale-xs);
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .intro__eyebrow span[aria-hidden] {
+    color: var(--color-border);
+    margin-inline: var(--space-2);
+  }
+
+  /* Availability carries the accent, the way the reference highlights its
+     status line. 6.72:1 on white, so it passes AA as normal text. */
+  .intro__available {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .intro__lead {
+    margin-top: var(--space-6);
+    max-width: 48rem;
+    font-size: var(--scale-xl);
+    line-height: var(--leading-prose);
+    color: var(--color-text-body);
+  }
+
+  .intro__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
   }
 
   /* The portrait sits beside the name. Without one the row collapses and the
@@ -286,10 +519,51 @@ const statusLabel: Record<string, string> = {
   }
 
   .intro__role {
-    font-family: var(--font-ui);
-    font-size: var(--scale-lg);
+    font-family: var(--font-mono);
+    font-size: var(--scale-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Evidence cards. A rule above each one rather than a box: the hierarchy
+     comes from the jump in type size, not from a container. */
+  .highlights {
+    display: grid;
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+  }
+
+  @media (min-width: 46rem) {
+    .highlights {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .highlight {
+    border-top: 2px solid var(--color-text);
+    padding-top: var(--space-3);
+  }
+
+  .highlight__label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .highlight__value {
+    margin: var(--space-2) 0 0;
+    font-size: var(--scale-2xl);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  .highlight__detail {
+    margin: var(--space-3) 0 0;
+    font-size: var(--scale-sm);
     color: var(--color-text-muted);
-    margin-top: var(--space-3);
   }
 
   .intro__body {

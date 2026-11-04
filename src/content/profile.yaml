@@ -11,7 +11,60 @@
 - id: profile
   name: Dr Mohammad Aman
 
-  role: Data scientist and forecasting specialist
+  role: Forecasting and production machine learning
+
+  statement: >-
+    Building Production Forecasting Systems & Applied Machine Learning.
+
+  # One sentence, matching the shape of the reference. The long narrative moved
+  # to the About section further down the page.
+  lead: >-
+    Data scientist and forecasting specialist with a PhD in applied mathematics,
+    three years leading production cash and FX forecasting at IKEA Group
+    Treasury, and a working interest in automated data pipelines, NLP
+    classification and retrieval systems.
+
+  # Three evidence cards under the hero. Every figure was approved for
+  # publication on 2026-08-02. Nothing here is new: it is the strongest of what
+  # was already on the page, moved to the top where it gets seen.
+  highlights:
+    - label: Forecasting
+      value: 90%+
+      # resume.md resolves this: the 90% is real. It is forecast accuracy on
+      # key items, from per-entity backtests, not "pipeline automation".
+      detail: >-
+        Forecast accuracy on key items across 27 countries, with a champion
+        model chosen per entity from Prophet, ARIMA and XGBoost in time-ordered
+        backtests scored on MAPE, weighted MAPE and bias.
+      source: resume.md, supplied by owner 2026-11-04
+      href: /work/cash-fx-forecasting
+
+    - label: Classification
+      value: ~85%
+      detail: >-
+        Manual transaction categorisation removed by TF-IDF matching on
+        a flow of more than 50,000 payments a day, with confidence-scored
+        routing to human review feeding retraining.
+      source: owner-supplied, approved for publication 2026-08-02
+      href: /work/cash-fx-forecasting
+
+    - label: Document agents
+      value: Schema-first
+      detail: >-
+        Cash Agent, a personal project. A finance agent that answers questions
+        over tables and PDFs by mapping arbitrary column names to a canonical
+        schema first, then resolving the question in code rather than asking a
+        model to do the arithmetic.
+      source: owner-supplied 2026-11-03, personal project, no accuracy measured yet
+      href: /work/cash-agent
+
+    - label: Research
+      value: 192 citations
+      detail: >-
+        PhD in applied mathematics, 18 published papers, h-index 9, including a
+        deep learning paper published at ICAI 2024.
+      source: Google Scholar profile ojbD2U8AAAAJ, retrieved 2026-08-02
+      href: "#research"
 
   # Written by the owner, 2026-08-03, lightly edited: em dashes removed, and the
   # phrase "used AI to automate the forecasting analysis" changed to plain
@@ -30,20 +83,22 @@
       move it around, developing the models, and deploying them so people can
       rely on them day to day.
     - >-
-      For the last three years at IKEA Group Treasury I have done exactly that
-      for cash and liquidity forecasting. That has meant using NLP to turn
-      chaotic bank statement data into clean historical datasets, building the
-      data pipelines behind the workflows, developing forecasting models with
-      Prophet, ARIMA and XGBoost across the entity base, automating model
-      selection so the best model wins per entity, deploying it all on Azure, and
-      automating much of the forecasting analysis that used to be done by hand.
+      For three years at IKEA Group Treasury, until July 2026, I did exactly that
+      for cash and liquidity forecasting. That meant using NLP to turn chaotic
+      bank statement data into clean historical datasets, building the data
+      pipelines behind the workflows, developing forecasting models with Prophet,
+      ARIMA and XGBoost across the entity base, automating model selection so the
+      best model won per entity, deploying it all on Azure, and automating much
+      of the forecasting analysis that used to be done by hand.
     - >-
       Finance is the domain I know, but the toolkit is general. Where I am
       heading next is deeper into AI: agentic workflows, retrieval-augmented
       generation, and getting more of the routine analysis handled automatically
       rather than manually. That work is at personal-project scale for now.
-      safeframe detects pandas errors that raise no exception, and PlanScan
-      checks Irish planning applications against local development plans.
+      Cash Agent answers questions over financial documents by normalising their
+      columns before reasoning about them, safeframe detects pandas errors that
+      raise no exception, and PlanScan checks Irish planning applications
+      against local development plans.
 
   metaDescription: >-
     Data scientist and forecasting specialist. Production cash and FX forecasting
@@ -84,7 +139,7 @@
     - id: Q-N1
       note: >-
         Your instruction is that you have no professional AI experience. Your CV
-        and LinkedIn describe a DistilBERT transaction classifier and an agentic
+        and LinkedIn describe a TF-IDF transaction matching and an agentic
         workflow built in the treasury role, and the TMI award is named Best AI
         Deployment. I have resolved this by treating the treasury machine
         learning as data science, which is your stated strength, and reserving

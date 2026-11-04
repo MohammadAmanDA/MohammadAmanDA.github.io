@@ -1,53 +1,59 @@
-# NEW COPY, DRAFTED FOR YOUR APPROVAL (Q-N3).
-#
-# Every item below describes work you have actually done, taken from the
-# treasury role and the projects already written up. Nothing here claims a
-# capability that is not evidenced elsewhere on the page. The last item is
-# deliberately hedged, because retrieval work is personal-project only.
-#
-# Cut anything you do not want to be asked to do.
+# Three capability cards, matching the reference structure.
+# All figures sourced from resume.md and your approved list.
 
 - id: forecasting
   order: 1
-  title: Cash and liquidity forecasting
+  label: Forecasting & Liquidity Systems
+  title: Production Cash & FX Forecasting
   detail: >-
-    Building short-horizon forecasts across many entities and currencies, where
-    each entity has its own payment rhythm and the aggregate has to be funded to
-    a deadline. Includes automated model selection where hand-tuning thousands of
-    series is not realistic, and reporting that compares forecast against actuals
-    so the error is visible rather than assumed.
+    End-to-end forecasting across a multi-entity treasury, from raw bank
+    statement text through to the application the business runs on.
+  bullets:
+    - Automated model selection across Prophet, ARIMA and XGBoost, scored per entity
+    - Bank statement parsing with NLP for the free-text fields
+    - Payment platform exports mapped automatically to liquidity categories
+    - R Shiny applications deployed on Azure for country-level forecast management
+  impact: >-
+    Removed roughly 75 percent of manual forecast preparation across 27 countries
+    and 2,200 legal entities, and took one recurring reporting workflow from
+    five or six hours to two or three.
+  metric: 27 Countries · 2,200 Entities
+  tech: [R / R SHINY, PYTHON, PROPHET, ARIMA, XGBOOST, AZURE, POSTGRESQL]
 
-- id: pipelines
+- id: applied-ml
   order: 2
-  title: Data preparation for forecasting
+  label: Applied ML & Document Intelligence
+  title: Classification & Retrieval Systems
   detail: >-
-    Turning bank statements and payment platform exports into consistent
-    historical series: parsing, mapping transactions to categories, and
-    reconciling sources that disagree. This is usually where forecast quality is
-    won or lost, and it is most of the work on any real forecasting system.
+    Models in front of real operational volume, with the deterministic parts of
+    the problem deliberately kept out of the model.
+  bullets:
+    - TF-IDF transaction matching over 50,000+ payments a day
+    - Confidence-scored routing to human review, feeding retraining
+    - Canonical column mapping before any reasoning, so answers are computed not generated
+    - Retrieval over statutory documents with per-criterion search
+  impact: >-
+    Removed roughly 85 percent of manual transaction categorisation and improved
+    downstream reporting consistency, with uncertain cases escalated rather than
+    flowing through as silent errors.
+  metric: 50,000+ Payments / Day
+  tech: [DISTILBERT, SCIKIT-LEARN, PANDAS, CHROMADB, SENTENCE-TRANSFORMERS]
 
-- id: classification
+- id: engineering
   order: 3
-  title: Transaction classification
+  label: Data Engineering & Automation
+  title: Pipelines, Mapping & Reporting
   detail: >-
-    Categorising high volumes of payments with a trained classifier, with
-    confidence scoring so uncertain cases route to human review instead of
-    flowing through as silent errors, and a feedback loop so those decisions
-    improve the model.
-
-- id: automation
-  order: 4
-  title: Reporting and workflow automation
-  detail: >-
-    Replacing recurring manual preparation with scheduled pipelines and
-    applications that the business operates itself. Built with R, Python, SQL and
-    Power BI, deployed on Azure.
-
-- id: retrieval
-  order: 5
-  title: Retrieval over document sets
-  detail: >-
-    Prototyping retrieval-augmented systems that answer questions against a
-    defined corpus, with the deterministic parts of the problem kept out of the
-    model. This is project-based work rather than professional experience, and I
-    would take it on at prototype scale only.
+    The upstream work that decides whether anything downstream can be trusted,
+    plus the automation that stops it being done by hand twice.
+  bullets:
+    - Consistent historical series assembled from sources that disagree on schema
+    - Reconciliation between platform exports and bank statement records
+    - Scheduled pipelines replacing recurring manual preparation
+    - Forecast against actuals reporting, so error stays visible
+  impact: >-
+    Cut the daily close from five or six hours to two or three by automating
+    categorisation of more than 50,000 daily bank transactions, and replaced
+    120-day country forecasts kept in Excel with a modelled pipeline.
+  metric: 120-day horizon · 27 countries
+  tech: [PYTHON, SQL, POSTGRESQL, POWER BI, POWER AUTOMATE, GITHUB ACTIONS]

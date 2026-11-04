@@ -1,0 +1,83 @@
+# Career trajectory, from resume.md.
+
+- id: fami
+  order: 1
+  period: Apr 2023 - Jul 2026
+  status: Most recent
+  org: FAMI Ltd, IKEA Group Treasury
+  location: Dublin, Ireland
+  title: Cash & FX Forecast Specialist
+  subtitle: Treasury Forecasting Platform · Applied Time Series · LLM Agents
+  summary: >-
+    Built the treasury forecasting platform end to end with its users, starting
+    from 120-day country forecasts kept in Excel and rarely updated. Awarded
+    Silver for Best AI Deployment at the TMI Awards 2023.
+  bullets:
+    - Delivered a PostgreSQL data model, Python, R and SQL pipelines, and an R Shiny app used daily across 27 countries.
+    - Compared per-entity ARIMA, Prophet and XGBoost in time-ordered backtests on MAPE, weighted MAPE and bias, choosing a champion per entity and reaching 90%+ accuracy on key items.
+    - Tracked forecast against actuals in production with deviation flags and error codes per country; found late submissions mattered as much as model choice.
+    - Built an LLM agent for weekly deviation analysis, keeping every calculation in deterministic code and validating outputs against manual runs before the team relied on it.
+    - Chose TF-IDF matching over a supervised model because labels were sparse, with a review queue for low-confidence cases; automated categorisation of 50K+ daily bank transactions and cut the daily close from five or six hours to two or three.
+    - Built a Copilot Studio agent for country users, wrote user guides, trained colleagues and onboarded finance teams on-site across Europe.
+  tech: [PYTHON, R / SHINY, SQL, POSTGRESQL, DOCKER, AZURE, POWER BI, ARIMA, PROPHET, XGBOOST, TF-IDF, COPILOT STUDIO]
+
+- id: hyworx
+  order: 2
+  period: Dec 2022 - Apr 2023
+  status: Contract
+  org: HyWorx
+  location: Dublin, Ireland
+  title: Data Analyst, Tableau Consultant
+  subtitle: Business Intelligence · Dashboard Delivery
+  summary: >-
+    Part-time contract alongside the MSc, gathering reporting requirements and
+    delivering dashboards for business and management reporting.
+  bullets:
+    - Delivered more than 15 interactive dashboards on Tableau Server.
+    - Built over 50 filters, parameters and calculated fields across cross tabs, heat maps and divergent Likert-scale visualisations.
+  tech: [TABLEAU, SQL, EXCEL]
+
+- id: capita
+  order: 3
+  period: Apr 2022 - Mar 2023
+  status: Part-time
+  org: Capita
+  location: Dublin, Ireland
+  title: Service Desk Analyst
+  subtitle: User Support · Access Management
+  summary: >-
+    Part-time alongside the MSc, supporting a high-volume environment across
+    proprietary systems and departmental databases.
+  bullets:
+    - Supported more than 5,000 internal and external users.
+    - Handled account provisioning and access authorisation, and produced knowledge-management documentation.
+  tech: [ACTIVE DIRECTORY, IBM DOMINO, ITSM]
+
+- id: st-theresa
+  order: 4
+  period: 2021 - 2022
+  status: Remote
+  org: St. Theresa International
+  location: Thailand
+  title: Lecturer of Mathematics
+  subtitle: Undergraduate Teaching
+  summary: >-
+    Taught undergraduate mathematics remotely and mentored students.
+  bullets:
+    - Taught undergraduate mathematics to mixed-ability groups.
+    - Supervised undergraduate students in ML and analytics during the MSc at National College of Ireland.
+  tech: [TEACHING, MENTORING]
+
+- id: telus
+  order: 5
+  period: 2016 - 2017
+  status: Graduate
+  org: Xavient Information Systems, now TELUS International
+  location: Noida, India
+  title: Trainee Software Engineer
+  subtitle: Java · JavaScript
+  summary: >-
+    Graduate trainee programme in software development.
+  bullets:
+    - Java and JavaScript development on the graduate trainee programme.
+  tech: [JAVA, JAVASCRIPT]

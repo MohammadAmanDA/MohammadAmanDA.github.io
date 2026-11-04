@@ -1,0 +1,137 @@
+# Written from the owner's description on 2026-11-03. Personal project,
+# confirmed by him. No accuracy figure exists yet, so none is claimed anywhere
+# on this page or on the homepage card.
+
+title: Cash Agent
+order: 3
+status: in-progress
+category: Document agent, deterministic retrieval
+kind: personal
+confidential: false
+period:
+  start: "2026"
+  end: null
+stack:
+  - Python
+  - LLM
+  - Retrieval
+
+brief:
+  problem: >-
+    Answering a question about a company's finances means reading whatever the
+    documents happen to be: a spreadsheet, a PDF, an export from one system and
+    a different export from another. Column names differ between sources, and a
+    single question often cannot be answered from one table at all.
+  approach: >-
+    Normalise before reasoning. The agent reads the columns it is given, maps
+    them to a canonical set of names, and only then resolves the question, by a
+    deterministic path rather than by asking a model to do the arithmetic.
+    Questions that need two tables are planned and executed as a join.
+  outcome: >-
+    In development as a personal project. Column normalisation and deterministic
+    resolution work. Automating downstream actions is the next step. No accuracy
+    figure is claimed, because none has been measured yet.
+
+summary: >-
+  A finance agent that answers questions about financial documents, whether the
+  source is a table or a PDF, by mapping columns to a canonical schema first and
+  then resolving the question deterministically.
+forWhom: >-
+  Anyone who has to get a number out of a pile of financial exports that do not
+  agree with each other on what the columns are called.
+
+context:
+  - >-
+    Financial questions rarely arrive attached to clean data. The source may be
+    tabular or a PDF. Two exports of the same thing from two systems will use
+    different column names for the same field. And a real question, such as
+    checking a figure in one table against a balance in another, cannot be
+    answered from a single table at all.
+  - >-
+    A language model asked to read these documents and do the arithmetic will
+    produce an answer that looks right and is sometimes wrong, with nothing to
+    tell you which case you are in. In a finance context that is worse than no
+    answer.
+constraints:
+  - >-
+    Figures must be computed, not generated. The model may interpret the
+    question and the structure of the document. It may not perform the
+    arithmetic that produces the number.
+  - >-
+    The system cannot assume a fixed schema, because the whole problem is that
+    the incoming columns are not consistent between sources.
+
+myRole:
+  - >-
+    Sole author. This is a personal project rather than professional work, and
+    it is where my experience with retrieval and agent design comes from.
+
+approach:
+  - decision: Map columns to a canonical schema before answering anything
+    detail:
+      - >-
+        The agent inspects the columns it has been handed and maps them onto a
+        single canonical set of names. Everything downstream is written against
+        those canonical names rather than against whatever the source happened
+        to call them.
+      - >-
+        This is the step that makes the rest deterministic. Without it, every
+        later rule would have to cope with arbitrary naming, which in practice
+        means handing the problem back to the model and hoping.
+  - decision: Keep the arithmetic out of the model
+    detail:
+      - >-
+        Once the question is understood and the fields are identified, the
+        figure is computed in code. The model decides what to calculate. It does
+        not calculate it.
+      - >-
+        This is the same division that matters in any applied system: use the
+        model for interpretation, where it is strong, and ordinary code for
+        anything that has to be exactly right.
+  - decision: Treat a multi-table question as a planned join, not a longer prompt
+    detail:
+      - >-
+        A question needing a value from one table and a balance from another is
+        resolved by identifying both sources and joining them, rather than by
+        putting more documents into the context window and asking again.
+
+outcome:
+  metrics: []
+  notes:
+    - >-
+      In development. Column normalisation and deterministic resolution are
+      working. Automating downstream actions, rather than only answering
+      questions, is the next piece of work.
+    - >-
+      "TK: accuracy. No figure is claimed because none has been measured. When
+      you have one, say what it measures and over what set of questions, and it
+      goes on this page and on the homepage card. (Q-N4)"
+
+limitations:
+  - >-
+    No measured accuracy. Until answers are checked against a known-correct set,
+    the honest claim is that the approach is sound, not that the results are
+    reliable.
+  - >-
+    Canonical mapping is the single point of failure. A column mapped to the
+    wrong canonical name produces a confident and wrong answer, in exactly the
+    way the deterministic design is meant to prevent.
+  - >-
+    Personal project, not production. It has not been run against a real finance
+    function's document set at volume.
+  - >-
+    "TK: which document formats are supported today, and what happens when a
+    column cannot be mapped to anything? (Q-N5)"
+nextSteps:
+  - Measure accuracy against a question set with known-correct answers.
+  - Automate downstream actions rather than only answering questions.
+
+links: []
+
+unresolved:
+  - id: Q-N4
+    note: Accuracy figure once measured, and what it measures over what question set.
+  - id: Q-N5
+    note: Supported document formats today, and behaviour when a column cannot be mapped.
+  - id: Q-N6
+    note: Is there a repo or recorded demo to link? Both are empty at the moment.

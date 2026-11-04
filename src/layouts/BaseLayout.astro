@@ -25,8 +25,6 @@ const nav = [
   { href: '/#contact', label: 'Contact' },
 ];
 
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isHome = path === '/';
 const year = new Date().getFullYear();
 ---
 
@@ -49,15 +47,11 @@ const year = new Date().getFullYear();
 
     <header class="site-header">
       <div class="wrap site-header__inner">
-        {
-          isHome ? (
-            <span class="site-header__spacer" />
-          ) : (
-            <a class="site-header__name" href="/">
-              {name}
-            </a>
-          )
-        }
+        <div class="site-header__brand">
+          <a class="site-header__name" href="/">{name}</a>
+          <span class="chip site-header__chip">Forecasting &amp; Production ML</span>
+        </div>
+
         <nav aria-label="Primary">
           <ul class="nav">
             {
@@ -69,7 +63,25 @@ const year = new Date().getFullYear();
             }
           </ul>
         </nav>
-        <ThemeToggle />
+
+        <div class="site-header__actions">
+          <ThemeToggle />
+          <a class="btn btn--primary btn--sm" href={`mailto:${email}`}>
+            Get in touch
+            <svg
+              class="btn__arrow"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M4.5 11.5l7-7M6 4.5h5.5V10" />
+            </svg>
+          </a>
+        </div>
       </div>
     </header>
 
@@ -86,9 +98,66 @@ const year = new Date().getFullYear();
       <span aria-hidden="true">↑</span>
     </a>
 
+    {/* Scroll reveal, with a fallback that cannot leave content invisible.
+        IntersectionObserver is the primary trigger. A slow poll runs alongside
+        it and reveals anything that is already within the viewport, because an
+        observer that silently fails to fire would otherwise leave sections at
+        opacity 0 permanently. The poll stops once everything is revealed, or
+        after 20 ticks. Skipped entirely under prefers-reduced-motion. */}
+    <script is:inline>
+      (() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (!('IntersectionObserver' in window)) return;
+        document.documentElement.classList.add('js-reveal');
+
+        const show = (el) => el.classList.add('is-in');
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              show(e.target);
+              io.unobserve(e.target);
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px' }
+        );
+
+        const start = () => {
+          const all = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+          all.forEach((el) => io.observe(el));
+
+          let ticks = 0;
+          const sweep = () => {
+            const left = all.filter((el) => !el.classList.contains('is-in'));
+            left.forEach((el) => {
+              const r = el.getBoundingClientRect();
+              if (r.top < window.innerHeight && r.bottom > 0) show(el);
+            });
+            // Hard backstop. After six seconds anything still hidden is
+            // revealed unconditionally, whatever the observer did or did not
+            // do. The fade is a nice-to-have; the content is not.
+            if (++ticks > 6) {
+              left.forEach(show);
+              clearInterval(timer);
+              return;
+            }
+            if (!left.length) clearInterval(timer);
+          };
+          const timer = setInterval(sweep, 1000);
+          sweep();
+        };
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', start);
+        } else {
+          start();
+        }
+      })();
+    </script>
+
     <footer class="site-footer">
       <div class="wrap site-footer__inner">
-        <p class="meta-xs">© {year} · Dublin, Ireland</p>
+        <p class="meta-xs">© {year} {name} · Dublin, Ireland</p>
         <ul class="site-footer__links meta-xs">
           <li><a href={`mailto:${email}`}>{email}</a></li>
           {
@@ -105,35 +174,66 @@ const year = new Date().getFullYear();
 </html>
 
 <style>
+  /* Sticky, so the bar stays available the way the reference's does. */
   .site-header {
-    padding-block: var(--space-6);
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background-color: var(--color-bg);
+    border-bottom: var(--border-hairline);
+    padding-block: var(--space-3);
   }
 
+  /* Three groups spread across the bar: brand left, nav centred, actions
+     right. space-between across three children puts the nav in the middle. */
   .site-header__inner {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-3) var(--space-6);
+    justify-content: space-between;
+    gap: var(--space-6);
   }
 
-  .site-header__spacer {
-    margin-right: auto;
+  .site-header__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
   }
 
   .site-header__name {
-    font-weight: 600;
+    font-size: var(--scale-sm);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--color-text);
     text-decoration: none;
-    margin-right: auto;
+    white-space: nowrap;
+  }
+
+  .site-header__chip {
+    display: none;
+  }
+
+  @media (min-width: 72rem) {
+    .site-header__chip {
+      display: inline-block;
+    }
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
   }
 
   .nav {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-4);
+    gap: var(--space-6);
     list-style: none;
-    font-family: var(--font-ui);
-    font-size: var(--scale-sm);
+    font-size: var(--scale-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .nav a {
@@ -196,11 +296,16 @@ const year = new Date().getFullYear();
     list-style: none;
   }
 
-  @media (max-width: 34rem) {
-    .nav {
+  @media (max-width: 56rem) {
+    .site-header__inner {
+      flex-wrap: wrap;
+    }
+    .site-header nav {
       order: 3;
       width: 100%;
-      gap: var(--space-4);
+    }
+    .site-header__actions {
+      margin-left: auto;
     }
   }
 </style>

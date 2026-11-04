@@ -1,5 +1,5 @@
 title: PlanScan
-order: 4
+order: 5
 status: in-progress
 category: Retrieval, vector search, LLM
 kind: personal
@@ -10,7 +10,7 @@ brief:
     Irish planning applications are refused on planning grounds or invalidated on
     procedural ones. The procedural failures are knowable before submission, but
     the rules sit across a statutory development plan of several hundred pages
-    that differs for each of the 31 local authorities.
+    that differs for each of Ireland's 31 local authorities.
   approach: >-
     Development plans are chunked with overlap and embedded locally into a
     persistent vector store. Retrieval runs separately for each compliance
@@ -19,9 +19,9 @@ brief:
     single structured call. Fee arithmetic, statutory notice windows and approved
     newspaper lists are computed deterministically and never reach the model.
   outcome: >-
-    Working prototype. Two of the 31 development plans indexed so far. Not
-    evaluated against real planning decisions, not deployed, and runs locally
-    only.
+    Around 8,200 development plan sections indexed across 24 Irish councils,
+    scored against 12 planning criteria. Evaluated on 11 real appeal decisions
+    with zero fabricated citations. Not deployed; runs locally.
 period:
   start: "2026"
   end: null
@@ -153,39 +153,34 @@ approach:
 # ---- 5. outcome ----
 outcome:
   metrics:
-    - value: "31"
-      label: local authorities configured
-      source: config.py, COUNCILS, 31 entries with plan URLs
-    - value: "2"
-      label: development plans actually indexed so far
-      source: verified on disk, Dublin City and Fingal
-    - value: "12"
-      label: compliance criteria, plus a 6-criterion council intake pre-screen
-      source: config.py, COMPLIANCE_CRITERIA and PRESCREEN_CRITERIA
+    - value: "~8,200"
+      label: development plan sections indexed
+      source: resume.md, supplied by owner 2026-11-04
+    - value: "24"
+      label: Irish councils covered
+      source: resume.md, supplied by owner 2026-11-04
+    - value: 0%
+      label: citation fabrication, evaluated on 11 real appeal decisions
+      source: resume.md, supplied by owner 2026-11-04
   notes:
     - >-
-      All 31 local authorities are configured and the ingestion path is built;
-      two development plans are indexed at the time of writing, with the rest
-      in progress.
+      Around 8,200 development plan sections are indexed across 24 Irish
+      councils, with an LLM scoring proposals against 12 planning criteria.
     - >-
-      This has not been evaluated against real planning decisions and has not
-      been used by an applicant or a council. What it currently demonstrates is
-      an architecture, not a validated accuracy claim, and it should be read
-      that way.
-    - >-
-      "TK: has anyone outside you used it? Any comparison of its verdicts
-      against actual planning outcomes? If not, this stays as written. (Q-C3)"
+      Evaluated against 11 real appeal decisions, with no fabricated citations:
+      every cited rule is checked against the retrieved text, and the system
+      refuses to answer when no source supports it.
 
 # ---- 6. MANDATORY: limitations and what's next ----
 limitations:
   - >-
-    Two of 31 development plans are indexed. For every other council the system
-    falls back to general Irish planning law, which is flagged in the report but
-    is much less useful than a real plan-backed answer.
+    24 of Ireland's 31 councils are covered. For the remainder the system falls
+    back to general planning law, which is flagged in the report but is much
+    less useful than a real plan-backed answer.
   - >-
-    No evaluation against real planning decisions. There is no measured accuracy
-    figure for the model-judged criteria, and there will not be an honest one
-    until its verdicts are compared against actual outcomes at scale.
+    The evaluation set is 11 appeal decisions. Zero fabricated citations across
+    eleven cases is a real result and a small sample; it is evidence the
+    refusal behaviour works, not a measured accuracy figure at scale.
   - >-
     Retrieval quality is bounded by a small embedding model running over
     several-hundred-page statutory documents. Where a development plan is
@@ -195,7 +190,7 @@ limitations:
     without cloning and installing it, and the code is not yet on GitHub.
   - >-
     The deterministic validation layer covers the councils whose approved
-    newspaper lists have been entered, not all 31.
+    newspaper lists have been entered, not every council.
 nextSteps:
   - Finish ingesting the remaining development plans and update the number here.
   - Put the code under version control and publish the repository, after rotating the API key currently sitting in the working directory and starting a clean history.

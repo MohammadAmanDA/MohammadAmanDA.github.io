@@ -1,0 +1,68 @@
+# Three case studies for the homepage. Figures come from resume.md unless
+# marked. Each links to its full write-up.
+
+- id: planscan
+  order: 1
+  period: "2026"
+  category: Irish Planning Compliance & Retrieval
+  title: PlanScan
+  summary: >-
+    Rules-first retrieval over Irish development plans, with an LLM scoring
+    proposals against planning criteria and refusing to answer when no source
+    supports it.
+  role: Sole author
+  href: /work/planscan
+  metrics:
+    - label: Development plan sections
+      sub: Indexed across 24 Irish councils
+      value: ~8,200
+    - label: Compliance criteria
+      sub: Scored per application
+      value: "12"
+    - label: Citation fabrication
+      sub: Evaluated on 11 real appeal decisions
+      value: 0%
+
+- id: cash-agent
+  order: 2
+  period: In progress
+  category: Finance Q&A & Evaluation-First RAG
+  title: Cash Agent
+  summary: >-
+    Evaluation-first retrieval over treasury documents. Chunking strategies
+    compared on a hand-built question set, and numeric answers computed by
+    verified SQL rather than produced by the model.
+  role: Sole author
+  href: /work/cash-agent
+  metrics:
+    - label: Chunking comparison
+      sub: Section-heading against semantic, scored on recall@k
+      value: recall@k
+    - label: Numeric answers
+      sub: Verified SQL on DuckDB, per-user permissions
+      value: SQL
+    - label: Model arithmetic
+      sub: The model decides what to compute, never computes it
+      value: None
+
+- id: churn
+  order: 3
+  period: "2026"
+  category: Churn Prediction & Revenue at Risk
+  title: Revenue at Risk
+  summary: >-
+    A churn model for a usage-based subscription business, framed so the
+    validation split and the metric could not flatter the result. Method only,
+    no client data.
+  role: Sole author
+  href: /work/churn-revenue-at-risk
+  metrics:
+    - label: Model
+      sub: Nine features, benchmarked once against gradient-boosted trees
+      value: Logistic
+    - label: Validation
+      sub: Split by time, not at random, with unobservable outcomes removed
+      value: Time-ordered
+    - label: Class reweighting
+      sub: Rejected; it left ranking unchanged and broke calibration
+      value: Rejected

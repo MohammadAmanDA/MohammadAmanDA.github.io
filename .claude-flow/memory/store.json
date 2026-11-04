@@ -1,0 +1,1553 @@
+{
+  "entries": {
+    "cmd-1792686394154": {
+      "key": "cmd-1792686394154",
+      "value": "{\"command\":\"echo \\\"=== PROJECT CLAUDE.md (Portfolio, git-tracked) ===\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:26:34.154Z",
+      "lastAccessed": "2026-10-22T16:26:34.154Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:26:34.154Z"
+    },
+    "cmd-1792686398779": {
+      "key": "cmd-1792686398779",
+      "value": "{\"command\":\"echo \\\"=== ~/.claude/backups ===\\\"; ls -laR /c/Users/mohda/.claude/backups 2>&1 | head -40\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:26:38.779Z",
+      "lastAccessed": "2026-10-22T16:26:38.779Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:26:38.779Z"
+    },
+    "cmd-1792687492756": {
+      "key": "cmd-1792687492756",
+      "value": "{\"command\":\"ls -la && ls docs views && wc -l README.md PROJECT_STATUS.md HANDOFF.md OUTREACH.md AGENTS.md docs/*.md *.py views/*.py 2>/dev/null\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:44:52.756Z",
+      "lastAccessed": "2026-10-22T16:44:52.756Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:44:52.756Z"
+    },
+    "cmd-1792687519082": {
+      "key": "cmd-1792687519082",
+      "value": "{\"command\":\"cat app.py && echo ------ && git log --oneline -5 && git ls-files | head -80 && echo ---- && cat .gitignore\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:45:19.082Z",
+      "lastAccessed": "2026-10-22T16:45:19.082Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:45:19.082Z"
+    },
+    "cmd-1792687525881": {
+      "key": "cmd-1792687525881",
+      "value": "{\"command\":\"cat views/about.py views/methodology.py views/contact.py views/coverage.py | head -320\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:45:25.881Z",
+      "lastAccessed": "2026-10-22T16:45:25.881Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:45:25.881Z"
+    },
+    "cmd-1792687538614": {
+      "key": "cmd-1792687538614",
+      "value": "{\"command\":\"head -60 views/intake.py && echo ------ && grep -n \\\"st.title\\\\|ui.hero\\\\|st.header\\\\|subheader\\\\|checkbox\\\\|file_uploader\\\\|selectbox\\\\|radio\\\\|ocr\\\\|OCR\\\\|rag\\\\|AI\\\\b\\\" views/intake.py | head -60\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:45:38.614Z",
+      "lastAccessed": "2026-10-22T16:45:38.614Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:45:38.614Z"
+    },
+    "cmd-1792687540848": {
+      "key": "cmd-1792687540848",
+      "value": "{\"command\":\"head -40 views/dashboard.py && echo ------ && grep -n \\\"ui.hero\\\\|ui.section\\\\|checkbox\\\\|file_uploader\\\\|selectbox\\\\|run_ai\\\\|provider\\\\|eircode\\\\|newspaper\\\\|fee\\\" views/dashboard.py | head -70\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:45:40.848Z",
+      "lastAccessed": "2026-10-22T16:45:40.848Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:45:40.848Z"
+    },
+    "cmd-1792687550173": {
+      "key": "cmd-1792687550173",
+      "value": "{\"command\":\"sed -n 105,135p views/intake.py && echo ---- && sed -n 195,215p views/dashboard.py && sed -n 415,430p views/dashboard.py\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:45:50.173Z",
+      "lastAccessed": "2026-10-22T16:45:50.173Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:45:50.173Z"
+    },
+    "cmd-1792687559555": {
+      "key": "cmd-1792687559555",
+      "value": "{\"command\":\"cat ruleset.py && echo ---- && head -c 2500 ruleset.json && echo && grep -c \\\"\\\" ruleset.json && grep -n \\\"2026\\\\|effective\\\\|regime\\\" ruleset.json | head -30\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:45:59.555Z",
+      "lastAccessed": "2026-10-22T16:45:59.555Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:45:59.555Z"
+    },
+    "cmd-1792687566199": {
+      "key": "cmd-1792687566199",
+      "value": "{\"command\":\"grep -n \\\"ie-2026\\\\|Reg 11\\\\|Reg\\\\. 11\\\\|2026 Reg\\\\|Regulations 2026\\\\|Act 2024\\\" *.py views/*.py ruleset.json | head -20; echo ----; grep -n \\\"\\\\\\\"id\\\\\\\"\\\" ruleset.json\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:46:06.199Z",
+      "lastAccessed": "2026-10-22T16:46:06.199Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:46:06.199Z"
+    },
+    "cmd-1792687571011": {
+      "key": "cmd-1792687571011",
+      "value": "{\"command\":\"cd /c/Users/mohda/Documents/planscan; ls tests | head -40; ls test_package PlanExample 2>/dev/null | head; grep -n \\\"def calculate_fee\\\" -A60 admin_validator.py | head -90; git log --oneline | head -5; git status --short | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:46:11.011Z",
+      "lastAccessed": "2026-10-22T16:46:11.011Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:46:11.011Z"
+    },
+    "cmd-1792687574273": {
+      "key": "cmd-1792687574273",
+      "value": "{\"command\":\"git status --short | head -20; grep -n \\\"2026\\\" tests/test_ruleset.py | head; ls tests; ls PlanExample test_package 2>/dev/null | head -40\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:46:14.273Z",
+      "lastAccessed": "2026-10-22T16:46:14.273Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:46:14.273Z"
+    },
+    "cmd-1792687590372": {
+      "key": "cmd-1792687590372",
+      "value": "{\"command\":\"cd /c/Users/mohda/Documents/planscan; grep -il \\\"invalidat\\\" tests/*.py docs/* *.md 2>/dev/null; grep -n -i \\\"invalidation\\\\|validation decision\\\\|real council\\\\|PlanExample\\\" tests/*.py docs/SENIOR_REVIEW.md docs/ROADMAP.md | head -25; grep -c \\\"def test\\\" tests/test_*.py; python -I -c \\\"\\nimport json\\ng=json.load(open('tests/ground_truth.json',encoding='utf-8'))\\nimport collections\\nprint(collections.Counter(c['outcome'] for c in g)); print(collections.Counter(c['council'] for c in g)); print(collections.Counter(c['dev_type'] for c in g))\\nprint(sum(len(c['reasons']) for c in g))\\n\\\"; ls vectorstore | head -3; grep -n \\\"24 of 31\\\\|8,229\\\\|ingested\\\" PROJECT_STATUS.md | head -8\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:46:30.372Z",
+      "lastAccessed": "2026-10-22T16:46:30.372Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:46:30.372Z"
+    },
+    "cmd-1792687590517": {
+      "key": "cmd-1792687590517",
+      "value": "{\"command\":\"for f in admin_validator.py doc_checklist.py classify.py content_checks.py assessment.py report_pdf.py eircode.py ocr.py storage.py; do echo \\\"=== $f\\\"; head -30 $f; done\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:46:30.517Z",
+      "lastAccessed": "2026-10-22T16:46:30.517Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:46:30.517Z"
+    },
+    "cmd-1792687595271": {
+      "key": "cmd-1792687595271",
+      "value": "{\"command\":\"head -40 rag_engine.py && grep -n \\\"LLM_PROVIDER\\\\|gemini\\\\|groq\\\\|nvidia\\\\|def \\\" rag_engine.py | head -50 && echo ==== && head -25 config.py && grep -n \\\"COMPLIANCE_CRITERIA\\\\|PRESCREEN\\\\|^[A-Z_]* = \\\" config.py | head -30 && echo === && head -25 ingest.py\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:46:35.271Z",
+      "lastAccessed": "2026-10-22T16:46:35.271Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:46:35.271Z"
+    },
+    "cmd-1792687604090": {
+      "key": "cmd-1792687604090",
+      "value": "{\"command\":\"cd /c/Users/mohda/Documents/planscan; grep -n -i \\\"invalidat\\\" docs/SENIOR_REVIEW.md docs/NOTES.md | head -8; grep -n -i \\\"criterion\\\\|keyword\\\\|classif\\\\|LLM\\\\|map\\\" tests/fetch_abp.py | head -20; python -I -c \\\"\\nfrom math import sqrt\\ndef w(k,n,z=1.96):\\n    p=k/n; d=1+z*z/n; c=p+z*z/(2*n); a=z*sqrt(p*(1-p)/n+z*z/(4*n*n)); return round((c-a)/d,2),round((c+a)/d,2)\\nprint('6/11',w(6,11),'3/7',w(3,7),'8/11',w(8,11),'7/11',w(7,11))\\n\\\"; grep -n \\\"ingest_note\\\\|not indexed\\\\|not ingested\\\" rag_engine.py | head; grep -n -i \\\"hash\\\\|mtime\\\\|last_mod\\\\|stale\\\\|ingested_on\\\\|date\\\" verify_collections.py | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:46:44.090Z",
+      "lastAccessed": "2026-10-22T16:46:44.090Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:46:44.090Z"
+    },
+    "cmd-1792687640027": {
+      "key": "cmd-1792687640027",
+      "value": "{\"command\":\"sed -n 505,525p views/intake.py; grep -n \\\"doc_text\\\" views/dashboard.py | head; grep -rn \\\"GDPR\\\\|data protection\\\\|personal data\\\\|retention\\\\|privacy\\\" --include=*.py --include=*.md . 2>/dev/null | grep -v \\\".venv\\\" | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:47:20.027Z",
+      "lastAccessed": "2026-10-22T16:47:20.027Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:47:20.027Z"
+    },
+    "cmd-1792687801397": {
+      "key": "cmd-1792687801397",
+      "value": "{\"command\":\"git remote -v; git log -1 --format='%ci %s'; grep -n \\\"Rev H\\\\|Rev I\\\" doc_checklist.py docs/document_receipts.html | head -5; grep -n \\\"2026\\\\|lodgement\\\\|Fees Regulations\\\" admin_validator.py | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:50:01.397Z",
+      "lastAccessed": "2026-10-22T16:50:01.397Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:50:01.397Z"
+    },
+    "cmd-1792687884001": {
+      "key": "cmd-1792687884001",
+      "value": "{\"command\":\"grep -rln \\\"LGMA\\\\|localgov\\\\|ePlanning\\\\|eplanning\\\" --include=*.py --include=*.md . 2>/dev/null | grep -v \\\"^./.venv\\\\|^./.claude\\\" ; grep -n \\\"localgov\\\" docs/NOTES.md\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T16:51:24.001Z",
+      "lastAccessed": "2026-10-22T16:51:24.001Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T16:51:24.001Z"
+    },
+    "cmd-1792692136670": {
+      "key": "cmd-1792692136670",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B - <<'EOF'\\nimport ast, sys, pathlib\\nroot = pathlib.Path('.')\\nfiles = sorted(list(root.glob('*.py')) + list(root.glob('views/*.py')) + list(root.glob('tests/*.py')))\\nlocal = {p.stem for p in files} | {'views', 'tests'}\\nstd = set(sys.stdlib_module_names)\\nfound = {}\\nfor f in files:\\n    tree = ast.parse(f.read_text(encoding='utf-8'))\\n    for n in ast.walk(tree):\\n        if isinstance(n, ast.Import):\\n            names = [a.name for a in n.names]\\n        elif isinstance(n, ast.ImportFrom) and n.level == 0 and n.module:\\n            names = [n.module]\\n        else:\\n            continue\\n        for nm in names:\\n            top = nm.split('.')[0]\\n            if top in std or top in local:\\n                continue\\n            found.setdefault(top, set()).add(str(f))\\nfor k in sorted(found):\\n    print(k, '<-', ', '.join(sorted(found[k])))\\nprint('python', sys.version.split()[0])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:02:16.670Z",
+      "lastAccessed": "2026-10-22T18:02:16.670Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:02:16.670Z"
+    },
+    "cmd-1792692145854": {
+      "key": "cmd-1792692145854",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B -c \\\"\\nfrom importlib.metadata import version\\nfor d in ['chromadb','python-dotenv','PyMuPDF','fpdf2','groq','openai','rank-bm25','rapidocr-onnxruntime','requests','sentence-transformers','streamlit','urllib3']:\\n    try: print(d, version(d))\\n    except Exception as e: print(d, 'MISSING', e)\\n\\\"; grep -n \\\"rapidocr\\\\|import\\\\|def available\\\" ocr.py | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:02:25.854Z",
+      "lastAccessed": "2026-10-22T18:02:25.854Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:02:25.854Z"
+    },
+    "cmd-1792692243942": {
+      "key": "cmd-1792692243942",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B tests/test_assessment.py\",\"exitCode\":1,\"success\":false}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:04:03.942Z",
+      "lastAccessed": "2026-10-22T18:04:03.942Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:04:03.942Z"
+    },
+    "cmd-1792692259994": {
+      "key": "cmd-1792692259994",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B tests/test_assessment.py\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:04:19.994Z",
+      "lastAccessed": "2026-10-22T18:04:19.994Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:04:19.994Z"
+    },
+    "cmd-1792692356068": {
+      "key": "cmd-1792692356068",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B tests/test_admin_validator.py\",\"exitCode\":2,\"success\":false}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:05:56.068Z",
+      "lastAccessed": "2026-10-22T18:05:56.068Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:05:56.068Z"
+    },
+    "cmd-1792692370188": {
+      "key": "cmd-1792692370188",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B tests/test_admin_validator.py\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:06:10.188Z",
+      "lastAccessed": "2026-10-22T18:06:10.188Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:06:10.188Z"
+    },
+    "cmd-1792692422963": {
+      "key": "cmd-1792692422963",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B - <<'EOF'\\nimport sys, fitz\\nfrom pathlib import Path\\nsys.path.insert(0, '.')\\nfrom classify import classify_document, confirm_slot, REQUIRED_TYPES\\nbase = Path('PlanExample')\\nfor p in sorted(base.iterdir()):\\n    if p.suffix.lower() != '.pdf':\\n        continue\\n    try:\\n        d = fitz.open(str(p)); pages = [pg.get_text() for pg in d]; d.close()\\n    except Exception:\\n        pages = []\\n    t = ''.join(pages)\\n    r = classify_document(p.name, t, pages)\\n    line = f\\\"{p.name[:38]:38} cls={r['type']}/{r['state']}\\\"\\n    if r['type'] in REQUIRED_TYPES:\\n        ok, why = confirm_slot(p.name, t, pages, r['type'])\\n        line += f\\\" | slot[{r['type']}] -> {ok}: {why}\\\"\\n    print(line)\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:07:02.963Z",
+      "lastAccessed": "2026-10-22T18:07:02.963Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:07:02.963Z"
+    },
+    "cmd-1792692491636": {
+      "key": "cmd-1792692491636",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B tests/test_classify.py\",\"exitCode\":1,\"success\":false}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:08:11.636Z",
+      "lastAccessed": "2026-10-22T18:08:11.636Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:08:11.636Z"
+    },
+    "cmd-1792692523726": {
+      "key": "cmd-1792692523726",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B tests/test_classify.py | tail -4 && ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport sys, fitz\\nfrom pathlib import Path\\nsys.path.insert(0, '.')\\nfrom classify import classify_document, confirm_slot, REQUIRED_TYPES\\nbad = 0\\nfor p in sorted(Path('PlanExample').glob('*.pdf')):\\n    d = fitz.open(str(p)); pages = [pg.get_text() for pg in d]; d.close()\\n    t = ''.join(pages); r = classify_document(p.name, t, pages)\\n    if r['type'] in REQUIRED_TYPES:\\n        ok, why = confirm_slot(p.name, t, pages, r['type'])\\n        if not ok:\\n            bad += 1; print('NOT CONFIRMED:', p.name, why)\\nprint('real-pack docs not confirmed:', bad)\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:08:43.726Z",
+      "lastAccessed": "2026-10-22T18:08:43.726Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:08:43.726Z"
+    },
+    "cmd-1792692602325": {
+      "key": "cmd-1792692602325",
+      "value": "{\"command\":\"for t in tests/test_*.py; do printf '%-34s ' \\\"$t\\\"; ./.venv/Scripts/python.exe -B \\\"$t\\\" 2>&1 | tail -1; done\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:10:02.325Z",
+      "lastAccessed": "2026-10-22T18:10:02.325Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:10:02.325Z"
+    },
+    "cmd-1792692616280": {
+      "key": "cmd-1792692616280",
+      "value": "{\"command\":\"S=\\\"/c/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/4232d65a-efda-443b-81f0-2ec282908f06/scratchpad/old_head\\\"; rm -rf \\\"$S\\\" && mkdir -p \\\"$S\\\" && cd /c/Users/mohda/Documents/planscan && git archive HEAD | tar -x -C \\\"$S\\\" && cp tests/test_admin_validator.py tests/test_assessment.py tests/test_classify.py tests/test_requirements.py \\\"$S/tests/\\\" && cd \\\"$S\\\" && for t in tests/test_admin_validator.py tests/test_assessment.py tests/test_classify.py tests/test_requirements.py; do echo \\\"== OLD CODE: $t\\\"; /c/Users/mohda/Documents/planscan/.venv/Scripts/python.exe -B \\\"$t\\\" 2>&1 | grep -E \\\"FAIL|ERROR|passed\\\" | cut -c1-230; done\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:10:16.280Z",
+      "lastAccessed": "2026-10-22T18:10:16.280Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:10:16.280Z"
+    },
+    "cmd-1792692767169": {
+      "key": "cmd-1792692767169",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B - <<'EOF'\\nimport sys, fitz\\nsys.path.insert(0, '.')\\nfrom report_pdf import build_pdf\\nfrom doc_checklist import check_document_completeness, MANDATORY_DOCUMENTS\\nfrom assessment import application_status, tier1_findings\\nprov = {d[\\\"id\\\"]: True for d in MANDATORY_DOCUMENTS}; prov[\\\"site_notice\\\"] = False\\ndr = check_document_completeness(prov, {}, None, {\\\"site_notice\\\": \\\"no readable text in the file — check it by eye\\\"})\\nt1 = tier1_findings({\\\"site_notice\\\": {\\\"verdict\\\": \\\"PASS\\\", \\\"message\\\": \\\"ok\\\"}, \\\"newspaper\\\": {\\\"verdict\\\": \\\"PASS\\\", \\\"message\\\": \\\"ok\\\"}},\\n                    {\\\"verdict\\\": \\\"PASS\\\", \\\"message\\\": \\\"ok\\\"}, {\\\"overall\\\": {\\\"verdict\\\": \\\"PASS\\\", \\\"message\\\": \\\"ok\\\"}},\\n                    {\\\"expected_fee\\\": 65.0}, 65.0)\\nst = application_status(dr, t1)\\nctx = {\\\"council\\\": \\\"Fingal County Council\\\", \\\"dev_type\\\": \\\"New dwelling house\\\", \\\"eircode\\\": \\\"\\\", \\\"floor_area\\\": 0,\\n       \\\"doc_result\\\": dr, \\\"status\\\": st, \\\"date_audit\\\": {}, \\\"np_audit\\\": {\\\"verdict\\\": \\\"PASS\\\", \\\"message\\\": \\\"ok\\\"},\\n       \\\"desc_audit\\\": {\\\"overall\\\": {\\\"verdict\\\": \\\"PASS\\\", \\\"message\\\": \\\"ok\\\"}},\\n       \\\"fee_audit\\\": {\\\"expected_fee\\\": 65.0, \\\"description\\\": \\\"x\\\"}, \\\"fee_paid\\\": 65.0, \\\"content_results\\\": []}\\ndata = build_pdf(ctx)\\ntxt = \\\"\\\".join(p.get_text() for p in fitz.open(stream=data, filetype=\\\"pdf\\\"))\\nprint(\\\"level:\\\", st[\\\"level\\\"], \\\"| bytes:\\\", len(data))\\nfor needle in (\\\"CHECK BEFORE LODGING\\\", \\\"NOT CONFIRMED\\\", \\\"no readable text\\\", \\\"To confirm\\\"):\\n    print(f\\\"{needle!r:28} in PDF:\\\", needle in txt)\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:12:47.169Z",
+      "lastAccessed": "2026-10-22T18:12:47.169Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:12:47.169Z"
+    },
+    "cmd-1792692776726": {
+      "key": "cmd-1792692776726",
+      "value": "{\"command\":\"git status --short && git diff --stat\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:12:56.726Z",
+      "lastAccessed": "2026-10-22T18:12:56.726Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:12:56.726Z"
+    },
+    "cmd-1792692816515": {
+      "key": "cmd-1792692816515",
+      "value": "{\"command\":\"git branch --show-current && git diff .gitignore && cat .claude/settings.json 2>/dev/null | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:13:36.515Z",
+      "lastAccessed": "2026-10-22T18:13:36.515Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:13:36.515Z"
+    },
+    "cmd-1792692831207": {
+      "key": "cmd-1792692831207",
+      "value": "{\"command\":\"git switch -c fix/false-green-checks && git add admin_validator.py assessment.py classify.py doc_checklist.py report_pdf.py requirements.txt views/dashboard.py views/intake.py tests/test_assessment.py tests/test_classify.py tests/test_admin_validator.py tests/test_requirements.py && git commit -q -F - <<'EOF'\\nFix three false-green checks and align requirements.txt\\n\\n- Status: any open warning now gives an amber CHECK state; READY is shown\\n  only when nothing is left to confirm (Manual check, Intake, PDF report).\\n- Newspaper check: the whole title must appear in the entry. A fragment\\n  (\\\"Irish\\\", \\\"Daily Star\\\") is a WARNING naming the full title, never a PASS.\\n- Document slots: a file counts as detected only when its content is\\n  recognised as that document (classify.confirm_slot). Otherwise it is\\n  \\\"uploaded, not confirmed\\\": a warning, not a false pass or a false miss.\\n- requirements.txt: list exactly the 12 imported packages, pinned to the\\n  tested versions. Add fpdf2, rapidocr-onnxruntime and urllib3; drop the\\n  unused llama-index, reportlab, geopy, psycopg2-binary and pandas.\\n\\nTests: new test_admin_validator.py and test_requirements.py; extended\\ntest_assessment.py and test_classify.py. 118/118 pass.\\nEOF\\ngit log --oneline -n 2 && git show --stat --format= HEAD\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:13:51.207Z",
+      "lastAccessed": "2026-10-22T18:13:51.207Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:13:51.207Z"
+    },
+    "cmd-1792692838368": {
+      "key": "cmd-1792692838368",
+      "value": "{\"command\":\"git add docs/project_assessment.md && git commit -q -m \\\"Add project assessment report (2026-10-22)\\\" -m \\\"Read-only review by a ruflo swarm: code review, accuracy and trust, market research and direction check, with lead verification. Written before the false-green fixes in d8e3946, which it lists as open.\\\" && git log --oneline -n 3 && git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:13:58.368Z",
+      "lastAccessed": "2026-10-22T18:13:58.368Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:13:58.368Z"
+    },
+    "cmd-1792693381399": {
+      "key": "cmd-1792693381399",
+      "value": "{\"command\":\"git switch main && git merge --ff-only fix/false-green-checks && git log --oneline -n 3 && git branch -v\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:23:01.399Z",
+      "lastAccessed": "2026-10-22T18:23:01.399Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:23:01.399Z"
+    },
+    "cmd-1792693638079": {
+      "key": "cmd-1792693638079",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B - <<'EOF'\\nimport json, requests\\nB = \\\"https://services.arcgis.com/NzlPQPKn5QF9v2US/arcgis/rest/services/IrishPlanningApplications/FeatureServer/0\\\"\\nmeta = requests.get(B, params={\\\"f\\\": \\\"json\\\"}, timeout=60).json()\\nprint(\\\"fields:\\\", [f[\\\"name\\\"] for f in meta.get(\\\"fields\\\", [])])\\ndef q(where, **kw):\\n    p = {\\\"where\\\": where, \\\"f\\\": \\\"json\\\", **kw}\\n    return requests.get(B + \\\"/query\\\", params=p, timeout=60).json()\\nprint(\\\"total:\\\", q(\\\"1=1\\\", returnCountOnly=\\\"true\\\"))\\nfor col in (\\\"Decision\\\", \\\"ApplicationStatus\\\"):\\n    r = q(\\\"1=1\\\", outFields=col, returnDistinctValues=\\\"true\\\", returnGeometry=\\\"false\\\", resultRecordCount=200)\\n    vals = sorted({str(f[\\\"attributes\\\"].get(col)) for f in r.get(\\\"features\\\", [])})\\n    print(col, \\\"distinct (first 60):\\\", [v for v in vals if \\\"INVALID\\\" in v.upper() or \\\"WITHDR\\\" in v.upper()][:20], \\\"| n distinct:\\\", len(vals))\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:27:18.079Z",
+      "lastAccessed": "2026-10-22T18:27:18.079Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:27:18.079Z"
+    },
+    "cmd-1792693654405": {
+      "key": "cmd-1792693654405",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B - <<'EOF'\\nimport json, requests\\nB = \\\"https://services.arcgis.com/NzlPQPKn5QF9v2US/arcgis/rest/services/IrishPlanningApplications/FeatureServer/0/query\\\"\\nINV = \\\"(UPPER(Decision) LIKE '%INVALID%' OR UPPER(ApplicationStatus) LIKE '%INVALID%')\\\"\\nREC = \\\"ReceivedDate >= DATE '2024-01-01'\\\"\\nstats = [{\\\"statisticType\\\": \\\"count\\\", \\\"onStatisticField\\\": \\\"OBJECTID\\\", \\\"outStatisticFieldName\\\": \\\"n\\\"}]\\ndef grp(where):\\n    r = requests.get(B, params={\\\"where\\\": where, \\\"f\\\": \\\"json\\\", \\\"groupByFieldsForStatistics\\\": \\\"PlanningAuthority\\\",\\n                                \\\"outStatistics\\\": json.dumps(stats)}, timeout=90).json()\\n    return {f[\\\"attributes\\\"][\\\"PlanningAuthority\\\"]: f[\\\"attributes\\\"][\\\"n\\\"] for f in r.get(\\\"features\\\", [])}\\nallr = grp(REC); inv = grp(REC + \\\" AND \\\" + INV)\\nprint(f\\\"{'authority':42} received  invalid  rate\\\")\\nfor a in sorted(allr, key=lambda k: -inv.get(k, 0)):\\n    n, i = allr[a], inv.get(a, 0)\\n    print(f\\\"{a[:42]:42} {n:8} {i:8}  {i/n:5.1%}\\\")\\nprint(\\\"TOTAL\\\", sum(allr.values()), sum(inv.values()))\\nr = requests.get(B, params={\\\"where\\\": REC + \\\" AND \\\" + INV, \\\"f\\\": \\\"json\\\", \\\"returnGeometry\\\": \\\"false\\\",\\n                            \\\"outFields\\\": \\\"PlanningAuthority,ApplicationNumber,ApplicationStatus,Decision,ReceivedDate,LinkAppDetails\\\",\\n                            \\\"resultRecordCount\\\": 400}, timeout=90).json()\\nseen = {}\\nfor f in r.get(\\\"features\\\", []):\\n    a = f[\\\"attributes\\\"]; pa = a[\\\"PlanningAuthority\\\"]\\n    if pa not in seen:\\n        seen[pa] = a\\nfor pa, a in list(seen.items())[:12]:\\n    print(pa, \\\"|\\\", a[\\\"ApplicationNumber\\\"], \\\"|\\\", (a[\\\"Decision\\\"] or \\\"\\\").strip(), \\\"|\\\", (a[\\\"ApplicationStatus\\\"] or \\\"\\\").strip(), \\\"|\\\", a[\\\"LinkAppDetails\\\"])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:27:34.405Z",
+      "lastAccessed": "2026-10-22T18:27:34.405Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:27:34.405Z"
+    },
+    "cmd-1792693676825": {
+      "key": "cmd-1792693676825",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B - <<'EOF'\\nimport json, requests\\nB = \\\"https://services.arcgis.com/NzlPQPKn5QF9v2US/arcgis/rest/services/IrishPlanningApplications/FeatureServer/0/query\\\"\\nINV = \\\"(UPPER(Decision) LIKE '%INVALID%' OR UPPER(ApplicationStatus) LIKE '%INVALID%')\\\"\\nREC = \\\"ReceivedDate >= DATE '2024-01-01'\\\"\\nstats = [{\\\"statisticType\\\": \\\"count\\\", \\\"onStatisticField\\\": \\\"OBJECTID\\\", \\\"outStatisticFieldName\\\": \\\"n\\\"}]\\nfor col in (\\\"Decision\\\", \\\"ApplicationStatus\\\"):\\n    r = requests.get(B, params={\\\"where\\\": REC + \\\" AND \\\" + INV, \\\"f\\\": \\\"json\\\", \\\"groupByFieldsForStatistics\\\": \\\"PlanningAuthority,\\\" + col,\\n                                \\\"outStatistics\\\": json.dumps(stats)}, timeout=90).json()\\n    print(f\\\"-- by {col}\\\")\\n    for f in sorted(r.get(\\\"features\\\", []), key=lambda f: -f[\\\"attributes\\\"][\\\"n\\\"]):\\n        a = f[\\\"attributes\\\"]; print(f\\\"   {a['PlanningAuthority'][:30]:30} {str(a[col]).strip()[:45]:45} {a['n']}\\\")\\nfor pa in (\\\"Fingal County Council\\\", \\\"Dublin City Council\\\", \\\"Dun Laoghaire Rathdown County Council\\\", \\\"South Dublin County Council\\\"):\\n    r = requests.get(B, params={\\\"where\\\": f\\\"PlanningAuthority='{pa}' AND \\\" + REC + \\\" AND \\\" + INV, \\\"f\\\": \\\"json\\\",\\n                                \\\"returnGeometry\\\": \\\"false\\\", \\\"outFields\\\": \\\"ApplicationNumber,ApplicationType,Decision,ApplicationStatus,ReceivedDate,LinkAppDetails\\\",\\n                                \\\"resultRecordCount\\\": 2, \\\"orderByFields\\\": \\\"ReceivedDate DESC\\\"}, timeout=90).json()\\n    for f in r.get(\\\"features\\\", []):\\n        a = f[\\\"attributes\\\"]; print(pa[:22], \\\"|\\\", a[\\\"ApplicationNumber\\\"], \\\"|\\\", a[\\\"ApplicationType\\\"], \\\"|\\\", a[\\\"LinkAppDetails\\\"])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:27:56.825Z",
+      "lastAccessed": "2026-10-22T18:27:56.825Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:27:56.825Z"
+    },
+    "cmd-1792693688694": {
+      "key": "cmd-1792693688694",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests, json\\nAPI = \\\"https://planningapi.agileapplications.ie/api\\\"\\nfor client, appid in ((\\\"SOUTHDUBLIN\\\", 71099),):\\n    h = {\\\"x-client\\\": client, \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\", \\\"Accept\\\": \\\"application/json\\\"}\\n    for path in (f\\\"/application/{appid}\\\", f\\\"/application/{appid}/document\\\"):\\n        r = requests.get(API + path, headers=h, timeout=60)\\n        print(path, r.status_code, r.headers.get(\\\"content-type\\\"))\\n        try:\\n            d = r.json()\\n        except Exception:\\n            print(r.text[:300]); continue\\n        if isinstance(d, dict):\\n            print({k: (str(v)[:80]) for k, v in d.items() if k.lower() in (\\\"reference\\\",\\\"status\\\",\\\"decisiontext\\\",\\\"decision\\\",\\\"validdate\\\",\\\"receiveddate\\\",\\\"applicationtype\\\",\\\"statusdescription\\\",\\\"decisiondescription\\\")})\\n            print(\\\"keys:\\\", list(d.keys())[:40])\\n        else:\\n            print(\\\"n docs:\\\", len(d))\\n            for x in d[:25]:\\n                print(\\\"   \\\", {k: str(v)[:70] for k, v in x.items() if k in (\\\"id\\\",\\\"name\\\",\\\"title\\\",\\\"documentType\\\",\\\"type\\\",\\\"mediaDescription\\\",\\\"description\\\",\\\"fileName\\\",\\\"receivedDate\\\",\\\"date\\\")})\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:28:08.694Z",
+      "lastAccessed": "2026-10-22T18:28:08.694Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:28:08.694Z"
+    },
+    "cmd-1792693724957": {
+      "key": "cmd-1792693724957",
+      "value": "{\"command\":\"./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests, fitz, re\\npdf = requests.get(\\\"https://www.sdcc.ie/en/services/our-council/access-to-information/privacy-statements/privacy-statement-for-development-management.pdf\\\", timeout=60).content\\ntxt = \\\" \\\".join(p.get_text() for p in fitz.open(stream=pdf, filetype=\\\"pdf\\\"))\\ntxt = re.sub(r\\\"\\\\s+\\\", \\\" \\\", txt)\\nprint(\\\"chars:\\\", len(txt))\\nfor kw in (\\\"automat\\\", \\\"scrap\\\", \\\"bulk\\\", \\\"re-use\\\", \\\"reuse\\\", \\\"marketing\\\", \\\"commercial\\\", \\\"download\\\", \\\"website\\\", \\\"publish\\\", \\\"copyright\\\", \\\"third part\\\"):\\n    for m in re.finditer(kw, txt, re.I):\\n        print(f\\\"[{kw}] ...{txt[max(0,m.start()-160):m.end()+200]}...\\\")\\n        break\\nprint(\\\"==== API probe\\\")\\nAPI = \\\"https://planningapi.agileapplications.ie//api\\\"\\nfor hdrs in ({\\\"x-client\\\": \\\"SOUTHDUBLIN\\\", \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\"},\\n             {\\\"x-client\\\": \\\"southdublin\\\", \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\"}):\\n    r = requests.get(API + \\\"/application/71099/document\\\", headers=hdrs, timeout=60)\\n    print(hdrs[\\\"x-client\\\"], r.status_code, r.text[:300])\\nEOF\",\"exitCode\":1,\"success\":false}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:28:44.957Z",
+      "lastAccessed": "2026-10-22T18:28:44.957Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:28:44.957Z"
+    },
+    "cmd-1792693733174": {
+      "key": "cmd-1792693733174",
+      "value": "{\"command\":\"PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests, fitz, re\\npdf = requests.get(\\\"https://www.sdcc.ie/en/services/our-council/access-to-information/privacy-statements/privacy-statement-for-development-management.pdf\\\", timeout=60).content\\ntxt = re.sub(r\\\"\\\\s+\\\", \\\" \\\", \\\" \\\".join(p.get_text() for p in fitz.open(stream=pdf, filetype=\\\"pdf\\\")))\\nfor kw in (\\\"automat\\\", \\\"scrap\\\", \\\"bulk\\\", \\\"re-use\\\", \\\"reuse\\\", \\\"marketing\\\", \\\"commercial\\\", \\\"website\\\", \\\"publish\\\", \\\"third part\\\"):\\n    m = re.search(kw, txt, re.I)\\n    if m:\\n        print(f\\\"[{kw}] ...{txt[max(0,m.start()-160):m.end()+220]}...\\\\n\\\")\\nprint(\\\"==== API probe\\\")\\nAPI = \\\"https://planningapi.agileapplications.ie//api\\\"\\nfor c in (\\\"SOUTHDUBLIN\\\", \\\"southdublin\\\"):\\n    r = requests.get(API + \\\"/application/71099/document\\\", headers={\\\"x-client\\\": c, \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\"}, timeout=60)\\n    print(c, r.status_code, r.text[:300])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:28:53.174Z",
+      "lastAccessed": "2026-10-22T18:28:53.174Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:28:53.174Z"
+    },
+    "cmd-1792693739776": {
+      "key": "cmd-1792693739776",
+      "value": "{\"command\":\"PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests, json\\nc = requests.get(\\\"https://identity.agileapplications.ie/api/client/get\\\", params={\\\"url\\\": \\\"southdublin\\\"}, timeout=60).json()\\nprint(json.dumps(c, indent=0)[:600])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:28:59.776Z",
+      "lastAccessed": "2026-10-22T18:28:59.776Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:28:59.776Z"
+    },
+    "cmd-1792693746358": {
+      "key": "cmd-1792693746358",
+      "value": "{\"command\":\"PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests, json\\nAPI = \\\"https://planningapi.agileapplications.ie//api\\\"\\nH = {\\\"x-client\\\": \\\"SD\\\", \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\"}\\nfor path in (\\\"/application/71099/document\\\", \\\"/application/71099/conditions\\\"):\\n    r = requests.get(API + path, headers=H, timeout=60)\\n    print(path, r.status_code)\\n    d = r.json()\\n    items = d if isinstance(d, list) else d.get(\\\"results\\\") or d.get(\\\"data\\\") or d\\n    print(json.dumps(items, indent=0)[:900])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:29:06.358Z",
+      "lastAccessed": "2026-10-22T18:29:06.358Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:29:06.358Z"
+    },
+    "cmd-1792693790930": {
+      "key": "cmd-1792693790930",
+      "value": "{\"command\":\"PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests, json, re\\nNB = \\\"https://services.arcgis.com/NzlPQPKn5QF9v2US/arcgis/rest/services/IrishPlanningApplications/FeatureServer/0/query\\\"\\nINV = \\\"(UPPER(Decision) LIKE '%INVALID%' OR UPPER(ApplicationStatus) LIKE '%INVALID%')\\\"\\nAPI = \\\"https://planningapi.agileapplications.ie//api\\\"\\ncodes = {}\\ndef code(slug):\\n    if slug not in codes:\\n        codes[slug] = requests.get(\\\"https://identity.agileapplications.ie/api/client/get\\\", params={\\\"url\\\": slug}, timeout=60).json()[\\\"code\\\"]\\n    return codes[slug]\\nfor pa in (\\\"Fingal County Council\\\", \\\"Cork County Council\\\", \\\"South Dublin County Council\\\"):\\n    r = requests.get(NB, params={\\\"where\\\": f\\\"PlanningAuthority='{pa}' AND ReceivedDate >= DATE '2026-01-01' AND \\\" + INV, \\\"f\\\": \\\"json\\\",\\n                                 \\\"returnGeometry\\\": \\\"false\\\", \\\"outFields\\\": \\\"ApplicationNumber,LinkAppDetails\\\", \\\"resultRecordCount\\\": 6,\\n                                 \\\"orderByFields\\\": \\\"ReceivedDate DESC\\\"}, timeout=90).json()\\n    for f in r[\\\"features\\\"]:\\n        a = f[\\\"attributes\\\"]; link = a[\\\"LinkAppDetails\\\"] or \\\"\\\"\\n        m = re.search(r\\\"agileapplications\\\\.ie/([^/]+)/application-details/\\\\?ref=(.+)$|agileapplications\\\\.ie/([^/]+)/application-details/(\\\\d+)\\\", link)\\n        if not m:\\n            print(pa[:12], a[\\\"ApplicationNumber\\\"].strip(), \\\"| link:\\\", link[:90]); continue\\n        slug = m.group(1) or m.group(3); H = {\\\"x-client\\\": code(slug), \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\"}\\n        appid = m.group(4)\\n        if not appid:   # ref-style link -> search for the numeric id\\n            s = requests.get(API + \\\"/application/search\\\", params={\\\"reference\\\": m.group(2)}, headers=H, timeout=60)\\n            try:\\n                js = s.json(); res = js.get(\\\"results\\\", js) if isinstance(js, dict) else js\\n                appid = res[0][\\\"id\\\"] if res else None\\n            except Exception:\\n                print(pa[:12], \\\"search failed\\\", s.status_code, s.text[:120]); continue\\n        docs = requests.g …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:29:50.930Z",
+      "lastAccessed": "2026-10-22T18:29:50.930Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:29:50.930Z"
+    },
+    "cmd-1792693803663": {
+      "key": "cmd-1792693803663",
+      "value": "{\"command\":\"PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests, json\\nAPI = \\\"https://planningapi.agileapplications.ie//api\\\"\\ndef H(c): return {\\\"x-client\\\": c, \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\"}\\ndocs = requests.get(f\\\"{API}/application/1001896/document\\\", headers=H(\\\"CORKCOCO\\\"), timeout=60).json()\\nprint(\\\"Cork 26/2594 doc fields:\\\", list(docs[0].keys()))\\nfor d in docs:\\n    print(\\\"  \\\", {k: str(d.get(k))[:60] for k in (\\\"name\\\", \\\"title\\\", \\\"documentType\\\", \\\"mediaDescription\\\", \\\"description\\\", \\\"fileName\\\", \\\"receivedDate\\\", \\\"documentHash\\\", \\\"id\\\") if k in d})\\nfc = requests.get(\\\"https://identity.agileapplications.ie/api/client/get\\\", params={\\\"url\\\": \\\"fingal\\\"}, timeout=60).json()[\\\"code\\\"]\\nprint(\\\"Fingal code:\\\", fc)\\ns = requests.get(f\\\"{API}/application/search\\\", params={\\\"reference\\\": \\\"F26A/0808E\\\"}, headers=H(fc), timeout=60)\\nprint(\\\"search\\\", s.status_code, s.text[:200])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:30:03.663Z",
+      "lastAccessed": "2026-10-22T18:30:03.663Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:30:03.663Z"
+    },
+    "cmd-1792693827768": {
+      "key": "cmd-1792693827768",
+      "value": "{\"command\":\"PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests\\nAPI = \\\"https://planningapi.agileapplications.ie//api\\\"\\nH = {\\\"x-client\\\": \\\"FG\\\", \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\"}\\nfor ref in (\\\"F26A/0808E\\\", \\\"F26A/0805E\\\", \\\"F26A/0802E\\\"):\\n    res = requests.get(f\\\"{API}/application/search\\\", params={\\\"reference\\\": ref}, headers=H, timeout=60).json()[\\\"results\\\"]\\n    i = res[0][\\\"id\\\"]\\n    docs = requests.get(f\\\"{API}/application/{i}/document\\\", headers=H, timeout=60).json()\\n    cond = requests.get(f\\\"{API}/application/{i}/conditions\\\", headers=H, timeout=60).json()\\n    rs = [p[\\\"shortPrescription\\\"] for p in (cond.get(\\\"applicationPrescriptions\\\") or [])]\\n    kinds = sorted({d.get(\\\"mediaDescription\\\") for d in docs}) if isinstance(docs, list) else docs\\n    print(ref, \\\"id\\\", i, \\\"| docs\\\", len(docs) if isinstance(docs, list) else \\\"?\\\", kinds, \\\"| reasons\\\", rs)\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:30:27.768Z",
+      "lastAccessed": "2026-10-22T18:30:27.768Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:30:27.768Z"
+    },
+    "cmd-1792693935784": {
+      "key": "cmd-1792693935784",
+      "value": "{\"command\":\"PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport requests, re, time\\nfrom pathlib import Path\\nOUT = Path(r\\\"C:\\\\Users\\\\mohda\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-mohda-Documents-Portfolio\\\\4232d65a-efda-443b-81f0-2ec282908f06\\\\scratchpad\\\\validation_pilot\\\\cork_26-2594\\\")\\nOUT.mkdir(parents=True, exist_ok=True)\\nAPI = \\\"https://planningapi.agileapplications.ie//api/application\\\"\\nH = {\\\"x-client\\\": \\\"CORKCOCO\\\", \\\"x-product\\\": \\\"CITIZENPORTAL\\\", \\\"x-service\\\": \\\"PA\\\"}\\ndocs = requests.get(f\\\"{API}/1001896/document\\\", headers=H, timeout=60).json()\\ntotal = 0\\nfor d in docs:\\n    r = requests.get(f\\\"{API}/document/{d['documentHash']}\\\", headers=H, timeout=120)\\n    name = re.sub(r'[\\\\\\\\/:*?\\\"<>|]', \\\"_\\\", d[\\\"name\\\"])\\n    (OUT / name).write_bytes(r.content)\\n    total += len(r.content)\\n    print(f\\\"{r.status_code} {len(r.content):>9,} B  {d['mediaDescription'][:26]:26} {name}\\\")\\n    time.sleep(0.5)\\nprint(f\\\"total {total/1e6:.1f} MB in {OUT}\\\")\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:32:15.784Z",
+      "lastAccessed": "2026-10-22T18:32:15.784Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:32:15.784Z"
+    },
+    "cmd-1792693943134": {
+      "key": "cmd-1792693943134",
+      "value": "{\"command\":\"PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe -B - <<'EOF'\\nimport fitz, re\\np = r\\\"C:\\\\Users\\\\mohda\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-mohda-Documents-Portfolio\\\\4232d65a-efda-443b-81f0-2ec282908f06\\\\scratchpad\\\\validation_pilot\\\\cork_26-2594\\\\83763CCC Invalid Letter to Applicant_849.pdf\\\"\\nt = \\\"\\\".join(pg.get_text() for pg in fitz.open(p))\\ni = t.lower().find(\\\"article\\\")\\nbody = t[max(0, i-400):]\\nprint(re.sub(r\\\"[ \\\\t]+\\\", \\\" \\\", body)[:2500])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:32:23.134Z",
+      "lastAccessed": "2026-10-22T18:32:23.134Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:32:23.134Z"
+    },
+    "cmd-1792693982282": {
+      "key": "cmd-1792693982282",
+      "value": "{\"command\":\"S=\\\"/c/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/4232d65a-efda-443b-81f0-2ec282908f06/scratchpad/validation_pilot\\\"; cd \\\"$S\\\" && PYTHONIOENCODING=utf-8 /c/Users/mohda/Documents/planscan/.venv/Scripts/python.exe -B run_pack.py \\\"$S/cork_26-2594\\\" \\\"Cork County Council\\\"\",\"exitCode\":2,\"success\":false}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:33:02.282Z",
+      "lastAccessed": "2026-10-22T18:33:02.282Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:33:02.282Z"
+    },
+    "cmd-1792693999672": {
+      "key": "cmd-1792693999672",
+      "value": "{\"command\":\"S=\\\"/c/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/4232d65a-efda-443b-81f0-2ec282908f06/scratchpad/validation_pilot\\\"; cd \\\"$S\\\" && PYTHONIOENCODING=utf-8 /c/Users/mohda/Documents/planscan/.venv/Scripts/python.exe -B run_pack.py \\\"$S/cork_26-2594\\\" \\\"Cork County Council\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-22T18:33:19.672Z",
+      "lastAccessed": "2026-10-22T18:33:19.672Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-21T18:33:19.672Z"
+    },
+    "cmd-1793024868844": {
+      "key": "cmd-1793024868844",
+      "value": "{\"command\":\"ls -d /c/Users/mohda/Documents/*lobal* /c/Users/mohda/Documents/*iscovery* 2>/dev/null; echo \\\"exit:$?\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:27:48.844Z",
+      "lastAccessed": "2026-10-26T14:27:48.844Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:27:48.844Z"
+    },
+    "cmd-1793024909703": {
+      "key": "cmd-1793024909703",
+      "value": "{\"command\":\"which pdftotext python python3 2>/dev/null; python -c \\\"import pypdf; print(pypdf.__version__)\\\" 2>&1; python -c \\\"import fitz; print('fitz ok')\\\" 2>&1\",\"exitCode\":1,\"success\":false}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:28:29.703Z",
+      "lastAccessed": "2026-10-26T14:28:29.703Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:28:29.703Z"
+    },
+    "cmd-1793024921068": {
+      "key": "cmd-1793024921068",
+      "value": "{\"command\":\"S=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; mkdir -p \\\"$S\\\"; pdftotext -layout \\\"C:/Users/mohda/.claude/projects/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/tool-results/webfetch-1793024886840-31i5fa.pdf\\\" \\\"$S/contractors_guide.txt\\\" && wc -l \\\"$S/contractors_guide.txt\\\" && grep -n -i -E \\\"induct|competen|subcontract|safe pass|regulation [0-9]+|safety statement|CSCS\\\" \\\"$S/contractors_guide.txt\\\" | head -80\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:28:41.068Z",
+      "lastAccessed": "2026-10-26T14:28:41.068Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:28:41.068Z"
+    },
+    "cmd-1793024929609": {
+      "key": "cmd-1793024929609",
+      "value": "{\"command\":\"S=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; sed -n 1,240p \\\"$S/contractors_guide.txt\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:28:49.609Z",
+      "lastAccessed": "2026-10-26T14:28:49.609Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:28:49.609Z"
+    },
+    "cmd-1793024968249": {
+      "key": "cmd-1793024968249",
+      "value": "{\"command\":\"S=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; python -I -c \\\"\\nimport json,sys\\nd=json.load(open(sys.argv[1],encoding='utf-8'))\\nt='\\\\n'.join(d['content'])\\nopen(sys.argv[2],'w',encoding='utf-8').write(t)\\nprint(d['status'],len(t))\\n\\\" \\\"C:/Users/mohda/.claude/projects/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/tool-results/mcp-ScraplingServer-make_request-1793024952805.txt\\\" \\\"$S/si291.txt\\\"; grep -n -i -E \\\"induct|competen|safety awareness|construction skills|reasonably satisfied|adequate resources\\\" \\\"$S/si291.txt\\\" | head -60\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:29:28.249Z",
+      "lastAccessed": "2026-10-26T14:29:28.249Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:29:28.249Z"
+    },
+    "cmd-1793024978348": {
+      "key": "cmd-1793024978348",
+      "value": "{\"command\":\"S=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; sed -n 700,724p \\\"$S/si291.txt\\\"; echo ----; sed -n 1230,1265p \\\"$S/si291.txt\\\"; echo ----; sed -n 2520,2560p \\\"$S/si291.txt\\\"; echo; grep -n -i -E \\\"road signing|road works|roadworks\\\" \\\"$S/si291.txt\\\" | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:29:38.348Z",
+      "lastAccessed": "2026-10-26T14:29:38.348Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:29:38.348Z"
+    },
+    "cmd-1793024988775": {
+      "key": "cmd-1793024988775",
+      "value": "{\"command\":\"S=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; grep -n -E \\\"^4\\\\. |^Application\\\" \\\"$S/si291.txt\\\" | head; awk 'NR>=560 && NR<=600' \\\"$S/si291.txt\\\"; grep -n -i -E \\\"signing, lighting|Signing, Lighting|guarding\\\" \\\"$S/si291.txt\\\" | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:29:48.775Z",
+      "lastAccessed": "2026-10-26T14:29:48.775Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:29:48.775Z"
+    },
+    "cmd-1793025003188": {
+      "key": "cmd-1793025003188",
+      "value": "{\"command\":\"S=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; grep -n -i \\\"construction work” means\\\\|“construction work”\\\" \\\"$S/si291.txt\\\" | head -3; n=$(grep -n -i \\\"“construction work” means\\\" \\\"$S/si291.txt\\\" | head -1 | cut -d: -f1); sed -n \\\"${n},$((n+6))p\\\" \\\"$S/si291.txt\\\"; grep -n -i \\\"site-specific safety induction\\\\|Schedule 4\\\" \\\"$S/si291.txt\\\" | head;\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:30:03.188Z",
+      "lastAccessed": "2026-10-26T14:30:03.188Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:30:03.188Z"
+    },
+    "cmd-1793025014761": {
+      "key": "cmd-1793025014761",
+      "value": "{\"command\":\"S=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; sed -n 383,440p \\\"$S/si291.txt\\\" | tr '\\\\n' ' ' | head -c 2500; echo; sed -n 596,612p \\\"$S/si291.txt\\\" | tr '\\\\n' ' '\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:30:14.761Z",
+      "lastAccessed": "2026-10-26T14:30:14.761Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:30:14.761Z"
+    },
+    "cmd-1793025152706": {
+      "key": "cmd-1793025152706",
+      "value": "{\"command\":\"git ls-files .claude | head; git check-ignore -v .claude/launch.json; echo \\\"rc:$?\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:32:32.706Z",
+      "lastAccessed": "2026-10-26T14:32:32.706Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:32:32.706Z"
+    },
+    "cmd-1793025190691": {
+      "key": "cmd-1793025190691",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents\\\" && ls -d */ 2>/dev/null | head -50; find . -maxdepth 3 -iname \\\"*globalvia*\\\" -o -maxdepth 3 -iname \\\"*gvj*\\\" -o -maxdepth 3 -iname \\\"*consult*\\\" 2>/dev/null | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:33:10.691Z",
+      "lastAccessed": "2026-10-26T14:33:10.691Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:33:10.691Z"
+    },
+    "cmd-1793025214951": {
+      "key": "cmd-1793025214951",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/GlobalviaJons_Discovery\\\" && ls -la; git -C . rev-parse --is-inside-work-tree 2>&1; git -C . remote -v 2>&1; find . -maxdepth 3 -type f -not -path \\\"./.git/*\\\" | head -50\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:33:34.951Z",
+      "lastAccessed": "2026-10-26T14:33:34.951Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:33:34.951Z"
+    },
+    "cmd-1793025225535": {
+      "key": "cmd-1793025225535",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/GlobalviaJons_Discovery\\\" && grep -n -o -E \\\"<script[^>]*src=[^>]*>|https?://[^\\\\\\\"' )]+\\\" discovery-map.html | sort -u | head; echo ----; head -c 3000 graph-data.js; echo; echo ----; grep -o -E \\\"(type|conf|confidence|area|group)\\\\s*:\\\\s*\\\\\\\"[^\\\\\\\"]+\\\\\\\"\\\" graph-data.js | sort | uniq -c | sort -rn | head -40\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:33:45.535Z",
+      "lastAccessed": "2026-10-26T14:33:45.535Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:33:45.535Z"
+    },
+    "cmd-1793025244265": {
+      "key": "cmd-1793025244265",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/GlobalviaJons_Discovery\\\" && python -I -c \\\"\\nimport re,sys\\nt=open('graph-data.js',encoding='utf-8').read()\\nfor m in re.finditer(r'\\\\{ id: \\\\\\\"([^\\\\\\\"]+)\\\\\\\", type: \\\\\\\"([^\\\\\\\"]+)\\\\\\\", area: \\\\\\\"([^\\\\\\\"]+)\\\\\\\", label: \\\\\\\"([^\\\\\\\"]+)\\\\\\\", conf: \\\\\\\"([^\\\\\\\"]+)\\\\\\\"', t):\\n    print(m.group(5).ljust(9), m.group(2).ljust(8), m.group(3).ljust(9), m.group(4))\\ni=t.find('edges'); print('---edges at',i); print(t[i:i+200] if i>0 else 'none')\\nprint(t.count('from:'), 'edges approx')\\n\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:34:04.265Z",
+      "lastAccessed": "2026-10-26T14:34:04.265Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:34:04.265Z"
+    },
+    "cmd-1793025254798": {
+      "key": "cmd-1793025254798",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/GlobalviaJons_Discovery\\\" && grep -n -A3 -E \\\"label: \\\\\\\"(Inductions|SharePoint/OneDrive paid but unused|TimePoint|Excel sends no reminders; expiries missed|Contractor websites \\\\(verification, car status\\\\)|SAP|Subcontractors fill too many forms|Vehicle maintenance documents|Fuel use per 100 km)\\\\\\\"\\\" graph-data.js | cut -c1-400\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:34:14.798Z",
+      "lastAccessed": "2026-10-26T14:34:14.798Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:34:14.798Z"
+    },
+    "cmd-1793025325087": {
+      "key": "cmd-1793025325087",
+      "value": "{\"command\":\"git checkout -- .claude/launch.json && git status --short\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:35:25.087Z",
+      "lastAccessed": "2026-10-26T14:35:25.087Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:35:25.087Z"
+    },
+    "cmd-1793025334156": {
+      "key": "cmd-1793025334156",
+      "value": "{\"command\":\"cat > \\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad/report.txt\\\" <<'EOF'\\n## Capture check\\nI read your actual file, C:\\\\Users\\\\mohda\\\\Documents\\\\GlobalviaJons_Discovery\\\\graph-data.js. It is local and not in git, which is good.\\n- **Wrong tags.** All 8 \\\"said2\\\" manager nodes are wrong. She said \\\"What I think on manager's pain\\\", so these are her guesses, not his words. Some nodes also drifted beyond what she said and are still tagged \\\"said\\\": \\\"paid but unused\\\" (she never said paid), \\\"too many forms\\\" (she said \\\"a lot\\\"), \\\"expiries missed\\\" (not stated).\\n- **Merges.** The \\\"Inductions\\\" node sits under Training & HR, but the yearly induction she described is for subcontractors. The \\\"contractors' websites\\\" are vehicle vendors, a different group from the subcontractors.\\n- **Contradictions you did not record.** She says \\\"no database\\\", but SAP is a database and may already hold cost by depot, so the manager's expense view could be a report, not a build. She says SharePoint is unused, yet she sends a monthly online form, possibly Microsoft Forms (UNVERIFIED). She complains \\\"everybody has access to everything\\\" and then asks for a database \\\"everybody sees\\\".\\n- **Lost implicit facts.** She says \\\"nobody checks\\\" three times, plus \\\"responsibility is not clear\\\" and \\\"they keep it for themselves\\\". That is an ownership and politics problem, not a tooling one. She also runs the mileage register and pushed CompliPlus, so she has a stake in the findings.\\n- **Legal hooks.** Her \\\"certification\\\" includes cards required by law (Safe Pass, CSCS). TII's MMaRC3G scope includes \\\"asset data within an asset inventory system\\\", so TII may dictate some systems.\\n\\n## Method\\nThe graph works as a viewer but fails as the store. About 89 nodes from one conversation, 56 of them tagged \\\"said\\\" from one person, look more complete than they are. A graph also cannot show sequence, frequency, volume, effort or due dates, and her core ask (\\\"by 23 Nov …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:35:34.156Z",
+      "lastAccessed": "2026-10-26T14:35:34.156Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:35:34.156Z"
+    },
+    "cmd-1793025373803": {
+      "key": "cmd-1793025373803",
+      "value": "{\"command\":\"cat > \\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad/report.txt\\\" <<'EOF'\\n## Capture check\\nI read your actual file, C:\\\\Users\\\\mohda\\\\Documents\\\\GlobalviaJons_Discovery\\\\graph-data.js. It is local and not in git, which is good.\\n- **Wrong tags.** All 8 \\\"said2\\\" manager nodes are wrong: she said \\\"What I think on manager's pain\\\", so these are her guesses. Three nodes tagged \\\"said\\\" go beyond her words: \\\"paid but unused\\\", \\\"too many forms\\\" (she said \\\"a lot\\\") and \\\"expiries missed\\\".\\n- **Merges.** \\\"Inductions\\\" sits under Training & HR, but the yearly induction she described is for subcontractors. The \\\"contractors' websites\\\" belong to vehicle vendors, a different group from the subcontractors.\\n- **Contradictions you did not record.** \\\"No database\\\", yet SAP is one and may already hold cost by depot, so the manager's expense view could be a report, not a build. \\\"SharePoint unused\\\", yet she sends a monthly online form (Microsoft Forms? UNVERIFIED). \\\"Everybody has access to everything\\\" is a complaint, yet she asks for something \\\"everybody sees\\\".\\n- **Lost implicit facts.** \\\"Nobody checks\\\" three times, plus \\\"responsibility is not clear\\\" and \\\"they keep it for themselves\\\": that is ownership and politics, not tooling. She runs the mileage register and pushed CompliPlus, so she has a stake in the findings.\\n- **Legal and client hooks.** Her \\\"certification\\\" includes cards the law requires (Safe Pass, CSCS). The MMaRC3G scope includes managing \\\"asset data within an asset inventory system\\\", so TII may dictate some systems.\\n\\n## Method\\nThe graph is fine as a viewer but wrong as the store. About 89 nodes from one conversation, 56 tagged \\\"said\\\" from one person, look more complete than they are. A graph also cannot show sequence, frequency, volume, effort or due dates, and her core ask (\\\"by 23 November\\\") is about exactly those. Fixes:\\n1. **A claims table:** verbatim quote, speaker, first-hand or hearsay, date, and status kep …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:36:13.803Z",
+      "lastAccessed": "2026-10-26T14:36:13.803Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:36:13.803Z"
+    },
+    "cmd-1793025398511": {
+      "key": "cmd-1793025398511",
+      "value": "{\"command\":\"F=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad/report.txt\\\"; python -I - \\\"$F\\\" <<'EOF'\\nimport sys\\nf=sys.argv[1]; t=open(f,encoding='utf-8').read()\\nR=[\\n(\\\"I read your actual file, C:\\\\\\\\Users\\\\\\\\mohda\\\\\\\\Documents\\\\\\\\GlobalviaJons_Discovery\\\\\\\\graph-data.js. It is local and not in git, which is good.\\\",\\\"Checked against C:\\\\\\\\Users\\\\\\\\mohda\\\\\\\\Documents\\\\\\\\GlobalviaJons_Discovery\\\\\\\\graph-data.js (local, not in git: good).\\\"),\\n(\\\"About 89 nodes from one conversation, 56 tagged \\\\\\\"said\\\\\\\" from one person, look more complete than they are.\\\",\\\"89 nodes from one conversation with one person look more complete than they are.\\\"),\\n(\\\"A tracker that wrongly shows green exposes you, so you would need professional indemnity cover.\\\",\\\"A tracker wrongly showing green exposes you: get professional indemnity cover.\\\"),\\n(\\\"Make the claims table the source of truth, and send the framing questions to the manager, not through her.\\\",\\\"Claims table becomes the source of truth; framing questions go to the manager, not through her.\\\"),\\n(\\\"Ingka's business ethics letter says conflicts must be reported; whether FAMI follows it is UNVERIFIED.\\\",\\\"Ingka's ethics letter requires reporting conflicts (FAMI's link to it UNVERIFIED).\\\"),\\n(\\\"so the manager's expense view could be a report, not a build\\\",\\\"so the expense view may be a report, not a build\\\"),\\n(\\\"belong to vehicle vendors, a different group from the subcontractors.\\\",\\\"belong to vehicle vendors, not subcontractors.\\\"),\\n(\\\"Point 1 has the wrong first step. First check whether you can do this at all:\\\",\\\"Wrong first step. First check you can do this at all:\\\"),\\n(\\\"They have her probing her boss's money, which makes her your sales agent. Ask the manager yourself.\\\",\\\"They have her probing her boss's money, making her your sales agent. Ask him yourself.\\\"),\\n(\\\"If so, OWTA s.33 caps your combined hours across both jobs, and a breach is your offence too.\\\",\\\"OWTA s.33 then caps combined hours across both jobs; a breach i …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:36:38.511Z",
+      "lastAccessed": "2026-10-26T14:36:38.511Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:36:38.511Z"
+    },
+    "cmd-1793025414247": {
+      "key": "cmd-1793025414247",
+      "value": "{\"command\":\"F=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad/report.txt\\\"; python -I - \\\"$F\\\" <<'EOF'\\nimport sys\\nf=sys.argv[1]; t=open(f,encoding='utf-8').read()\\nR=[\\n(r\\\"I read your actual file, C:\\\\Users\\\\mohda\\\\Documents\\\\GlobalviaJons_Discovery\\\\graph-data.js. It is local and not in git, which is good.\\\",r\\\"Checked against C:\\\\Users\\\\mohda\\\\Documents\\\\GlobalviaJons_Discovery\\\\graph-data.js (local, not in git: good).\\\"),\\n(\\\"About 89 nodes from one conversation, 56 tagged \\\\\\\"said\\\\\\\" from one person, look more complete than they are.\\\",\\\"89 nodes from one conversation with one person look more complete than they are.\\\"),\\n(\\\"A tracker that wrongly shows green exposes you, so you would need professional indemnity cover.\\\",\\\"A tracker wrongly showing green exposes you: get professional indemnity cover.\\\"),\\n(\\\"Make the claims table the source of truth, and send the framing questions to the manager, not through her.\\\",\\\"Claims table becomes the source of truth; framing questions go to the manager, not through her.\\\"),\\n(\\\"Ingka's business ethics letter says conflicts must be reported; whether FAMI follows it is UNVERIFIED.\\\",\\\"Ingka's ethics letter requires reporting conflicts (FAMI's link to it UNVERIFIED).\\\"),\\n(\\\"so the manager's expense view could be a report, not a build\\\",\\\"so the expense view may be a report, not a build\\\"),\\n(\\\"belong to vehicle vendors, a different group from the subcontractors.\\\",\\\"belong to vehicle vendors, not subcontractors.\\\"),\\n(\\\"Point 1 has the wrong first step. First check whether you can do this at all:\\\",\\\"Wrong first step. First check you can do this at all:\\\"),\\n(\\\"They have her probing her boss's money, which makes her your sales agent. Ask the manager yourself.\\\",\\\"They have her probing her boss's money, making her your sales agent. Ask him yourself.\\\"),\\n(\\\"If so, OWTA s.33 caps your combined hours across both jobs, and a breach is your offence too.\\\",\\\"OWTA s.33 then caps combined hours across both jobs; a breach is your o …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:36:54.247Z",
+      "lastAccessed": "2026-10-26T14:36:54.247Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:36:54.247Z"
+    },
+    "cmd-1793025427756": {
+      "key": "cmd-1793025427756",
+      "value": "{\"command\":\"F=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad/report.txt\\\"; python -I - \\\"$F\\\" <<'EOF'\\nimport sys\\nf=sys.argv[1]; t=open(f,encoding='utf-8').read()\\nR=[(\\\"- HSA contractor duties: \\\",\\\"- HSA: \\\"),\\n(\\\"is not confirmation; seeing the evidence is.\\\",\\\"is not confirmation; evidence is.\\\"),\\n(\\\"**MMaRC3G.** The outcome is unknown. If they lose, so do you.\\\",\\\"**MMaRC3G.** Outcome unknown; if they lose, so do you.\\\"),\\n(\\\"Then add: what decision will the manager make from your presentation, and by when?\\\",\\\"Then ask what decision the manager will make from your presentation, and when.\\\")]\\nfor a,b in R:\\n    assert a in t, a[:40]; t=t.replace(a,b)\\nopen(f,'w',encoding='utf-8').write(t)\\nEOF\\nwc -w \\\"$F\\\"; grep -o -E \\\"\\\\S+\\\" \\\"$F\\\" | grep -v -E \\\"^(#+|-|[0-9]\\\\.)$\\\" | wc -l; cat \\\"$F\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:37:07.756Z",
+      "lastAccessed": "2026-10-26T14:37:07.756Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:37:07.756Z"
+    },
+    "cmd-1793025444629": {
+      "key": "cmd-1793025444629",
+      "value": "{\"command\":\"S=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; sed -n 2885,2900p \\\"$S/si291.txt\\\" | tr '\\\\n' ' '\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:37:24.629Z",
+      "lastAccessed": "2026-10-26T14:37:24.629Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:37:24.629Z"
+    },
+    "cmd-1793025462868": {
+      "key": "cmd-1793025462868",
+      "value": "{\"command\":\"F=\\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad/report.txt\\\"; sed -i 's/^The graph is fine as a viewer but wrong as the store. 89 nodes/The graph is fine as a viewer but wrong as the store. 79 nodes/' \\\"$F\\\"; grep -c \\\"79 nodes\\\" \\\"$F\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:37:42.868Z",
+      "lastAccessed": "2026-10-26T14:37:42.868Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:37:42.868Z"
+    },
+    "cmd-1793025598660": {
+      "key": "cmd-1793025598660",
+      "value": "{\"command\":\"cd /c/Users/mohda/AppData/Local/Temp && python -I - \\\"C:/Users/mohda/.claude/projects/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/tool-results/mcp-ScraplingServer-stealthy_fetch-1793025581850.txt\\\" <<'EOF'\\nimport json, re, sys\\nt = json.load(open(sys.argv[1], encoding=\\\"utf-8\\\"))[\\\"content\\\"][0]\\nt = re.sub(r\\\"[ \\\\t]+\\\", \\\" \\\", t)\\ndef grab(pat, n=900):\\n    m = re.search(pat, t)\\n    print(\\\"=====\\\", pat, \\\"found\\\" if m else \\\"NOT FOUND\\\")\\n    if m: print(t[m.start():m.start()+n])\\ngrab(r\\\"\\\\n7\\\\. ?\\\\(1\\\\)\\\")\\ngrab(r\\\"\\\\(6\\\\) A client|\\\\(6\\\\)[^\\\\n]{0,40}(appoint|arrang)\\\")\\ngrab(r\\\"\\\\n25\\\\. ?\\\\(1\\\\)\\\", 1200)\\ngrab(r\\\"\\\\n97\\\\. ?\\\\(1\\\\)|\\\\n97\\\\.\\\", 900)\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:39:58.660Z",
+      "lastAccessed": "2026-10-26T14:39:58.660Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:39:58.660Z"
+    },
+    "cmd-1793025609827": {
+      "key": "cmd-1793025609827",
+      "value": "{\"command\":\"cd /c/Users/mohda/AppData/Local/Temp && python -I - \\\"C:/Users/mohda/.claude/projects/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/tool-results/mcp-ScraplingServer-stealthy_fetch-1793025581850.txt\\\" <<'EOF'\\nimport json, re, sys\\nt = json.load(open(sys.argv[1], encoding=\\\"utf-8\\\"))[\\\"content\\\"][0]\\nt = re.sub(r\\\"[ \\\\t]+\\\", \\\" \\\", t)\\ni = t.find(\\\"7. (1) A client\\\")\\nj = t.find(\\\"\\\\n8.\\\", i)\\nseg = t[i:j]\\nk = seg.find(\\\"(6)\\\")\\nprint(\\\"REG 7 (6):\\\", seg[k:k+500] if k >= 0 else \\\"no (6)\\\")\\nms = [m.start() for m in re.finditer(r\\\"Works on roads, footpaths and cycle tracks\\\", t)]\\nprint(\\\"occurrences:\\\", len(ms))\\nif len(ms) > 1:\\n    print(\\\"REG 97:\\\", t[ms[1]-10:ms[1]+1100])\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:40:09.827Z",
+      "lastAccessed": "2026-10-26T14:40:09.827Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:40:09.827Z"
+    },
+    "cmd-1793025916368": {
+      "key": "cmd-1793025916368",
+      "value": "{\"command\":\"git checkout -- .claude/launch.json && git status --short .claude\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T14:45:16.368Z",
+      "lastAccessed": "2026-10-26T14:45:16.368Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T14:45:16.368Z"
+    },
+    "cmd-1793034576758": {
+      "key": "cmd-1793034576758",
+      "value": "{\"command\":\"for q in \\\"globalviajons.ie&type=MX\\\" \\\"globalviajons.ie&type=TXT\\\" \\\"globalviajons.ie&type=A\\\" \\\"autodiscover.globalviajons.ie&type=CNAME\\\" \\\"lyncdiscover.globalviajons.ie&type=CNAME\\\" \\\"enterpriseregistration.globalviajons.ie&type=CNAME\\\" \\\"_sip._tls.globalviajons.ie&type=SRV\\\" \\\"selector1._domainkey.globalviajons.ie&type=CNAME\\\" \\\"www.globalviajons.ie&type=A\\\" \\\"globalviajons.ie&type=NS\\\"; do echo \\\"== $q\\\"; curl -s \\\"https://dns.google/resolve?name=$q\\\"; echo; done\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:09:36.758Z",
+      "lastAccessed": "2026-10-26T17:09:36.758Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:09:36.758Z"
+    },
+    "cmd-1793034589156": {
+      "key": "cmd-1793034589156",
+      "value": "{\"command\":\"for q in \\\"_dmarc.globalviajons.ie&type=TXT\\\" \\\"globalvia.com&type=MX\\\" \\\"globalvia.com&type=TXT\\\" \\\"jons.ie&type=MX\\\" \\\"jons.ie&type=TXT\\\" \\\"jonscivil.ie&type=MX\\\" \\\"sharepoint.globalviajons.ie&type=CNAME\\\" \\\"globalviajons.sharepoint.com&type=A\\\" \\\"globalviajons-my.sharepoint.com&type=A\\\"; do echo \\\"== $q\\\"; curl -s \\\"https://dns.google/resolve?name=$q\\\" | head -c 1500; echo; done\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:09:49.156Z",
+      "lastAccessed": "2026-10-26T17:09:49.156Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:09:49.156Z"
+    },
+    "cmd-1793034607480": {
+      "key": "cmd-1793034607480",
+      "value": "{\"command\":\"for q in \\\"zzqxnotarealtenant98765.sharepoint.com&type=A\\\" \\\"globalviajons.onmicrosoft.com&type=MX\\\" \\\"zzqxnotarealtenant98765.onmicrosoft.com&type=MX\\\"; do echo \\\"== $q\\\"; curl -s \\\"https://dns.google/resolve?name=$q\\\" | head -c 600; echo; done; echo \\\"== OIDC tenant check\\\"; curl -s \\\"https://login.microsoftonline.com/globalviajons.ie/.well-known/openid-configuration\\\" | head -c 400; echo; curl -s \\\"https://login.microsoftonline.com/getuserrealm.srf?login=test@globalviajons.ie&json=1\\\" | head -c 600\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:10:07.480Z",
+      "lastAccessed": "2026-10-26T17:10:07.480Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:10:07.480Z"
+    },
+    "cmd-1793034655584": {
+      "key": "cmd-1793034655584",
+      "value": "{\"command\":\"cd /c/Users/mohda/AppData/Local/Temp && node - <<'EOF'\\nconst fs = require('fs'), vm = require('vm');\\nconst dir = 'C:/Users/mohda/Documents/GlobalviaJons_Discovery/';\\nconst ctx = { window: {} }; vm.createContext(ctx);\\nvm.runInContext(fs.readFileSync(dir + 'graph-data.js', 'utf8'), ctx);\\nconst D = ctx.window.DISCOVERY;\\nconst ids = new Set(D.nodes.map(n => n.id)), cids = new Set(D.claims.map(c => c.id)), areas = new Set(D.areas.map(a => a.id));\\nconst out = {\\n  nodes: D.nodes.length, edges: D.edges.length, claims: D.claims.length,\\n  dupNodeIds: D.nodes.length - ids.size, dupClaimIds: D.claims.length - cids.size,\\n  badEdges: D.edges.filter(e => !ids.has(e.from) || !ids.has(e.to)).map(e => e.from + '->' + e.to),\\n  badClaimRefs: D.nodes.flatMap(n => (n.claims || []).filter(c => !cids.has(c)).map(c => n.id + ':' + c)),\\n  unusedClaims: D.claims.filter(c => !D.nodes.some(n => (n.claims || []).includes(c.id))).map(c => c.id),\\n  badAreas: D.nodes.filter(n => !areas.has(n.area)).map(n => n.id),\\n  badConf: D.nodes.filter(n => !['said','herguess','public','guess','confirmed'].includes(n.conf)).map(n => n.id),\\n  openQ: D.nodes.filter(n => n.type === 'question' && !n.answered).length,\\n  answeredQ: D.nodes.filter(n => n.type === 'question' && n.answered).length,\\n  isolated: D.nodes.filter(n => !D.edges.some(e => e.from === n.id || e.to === n.id)).map(n => n.id)\\n};\\nconsole.log(JSON.stringify(out, null, 1));\\nconst html = fs.readFileSync(dir + 'discovery-map.html', 'utf8');\\nconst scripts = [...html.matchAll(/<script>([\\\\s\\\\S]*?)<\\\\/script>/g)].map(m => m[1]);\\nscripts.forEach((s, i) => { try { new vm.Script(s); console.log('inline script', i, 'syntax OK'); } catch (e) { console.log('inline script', i, 'SYNTAX ERROR', e.message); } });\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:10:55.584Z",
+      "lastAccessed": "2026-10-26T17:10:55.584Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:10:55.584Z"
+    },
+    "cmd-1793034763163": {
+      "key": "cmd-1793034763163",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/.claude/projects/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/tool-results/\\\" && python -I -c \\\"\\nimport json,re\\nd=json.load(open('mcp-ScraplingServer-bulk_get-1793034753418.txt',encoding='utf-8'))\\nr=d['result']\\nfor i,x in enumerate(r):\\n    t=x.get('content') if isinstance(x,dict) else str(x)\\n    if isinstance(t,list): t=' '.join(map(str,t))\\n    t=str(t)\\n    print('=====',i,x.get('url') if isinstance(x,dict) else '', len(t))\\n    for kw in ['Fé Phráinn','Fe Phrainn','Phr','working days','€','fee']:\\n        for m in re.finditer(kw,t):\\n            s=max(0,m.start()-300); print('...',t[s:m.start()+400].replace('\\\\n',' '),'\\\\n')\\n            break\\n\\\" | head -c 12000\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:12:43.163Z",
+      "lastAccessed": "2026-10-26T17:12:43.163Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:12:43.163Z"
+    },
+    "cmd-1793034770790": {
+      "key": "cmd-1793034770790",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/.claude/projects/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/tool-results/\\\" && python -I -c \\\"\\nimport json,re\\nd=json.load(open('mcp-ScraplingServer-bulk_get-1793034753418.txt',encoding='utf-8'))\\nx=d['result'][2]; t=x.get('content'); t=' '.join(map(str,t)) if isinstance(t,list) else str(t)\\ni=t.find('General Information'); print(t[i:i+9000])\\n\\\"\",\"exitCode\":1,\"success\":false}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:12:50.790Z",
+      "lastAccessed": "2026-10-26T17:12:50.790Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:12:50.790Z"
+    },
+    "cmd-1793034778511": {
+      "key": "cmd-1793034778511",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/.claude/projects/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/tool-results/\\\" && PYTHONIOENCODING=utf-8 python -I -c \\\"\\nimport json,re\\nd=json.load(open('mcp-ScraplingServer-bulk_get-1793034753418.txt',encoding='utf-8'))\\nx=d['result'][2]; t=x.get('content'); t=' '.join(map(str,t)) if isinstance(t,list) else str(t)\\ni=t.find('General Information',2000); print(t[i:i+10000])\\n\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:12:58.511Z",
+      "lastAccessed": "2026-10-26T17:12:58.511Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:12:58.511Z"
+    },
+    "cmd-1793034786117": {
+      "key": "cmd-1793034786117",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/.claude/projects/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/tool-results/\\\" && PYTHONIOENCODING=utf-8 python -I -c \\\"\\nimport json,re\\nd=json.load(open('mcp-ScraplingServer-bulk_get-1793034753418.txt',encoding='utf-8'))\\nx=d['result'][2]; t=x.get('content'); t=' '.join(map(str,t)) if isinstance(t,list) else str(t)\\nfor kw in ['company','Company','prior to','approval','before','Eligibility']:\\n    for m in list(re.finditer(kw,t))[:4]:\\n        s=max(0,m.start()-250); print('['+kw+']',t[s:m.start()+350].replace('\\\\n',' '),'\\\\n')\\n\\\"\",\"exitCode\":1,\"success\":false}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:13:06.117Z",
+      "lastAccessed": "2026-10-26T17:13:06.117Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:13:06.117Z"
+    },
+    "cmd-1793034836002": {
+      "key": "cmd-1793034836002",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\" 2>/dev/null || mkdir -p \\\"C:/Users/mohda/AppData/Local/Temp/claude/C--Users-mohda-Documents-Portfolio/05d4e9eb-3f14-415b-91e6-78bfe8725179/scratchpad\\\"; PYTHONIOENCODING=utf-8 python -I -c \\\"\\nimport re,sys\\ntry:\\n    import pypdf\\nexcept Exception as e:\\n    print('nopypdf',e); sys.exit()\\nr=pypdf.PdfReader(r'C:\\\\Users\\\\mohda\\\\.claude\\\\projects\\\\C--Users-mohda-Documents-Portfolio\\\\05d4e9eb-3f14-415b-91e6-78bfe8725179\\\\tool-results\\\\webfetch-1793034816392-gn92wf.pdf')\\nt='\\\\n'.join(p.extract_text() or '' for p in r.pages)\\nprint(len(r.pages), len(t)); print(t[:1200])\\nfor kw in ['intermediar','own company','limited company','personal service compan','through a company','agency']:\\n    for m in list(re.finditer(kw,t,re.I))[:3]:\\n        s=max(0,m.start()-400); print('['+kw+']',t[s:m.start()+500].replace('\\\\n',' '),'\\\\n')\\n\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:13:56.002Z",
+      "lastAccessed": "2026-10-26T17:13:56.002Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:13:56.002Z"
+    },
+    "cmd-1793035188952": {
+      "key": "cmd-1793035188952",
+      "value": "{\"command\":\"cd /c/Users/mohda/AppData/Local/Temp && node - <<'EOF'\\nconst fs = require('fs'), vm = require('vm');\\nconst dir = 'C:/Users/mohda/Documents/GlobalviaJons_Discovery/';\\nconst ctx = { window: {} }; vm.createContext(ctx);\\nvm.runInContext(fs.readFileSync(dir + 'graph-data.js', 'utf8'), ctx);\\nconst D = ctx.window.DISCOVERY;\\nconst ids = new Set(D.nodes.map(n => n.id)), cids = new Set(D.claims.map(c => c.id));\\nconsole.log(JSON.stringify({\\n  nodes: D.nodes.length, edges: D.edges.length, claims: D.claims.length,\\n  dupNodeIds: D.nodes.length - ids.size,\\n  badEdges: D.edges.filter(e => !ids.has(e.from) || !ids.has(e.to)).map(e => e.from + '->' + e.to),\\n  badClaimRefs: D.nodes.flatMap(n => (n.claims || []).filter(c => !cids.has(c)).map(c => n.id + ':' + c)),\\n  unusedClaims: D.claims.filter(c => !D.nodes.some(n => (n.claims || []).includes(c.id))).map(c => c.id),\\n  openQ: Object.fromEntries(['her','manager','you','research'].map(k => [k, D.nodes.filter(n => n.type==='question' && !n.answered && n.ask===k).length])),\\n  answeredQ: D.nodes.filter(n => n.type === 'question' && n.answered).length\\n}, null, 1));\\nEOF\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-10-26T17:19:48.952Z",
+      "lastAccessed": "2026-10-26T17:19:48.952Z",
+      "accessCount": 0,
+      "expiresAt": "2026-11-25T17:19:48.952Z"
+    },
+    "cmd-1793712831027": {
+      "key": "cmd-1793712831027",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -i 's/^  workAuthorisation,$//' src/pages/index.astro && sed -n '1,20p' src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:33:51.027Z",
+      "lastAccessed": "2026-11-03T13:33:51.027Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:33:51.027Z"
+    },
+    "cmd-1793712842810": {
+      "key": "cmd-1793712842810",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && perl -0pi -e 's/  location,\\\\n\\\\n  email,/  location,\\\\n  email,/' src/pages/index.astro && sed -n '6,20p' src/pages/index.astro && echo \\\"--- build ---\\\" && npm run build 2>&1 | tail -3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:34:02.810Z",
+      "lastAccessed": "2026-11-03T13:34:02.810Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:34:02.810Z"
+    },
+    "cmd-1793712859451": {
+      "key": "cmd-1793712859451",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\" | tail -3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:34:19.451Z",
+      "lastAccessed": "2026-11-03T13:34:19.451Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:34:19.451Z"
+    },
+    "cmd-1793713956934": {
+      "key": "cmd-1793713956934",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -n \\\"75%\\\\|85%\\\\|90%\\\\|50,000\\\\|citations\\\" src/content/profile.yaml src/content/cv/roles.yaml | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:52:36.934Z",
+      "lastAccessed": "2026-11-03T13:52:36.934Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:52:36.934Z"
+    },
+    "cmd-1793714039272": {
+      "key": "cmd-1793714039272",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -n 'section__num\\\" aria-hidden=\\\"true\\\">0' src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:53:59.272Z",
+      "lastAccessed": "2026-11-03T13:53:59.272Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:53:59.272Z"
+    },
+    "cmd-1793714046005": {
+      "key": "cmd-1793714046005",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -i '299s/>06</>07</' src/pages/index.astro && sed -n '291p;299p' src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:54:06.005Z",
+      "lastAccessed": "2026-11-03T13:54:06.005Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:54:06.005Z"
+    },
+    "cmd-1793714084324": {
+      "key": "cmd-1793714084324",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npm run build 2>&1 | tail -6 && echo \\\"--- check ---\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:54:44.324Z",
+      "lastAccessed": "2026-11-03T13:54:44.324Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:54:44.324Z"
+    },
+    "cmd-1793714120056": {
+      "key": "cmd-1793714120056",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -o 'a\\\\.card:hover[^}]*}' dist/_astro/*.css | head -3; echo \\\"---arrow---\\\"; grep -o '\\\\.card__arrow[^}]*}' dist/_astro/*.css | head -2\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:55:20.056Z",
+      "lastAccessed": "2026-11-03T13:55:20.056Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:55:20.056Z"
+    },
+    "cmd-1793714174464": {
+      "key": "cmd-1793714174464",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npm run build 2>&1 | tail -3 && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\" && npm run check:tokens 2>&1 | tail -2\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T13:56:14.464Z",
+      "lastAccessed": "2026-11-03T13:56:14.464Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T13:56:14.464Z"
+    },
+    "cmd-1793722923796": {
+      "key": "cmd-1793722923796",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && ls src/content/projects/ && echo \\\"--- cash-agent refs ---\\\" && grep -ril \\\"cash.agent\\\" src/ | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T16:22:03.796Z",
+      "lastAccessed": "2026-11-03T16:22:03.796Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T16:22:03.796Z"
+    },
+    "cmd-1793722974759": {
+      "key": "cmd-1793722974759",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && cat > src/content/projects/cash-agent.yaml <<'YAML'\\n# Written from the owner's description on 2026-11-03. Personal project,\\n# confirmed by him. No accuracy figure exists yet, so none is claimed anywhere\\n# on this page or on the homepage card.\\n\\ntitle: Cash Agent\\norder: 3\\nstatus: in-progress\\ncategory: Document agent, deterministic retrieval\\nkind: personal\\nconfidential: false\\nperiod:\\n  start: \\\"2026\\\"\\n  end: null\\nstack:\\n  - Python\\n  - LLM\\n  - Retrieval\\n\\nbrief:\\n  problem: >-\\n    Answering a question about a company's finances means reading whatever the\\n    documents happen to be: a spreadsheet, a PDF, an export from one system and\\n    a different export from another. Column names differ between sources, and a\\n    single question often cannot be answered from one table at all.\\n  approach: >-\\n    Normalise before reasoning. The agent reads the columns it is given, maps\\n    them to a canonical set of names, and only then resolves the question, by a\\n    deterministic path rather than by asking a model to do the arithmetic.\\n    Questions that need two tables are planned and executed as a join.\\n  outcome: >-\\n    In development as a personal project. Column normalisation and deterministic\\n    resolution work. Automating downstream actions is the next step. No accuracy\\n    figure is claimed, because none has been measured yet.\\n\\nsummary: >-\\n  A finance agent that answers questions about financial documents, whether the\\n  source is a table or a PDF, by mapping columns to a canonical schema first and\\n  then resolving the question deterministically.\\nforWhom: >-\\n  Anyone who has to get a number out of a pile of financial exports that do not\\n  agree with each other on what the columns are called.\\n\\ncontext:\\n  - >-\\n    Financial questions rarely arrive attached to clean data. The source may be\\n    tabular or a PDF. Two exports of the same thing from two systems will use\\n    different column names for the same field. And a real question, such as\\n …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T16:22:54.759Z",
+      "lastAccessed": "2026-11-03T16:22:54.759Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T16:22:54.759Z"
+    },
+    "cmd-1793722979809": {
+      "key": "cmd-1793722979809",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -n \\\"^order:\\\" src/content/projects/*.yaml\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T16:22:59.809Z",
+      "lastAccessed": "2026-11-03T16:22:59.809Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T16:22:59.809Z"
+    },
+    "cmd-1793722985465": {
+      "key": "cmd-1793722985465",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -i '2s/^order: 3$/order: 4/' src/content/projects/safeframe.yaml && sed -i '2s/^order: 4$/order: 5/' src/content/projects/planscan.yaml && grep -n \\\"^order:\\\" src/content/projects/*.yaml\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T16:23:05.465Z",
+      "lastAccessed": "2026-11-03T16:23:05.465Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T16:23:05.465Z"
+    },
+    "cmd-1793722993535": {
+      "key": "cmd-1793722993535",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport re, io\\np = 'src/content/profile.yaml'\\ns = io.open(p, encoding='utf-8').read()\\nold_start = s.index('    - label: Retrieval')\\nold_end = s.index('    - label: Research')\\nnew = '''    - label: Document agents\\n      value: Schema-first\\n      detail: >-\\n        Cash Agent, a personal project. A finance agent that answers questions\\n        over tables and PDFs by mapping arbitrary column names to a canonical\\n        schema first, then resolving the question in code rather than asking a\\n        model to do the arithmetic.\\n      source: owner-supplied 2026-11-03, personal project, no accuracy measured yet\\n      href: /work/cash-agent\\n\\n'''\\ns = s[:old_start] + new + s[old_end:]\\nio.open(p, 'w', encoding='utf-8').write(s)\\nprint(s[s.index('  highlights:'):s.index('  metaDescription')])\\nPY\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T16:23:13.535Z",
+      "lastAccessed": "2026-11-03T16:23:13.535Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T16:23:13.535Z"
+    },
+    "cmd-1793723009892": {
+      "key": "cmd-1793723009892",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np = 'src/content/profile.yaml'\\ns = io.open(p, encoding='utf-8').read()\\nold = \\\"\\\"\\\"      rather than manually. That work is at personal-project scale for now.\\n      safeframe detects pandas errors that raise no exception, and PlanScan\\n      checks Irish planning applications against local development plans.\\\"\\\"\\\"\\nnew = \\\"\\\"\\\"      rather than manually. That work is at personal-project scale for now.\\n      Cash Agent answers questions over financial documents by normalising their\\n      columns before reasoning about them, safeframe detects pandas errors that\\n      raise no exception, and PlanScan checks Irish planning applications\\n      against local development plans.\\\"\\\"\\\"\\nassert old in s, 'anchor not found'\\nio.open(p, 'w', encoding='utf-8').write(s.replace(old, new))\\nprint('updated')\\nPY\\nnpm run build 2>&1 | tail -8\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T16:23:29.892Z",
+      "lastAccessed": "2026-11-03T16:23:29.892Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T16:23:29.892Z"
+    },
+    "cmd-1793723031297": {
+      "key": "cmd-1793723031297",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\" && npm run check:tokens 2>&1 | tail -2 && ls dist/work/\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T16:23:51.297Z",
+      "lastAccessed": "2026-11-03T16:23:51.297Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T16:23:51.297Z"
+    },
+    "cmd-1793728552553": {
+      "key": "cmd-1793728552553",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python \\\"C:/Users/mohda/.claude/skills/ui-ux-pro-max/scripts/search.py\\\" \\\"personal portfolio data scientist technical credibility editorial\\\" --design-system --variance 6 --motion 5 --density 4 -p \\\"Mohammad Aman Portfolio\\\" 2>&1 | head -140\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T17:55:52.553Z",
+      "lastAccessed": "2026-11-03T17:55:52.553Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T17:55:52.553Z"
+    },
+    "cmd-1793728568411": {
+      "key": "cmd-1793728568411",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && S=\\\"C:/Users/mohda/.claude/skills/ui-ux-pro-max/scripts/search.py\\\"\\necho \\\"=============== STYLE OPTIONS ===============\\\"\\npython \\\"$S\\\" \\\"editorial swiss typographic premium professional minimal\\\" --domain style -n 6 2>&1 | head -60\\necho \\\"=============== GSAP MOTION ===============\\\"\\npython \\\"$S\\\" \\\"scroll reveal fade stagger text\\\" --domain gsap -n 4 2>&1 | head -50\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T17:56:08.411Z",
+      "lastAccessed": "2026-11-03T17:56:08.411Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T17:56:08.411Z"
+    },
+    "cmd-1793728613330": {
+      "key": "cmd-1793728613330",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\n\\n# 1. Zero radius + heavy border tokens (Minimalist Monochrome: depth from borders, not shadows)\\ns = s.replace(\\n\\\"\\\"\\\"  --radius: 3px;\\n  --border-width: 1px;\\\"\\\"\\\",\\n\\\"\\\"\\\"  /* Zero radius everywhere. Depth comes from border weight and colour\\n   * inversion, never from shadows or rounded corners. */\\n  --radius: 0px;\\n  --border-width: 1px;\\n  --border-hairline: 1px solid var(--color-border);\\n  --border-thick: 2px solid var(--color-text);\\n  --border-heavy: 4px solid var(--color-text);\\\"\\\"\\\")\\n\\n# 2. Display type fills the width\\ns = s.replace(\\n\\\"  --scale-display: clamp(2.25rem, 6vw, 4.5rem);\\\",\\n\\\"\\\"\\\"  /* The headline spans the measure rather than sitting politely inside it. */\\n  --scale-display: clamp(2.5rem, 7.5vw, 6rem);\\\"\\\"\\\")\\n\\n# 3. Section rule: heavy black top border instead of a timid grey hairline\\ns = s.replace(\\n\\\"\\\"\\\"  margin-top: var(--space-16);\\n  padding-top: var(--space-8);\\n  border-top: var(--border-width) solid var(--color-rule);\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"  margin-top: var(--space-16);\\n  padding-top: var(--space-8);\\n  border-top: var(--border-thick);\\n}\\\"\\\"\\\")\\n\\n# 4. Cards: square, hairline divisions, inversion on hover\\ns = s.replace(\\n\\\"\\\"\\\"  border: 1px solid var(--color-border);\\n  border-radius: 8px;\\n  overflow: hidden;\\n  background-color: var(--color-surface);\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"  border: var(--border-thick);\\n  border-radius: var(--radius);\\n  overflow: hidden;\\n  background-color: var(--color-surface);\\n}\\\"\\\"\\\")\\n\\ns = s.replace(\\n\\\"\\\"\\\"a.card:hover {\\n  background-color: var(--color-bg);\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"/* Colour inversion rather than a tint. This is the move that makes the grid\\n * read as designed rather than as three boxes with a grey hover. */\\na.card:hover,\\na.card:focus-visible {\\n  background-color: var(--color-text);\\n}\\n\\na.card:hover .card__label,\\na.card:hover .card__value,\\na.card:hover .card__detail,\\na.card:focus-visible .card__label,\\na.card:focus-visible .card__value,\\na.card:focus-visible .car …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T17:56:53.330Z",
+      "lastAccessed": "2026-11-03T17:56:53.330Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T17:56:53.330Z"
+    },
+    "cmd-1793728626665": {
+      "key": "cmd-1793728626665",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\n\\nanchor = \\\"\\\"\\\"body {\\n  background-color: var(--color-bg);\\\"\\\"\\\"\\nnew = \\\"\\\"\\\"/* Paper grain at 0.03 opacity. Inline SVG, so no request and no image file.\\n * Stops large flat areas reading as a blank browser window. */\\nbody::before {\\n  content: '';\\n  position: fixed;\\n  inset: 0;\\n  z-index: 0;\\n  pointer-events: none;\\n  opacity: 0.035;\\n  background-image: url(\\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E\\\");\\n}\\n\\nbody > * {\\n  position: relative;\\n  z-index: 1;\\n}\\n\\n/* Scroll reveal. Elements are visible by default and only hidden once the\\n * script confirms it can reveal them again, so with JavaScript off or the\\n * observer unavailable the page reads normally. 12px offset, 350ms, which is\\n * the Subtle tier: it should read as a fade, not a slide. */\\n@media (prefers-reduced-motion: no-preference) {\\n  html.js-reveal [data-reveal] {\\n    opacity: 0;\\n    transform: translateY(12px);\\n  }\\n\\n  html.js-reveal [data-reveal].is-in {\\n    opacity: 1;\\n    transform: none;\\n    transition:\\n      opacity 350ms cubic-bezier(0.22, 1, 0.36, 1),\\n      transform 350ms cubic-bezier(0.22, 1, 0.36, 1);\\n  }\\n}\\n\\nbody {\\n  background-color: var(--color-bg);\\\"\\\"\\\"\\n\\nassert anchor in s\\ns = s.replace(anchor, new, 1)\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('ok')\\nPY\\necho \\\"--- verify ---\\\" && grep -c \\\"data-reveal\\\" src/styles/global.css\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T17:57:06.665Z",
+      "lastAccessed": "2026-11-03T17:57:06.665Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T17:57:06.665Z"
+    },
+    "cmd-1793728636944": {
+      "key": "cmd-1793728636944",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/layouts/BaseLayout.astro'; s=io.open(p,encoding='utf-8').read()\\n\\nanchor = \\\"\\\"\\\"    <footer class=\\\"site-footer\\\">\\\"\\\"\\\"\\nnew = \\\"\\\"\\\"    {/* Scroll reveal. ~330 bytes, no library. The class is added by script, so\\n        if JavaScript is off nothing is ever hidden. Skipped entirely when the\\n        user prefers reduced motion. */}\\n    <script is:inline>\\n      (() => {\\n        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;\\n        if (!('IntersectionObserver' in window)) return;\\n        document.documentElement.classList.add('js-reveal');\\n        const io = new IntersectionObserver(\\n          (entries) => {\\n            for (const e of entries) {\\n              if (!e.isIntersecting) continue;\\n              e.target.classList.add('is-in');\\n              io.unobserve(e.target);\\n            }\\n          },\\n          { rootMargin: '0px 0px -10% 0px' }\\n        );\\n        const start = () => document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));\\n        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\\n        else start();\\n      })();\\n    </script>\\n\\n    <footer class=\\\"site-footer\\\">\\\"\\\"\\\"\\n\\nassert anchor in s\\ns = s.replace(anchor, new, 1)\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('BaseLayout updated')\\nPY\\ngrep -n \\\"js-reveal\\\" src/layouts/BaseLayout.astro | head -3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T17:57:16.944Z",
+      "lastAccessed": "2026-11-03T17:57:16.944Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T17:57:16.944Z"
+    },
+    "cmd-1793728651263": {
+      "key": "cmd-1793728651263",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\n# Mark each section and the card grid for scroll reveal\\ns = s.replace('<section class=\\\"section\\\" id=', '<section class=\\\"section\\\" data-reveal id=')\\ns = s.replace('<div class=\\\"cards\\\">', '<div class=\\\"cards\\\" data-reveal>')\\ns = s.replace('<p class=\\\"intro__lead\\\">', '<p class=\\\"intro__lead\\\" data-reveal>')\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('reveal targets:', s.count('data-reveal'))\\nPY\\nnpm run build 2>&1 | tail -4\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T17:57:31.263Z",
+      "lastAccessed": "2026-11-03T17:57:31.263Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T17:57:31.263Z"
+    },
+    "cmd-1793728673358": {
+      "key": "cmd-1793728673358",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\" && npm run check:tokens 2>&1 | tail -2\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T17:57:53.358Z",
+      "lastAccessed": "2026-11-03T17:57:53.358Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T17:57:53.358Z"
+    },
+    "cmd-1793728753847": {
+      "key": "cmd-1793728753847",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\np='src/layouts/BaseLayout.astro'; s=io.open(p,encoding='utf-8').read()\\nstart = s.index(\\\"    {/* Scroll reveal.\\\")\\nend = s.index(\\\"    <footer class=\\\\\\\"site-footer\\\\\\\">\\\")\\nnew = \\\"\\\"\\\"    {/* Scroll reveal, with a fallback that cannot leave content invisible.\\n        IntersectionObserver is the primary trigger. A slow poll runs alongside\\n        it and reveals anything that is already within the viewport, because an\\n        observer that silently fails to fire would otherwise leave sections at\\n        opacity 0 permanently. The poll stops once everything is revealed, or\\n        after 20 ticks. Skipped entirely under prefers-reduced-motion. */}\\n    <script is:inline>\\n      (() => {\\n        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;\\n        if (!('IntersectionObserver' in window)) return;\\n        document.documentElement.classList.add('js-reveal');\\n\\n        const show = (el) => el.classList.add('is-in');\\n        const io = new IntersectionObserver(\\n          (entries) => {\\n            for (const e of entries) {\\n              if (!e.isIntersecting) continue;\\n              show(e.target);\\n              io.unobserve(e.target);\\n            }\\n          },\\n          { rootMargin: '0px 0px -10% 0px' }\\n        );\\n\\n        const start = () => {\\n          const all = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));\\n          all.forEach((el) => io.observe(el));\\n\\n          let ticks = 0;\\n          const sweep = () => {\\n            const left = all.filter((el) => !el.classList.contains('is-in'));\\n            left.forEach((el) => {\\n              const r = el.getBoundingClientRect();\\n              if (r.top < window.innerHeight && r.bottom > 0) show(el);\\n            });\\n            if (!left.length || ++ticks > 20) clearInterval(timer);\\n          };\\n          const timer = setInterval(sweep, 1000);\\n          sweep();\\n        };\\n\\n        if (document.readyState === ' …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T17:59:13.847Z",
+      "lastAccessed": "2026-11-03T17:59:13.847Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T17:59:13.847Z"
+    },
+    "cmd-1793728802405": {
+      "key": "cmd-1793728802405",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/layouts/BaseLayout.astro'; s=io.open(p,encoding='utf-8').read()\\nold = \\\"\\\"\\\"            if (!left.length || ++ticks > 20) clearInterval(timer);\\\"\\\"\\\"\\nnew = \\\"\\\"\\\"            // Hard backstop. After six seconds anything still hidden is\\n            // revealed unconditionally, whatever the observer did or did not\\n            // do. The fade is a nice-to-have; the content is not.\\n            if (++ticks > 6) {\\n              left.forEach(show);\\n              clearInterval(timer);\\n              return;\\n            }\\n            if (!left.length) clearInterval(timer);\\\"\\\"\\\"\\nassert old in s\\nio.open(p,'w',encoding='utf-8').write(s.replace(old,new,1))\\nprint('backstop added')\\nPY\\nnpm run build 2>&1 | tail -2\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-03T18:00:02.405Z",
+      "lastAccessed": "2026-11-03T18:00:02.405Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-03T18:00:02.405Z"
+    },
+    "cmd-1793782927841": {
+      "key": "cmd-1793782927841",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx -y skills add zanwei/design-dna -a claude-code -g -y 2>&1 | tail -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:02:07.841Z",
+      "lastAccessed": "2026-11-04T09:02:07.841Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:02:07.841Z"
+    },
+    "cmd-1793782944086": {
+      "key": "cmd-1793782944086",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx -y skills add greensock/gsap-skills -a claude-code -g -y 2>&1 | tail -12\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:02:24.086Z",
+      "lastAccessed": "2026-11-04T09:02:24.086Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:02:24.086Z"
+    },
+    "cmd-1793783019575": {
+      "key": "cmd-1793783019575",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && mkdir -p design-system/mohammad-aman-portfolio && cat > design-system/mohammad-aman-portfolio/design-dna.json <<'JSON'\\n{\\n  \\\"source\\\": \\\"https://www.sukhmansingh.tech/\\\",\\n  \\\"extracted\\\": \\\"2026-11-04\\\",\\n  \\\"method\\\": \\\"live DOM computed-style measurement\\\",\\n  \\\"design_system\\\": {\\n    \\\"color\\\": {\\n      \\\"surface\\\": { \\\"background\\\": \\\"#FFFFFF\\\", \\\"band\\\": \\\"rgba(249,250,251,0.5)\\\", \\\"card\\\": \\\"rgba(249,250,251,0.6)\\\" },\\n      \\\"neutral\\\": { \\\"scale\\\": [\\\"#FFFFFF\\\", \\\"#F9FAFB\\\", \\\"#E5E7EB\\\", \\\"#6B7280\\\", \\\"#374151\\\", \\\"#111827\\\"],\\n                   \\\"usage\\\": \\\"#111827 headings, #374151 body prose, #6B7280 labels and meta, #E5E7EB borders\\\" },\\n      \\\"accent\\\": { \\\"hex\\\": \\\"#046A38\\\", \\\"usage\\\": \\\"status line, mono labels, link and CTA emphasis\\\",\\n                  \\\"note\\\": \\\"Deloitte corporate green on the source site\\\" }\\n    },\\n    \\\"typography\\\": {\\n      \\\"display\\\": { \\\"family\\\": \\\"Instrument Serif\\\", \\\"weight\\\": 400,\\n                   \\\"h1\\\": { \\\"size\\\": \\\"72px\\\", \\\"line\\\": \\\"77.76px\\\", \\\"tracking\\\": \\\"-1.8px\\\" },\\n                   \\\"h2\\\": { \\\"size\\\": \\\"48px\\\", \\\"line\\\": \\\"48px\\\", \\\"tracking\\\": \\\"-1.2px\\\" } },\\n      \\\"body\\\": { \\\"family\\\": \\\"Plus Jakarta Sans\\\", \\\"weight\\\": 400,\\n                \\\"lead\\\": { \\\"size\\\": \\\"20px\\\", \\\"line\\\": \\\"32.5px\\\" }, \\\"base\\\": { \\\"size\\\": \\\"16px\\\", \\\"line\\\": \\\"1.625\\\" },\\n                \\\"h3\\\": { \\\"size\\\": \\\"20px\\\", \\\"line\\\": \\\"28px\\\", \\\"weight\\\": 700 },\\n                \\\"h4\\\": { \\\"size\\\": \\\"18px\\\", \\\"line\\\": \\\"22.5px\\\", \\\"weight\\\": 700 } },\\n      \\\"mono\\\": { \\\"family\\\": \\\"JetBrains Mono\\\", \\\"label\\\": { \\\"size\\\": \\\"12px\\\", \\\"tracking\\\": \\\"1.2px\\\", \\\"transform\\\": \\\"uppercase\\\" } }\\n    },\\n    \\\"spacing\\\": { \\\"section_y\\\": \\\"96px\\\", \\\"hero_top\\\": \\\"160px\\\", \\\"hero_bottom\\\": \\\"112px\\\", \\\"card_padding\\\": \\\"32px\\\", \\\"rhythm\\\": \\\"8px base\\\" },\\n    \\\"layout\\\": { \\\"container_max\\\": \\\"1280px\\\", \\\"container_pad\\\": \\\"32px\\\", \\\"grid\\\": \\\"12 column\\\", \\\"band_pattern\\\": \\\"alternating white and gray-50/50 by section\\\" },\\n    \\\"shape\\\": { \\\"radius_default\\\": \\\"4px\\\", \\\"radius_card\\\": \\\"8px\\\", \\\"radius_pill\\\": \\\"9999px\\\", \\\"border\\\": \\\"1px solid #E5E7EB\\\" },\\n    \\\"elevation\\\": { \\\"present\\\": true, \\\"style\\\": \\\"subtle tailwind sm/md\\\",  …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:03:39.575Z",
+      "lastAccessed": "2026-11-04T09:03:39.575Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:03:39.575Z"
+    },
+    "cmd-1793783037566": {
+      "key": "cmd-1793783037566",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\n\\n# radius: back to measured 4px / 8px, not 0\\ns = s.replace(\\\"\\\"\\\"  --radius: 0px;\\n  --border-width: 1px;\\n  --border-hairline: 1px solid var(--color-border);\\n  --border-thick: 2px solid var(--color-text);\\n  --border-heavy: 4px solid var(--color-text);\\\"\\\"\\\",\\n\\\"\\\"\\\"  /* Measured from the source: 4px is the dominant radius (88 uses), 8px on\\n   * card containers. Hairline borders, not heavy rules. */\\n  --radius: 4px;\\n  --radius-card: 8px;\\n  --border-width: 1px;\\n  --border-hairline: 1px solid var(--color-border);\\n  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);\\\"\\\"\\\")\\n\\n# container: 1280px with 32px padding\\ns = s.replace(\\\"\\\"\\\"  max-width: 54rem;\\n  margin-inline: auto;\\n  padding-inline: var(--space-6);\\\"\\\"\\\",\\n\\\"\\\"\\\"  max-width: 80rem;\\n  margin-inline: auto;\\n  padding-inline: var(--space-4);\\\"\\\"\\\")\\ns = s.replace(\\\"\\\"\\\"@media (min-width: 48rem) {\\n  .wrap {\\n    padding-inline: var(--space-8);\\n  }\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"@media (min-width: 40rem) {\\n  .wrap {\\n    padding-inline: var(--space-8);\\n  }\\n}\\\"\\\"\\\")\\n\\n# section rhythm: 96px, hairline top border\\ns = s.replace(\\\"\\\"\\\"  margin-top: var(--space-16);\\n  padding-top: var(--space-8);\\n  border-top: var(--border-thick);\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"  margin-top: 0;\\n  padding-block: var(--space-24);\\n  border-top: var(--border-hairline);\\n}\\\"\\\"\\\")\\n\\n# cards back to hairline + 8px radius\\ns = s.replace(\\\"\\\"\\\"  border: var(--border-thick);\\n  border-radius: var(--radius);\\\"\\\"\\\",\\n\\\"\\\"\\\"  border: var(--border-hairline);\\n  border-radius: var(--radius-card);\\\"\\\"\\\")\\n\\n# card hover: subtle, matching source (hover:bg-white on a gray-50 container)\\ns = s.replace(\\\"\\\"\\\"a.card:hover,\\na.card:focus-visible {\\n  background-color: var(--color-text);\\n}\\n\\na.card:hover .card__label,\\na.card:hover .card__value,\\na.card:hover .card__detail,\\na.card:focus-visible .card__label,\\na.card:focus-visible .card__value,\\na.card:focus-visible .card__detail {\\n  color: var(--color-bg);\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"/* The …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:03:57.566Z",
+      "lastAccessed": "2026-11-04T09:03:57.566Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:03:57.566Z"
+    },
+    "cmd-1793783042832": {
+      "key": "cmd-1793783042832",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -n -A6 \\\"^\\\\.section {\\\" src/styles/global.css\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:04:02.832Z",
+      "lastAccessed": "2026-11-04T09:04:02.832Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:04:02.832Z"
+    },
+    "cmd-1793783053580": {
+      "key": "cmd-1793783053580",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\nold = \\\"\\\"\\\".section {\\n  position: relative;\\n  margin-top: 0;\\n  padding-block: var(--space-24);\\n  border-top: var(--border-hairline);\\n}\\\"\\\"\\\"\\nnew = \\\"\\\"\\\"/* Sections are full-bleed bands, alternating white and a half-strength grey.\\n * The source does this with bg-white / bg-gray-50/50 and it is most of why the\\n * page reads as structured rather than as one long column. The band is painted\\n * on the section; the .wrap inside keeps content at 1280px. */\\n.section {\\n  position: relative;\\n  margin-top: 0;\\n  padding-block: var(--space-24);\\n  border-top: var(--border-hairline);\\n}\\n\\n.section--band {\\n  background-color: color-mix(in srgb, var(--color-surface) 50%, var(--color-bg));\\n}\\\"\\\"\\\"\\nassert old in s\\ns = s.replace(old, new, 1)\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('bands added')\\nPY\\npython - <<'PY'\\nimport io, re\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\n# full-bleed sections: move .wrap inside each section instead of wrapping the page\\nids = re.findall(r'<section class=\\\"section\\\" data-reveal id=\\\"([a-z]+)\\\"', s)\\nband = {'services','experience','skills'}\\nfor i in ids:\\n    if i in band:\\n        s = s.replace(f'<section class=\\\"section\\\" data-reveal id=\\\"{i}\\\"',\\n                      f'<section class=\\\"section section--band\\\" data-reveal id=\\\"{i}\\\"')\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('banded:', [i for i in ids if i in band])\\nPY\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:04:13.580Z",
+      "lastAccessed": "2026-11-04T09:04:13.580Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:04:13.580Z"
+    },
+    "cmd-1793783107823": {
+      "key": "cmd-1793783107823",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\n\\n# 1. put a .wrap inside every section, so the band can be full-bleed\\ns = re.sub(r'(<section class=\\\"section[^\\\"]*\\\" data-reveal id=\\\"[a-z]+\\\" aria-labelledby=\\\"[^\\\"]+\\\">)',\\n           r'\\\\1\\\\n      <div class=\\\"wrap\\\">', s)\\ns = s.replace('    </section>', '      </div>\\\\n    </section>')\\n\\n# 2. the intro keeps its own wrap\\ns = s.replace('    <div class=\\\"intro\\\">', '    <div class=\\\"wrap\\\">\\\\n    <div class=\\\"intro\\\">')\\ns = s.replace('      </div>\\\\n    </div>\\\\n\\\\n    <section class=\\\"section',\\n              '      </div>\\\\n    </div>\\\\n    </div>\\\\n\\\\n    <section class=\\\"section', 1)\\n\\n# 3. drop the page-level wrap\\ns = s.replace('<BaseLayout title={`${name}, ${role.toLowerCase()}`} description={metaDescription}>\\\\n  <div class=\\\"wrap\\\">',\\n              '<BaseLayout title={`${name}, ${role.toLowerCase()}`} description={metaDescription}>')\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('sections:', s.count('<section class=\\\"section'), '| wraps:', s.count('class=\\\"wrap\\\"'))\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:05:07.823Z",
+      "lastAccessed": "2026-11-04T09:05:07.823Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:05:07.823Z"
+    },
+    "cmd-1793783123303": {
+      "key": "cmd-1793783123303",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -n '47,80p' src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:05:23.303Z",
+      "lastAccessed": "2026-11-04T09:05:23.303Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:05:23.303Z"
+    },
+    "cmd-1793783127640": {
+      "key": "cmd-1793783127640",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -n '110,135p' src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:05:27.640Z",
+      "lastAccessed": "2026-11-04T09:05:27.640Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:05:27.640Z"
+    },
+    "cmd-1793783136842": {
+      "key": "cmd-1793783136842",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -n \\\"<section class=\\\\\\\"section\\\\|</section>\\\\|<div class=\\\\\\\"wrap\\\\\\\">\\\" src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:05:36.842Z",
+      "lastAccessed": "2026-11-04T09:05:36.842Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:05:36.842Z"
+    },
+    "cmd-1793783144156": {
+      "key": "cmd-1793783144156",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -n '147,156p' src/pages/index.astro; echo \\\"=== 313-321 ===\\\"; sed -n '313,321p' src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:05:44.156Z",
+      "lastAccessed": "2026-11-04T09:05:44.156Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:05:44.156Z"
+    },
+    "cmd-1793783150492": {
+      "key": "cmd-1793783150492",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -n '336,346p' src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:05:50.492Z",
+      "lastAccessed": "2026-11-04T09:05:50.492Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:05:50.492Z"
+    },
+    "cmd-1793783162257": {
+      "key": "cmd-1793783162257",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\nold = \\\"\\\"\\\"    </section>\\n  </div>\\n</BaseLayout>\\\"\\\"\\\"\\nnew = \\\"\\\"\\\"    </section>\\n</BaseLayout>\\\"\\\"\\\"\\nassert old in s\\nio.open(p,'w',encoding='utf-8').write(s.replace(old,new,1))\\nprint('orphan closing div removed')\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:06:02.257Z",
+      "lastAccessed": "2026-11-04T09:06:02.257Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:06:02.257Z"
+    },
+    "cmd-1793783181059": {
+      "key": "cmd-1793783181059",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:06:21.059Z",
+      "lastAccessed": "2026-11-04T09:06:21.059Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:06:21.059Z"
+    },
+    "cmd-1793783343556": {
+      "key": "cmd-1793783343556",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\n\\nconst = \\\"\\\"\\\"\\n// Section headlines. Structural copy, drafted 2026-11-04, not facts: every one\\n// is descriptive of a section already on the page. Edit freely.\\nconst headline: Record<string, string> = {\\n  services: 'Forecasting, pipelines, and the models that run on them.',\\n  work: 'Five systems, each written up with what it cannot do.',\\n  experience: 'Three years inside a group treasury that runs on forecasts.',\\n  research: 'A decade of applied mathematics behind the applied work.',\\n  skills: 'Tools I have shipped with, not tools I have read about.',\\n  about: 'From generating functions to cash flows.',\\n  contact: 'Available now.',\\n};\\n---\\\"\\\"\\\"\\ns = s.replace('\\\\n---\\\\n\\\\n<BaseLayout', const + '\\\\n\\\\n<BaseLayout', 1)\\n\\n# insert an h2 headline after each section label\\nimport re\\ndef add(m):\\n    sid, label = m.group(1), m.group(0)\\n    return label + '\\\\n      <p class=\\\"section__headline\\\">{headline.' + sid + '}</p>'\\ns = re.sub(r'<h2 id=\\\"([a-z]+)-h?[a-z]*\\\" class=\\\"section__label\\\">[^<]+</h2>',\\n           lambda m: m.group(0) + '\\\\n      <p class=\\\"section__headline\\\">{headline.' + m.group(1).replace('-h','') + '}</p>', s)\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('headlines inserted:', s.count('section__headline'))\\nPY\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:09:03.556Z",
+      "lastAccessed": "2026-11-04T09:09:03.556Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:09:03.556Z"
+    },
+    "cmd-1793783356470": {
+      "key": "cmd-1793783356470",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -n 'section__label\\\">[^<]*</h2>' src/pages/index.astro | head -3 && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\nold = \\\"\\\"\\\".section--band {\\\"\\\"\\\"\\nnew = \\\"\\\"\\\"/* The serif statement under each mono label. This pairing, a small uppercase\\n * label above a large serif line, is the signature of the reference. */\\n.section__headline {\\n  font-family: var(--font-display);\\n  font-size: clamp(1.75rem, 3.4vw, 3rem);\\n  line-height: 1.05;\\n  letter-spacing: -0.025em;\\n  color: var(--color-text);\\n  max-width: 24ch;\\n  margin-top: calc(var(--space-8) * -1 + var(--space-2));\\n  margin-bottom: var(--space-12);\\n}\\n\\n.section--band {\\\"\\\"\\\"\\nassert old in s\\nio.open(p,'w',encoding='utf-8').write(s.replace(old,new,1))\\nprint('style added')\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -2\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:09:16.470Z",
+      "lastAccessed": "2026-11-04T09:09:16.470Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:09:16.470Z"
+    },
+    "cmd-1793783372396": {
+      "key": "cmd-1793783372396",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\"; grep -c \\\"headline\\\\.\\\" src/pages/index.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:09:32.396Z",
+      "lastAccessed": "2026-11-04T09:09:32.396Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:09:32.396Z"
+    },
+    "cmd-1793783397147": {
+      "key": "cmd-1793783397147",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -i 's/{headline\\\\.exp}/{headline.experience}/; s/{headline\\\\.res}/{headline.research}/' src/pages/index.astro && grep -o \\\"headline\\\\.[a-z]*\\\" src/pages/index.astro | sort -u && npm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -2\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:09:57.147Z",
+      "lastAccessed": "2026-11-04T09:09:57.147Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:09:57.147Z"
+    },
+    "cmd-1793783851853": {
+      "key": "cmd-1793783851853",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx -y skills@latest add emilkowalski/skills -a claude-code -g -y 2>&1 | grep -E \\\"✓|Installed|Done|error\\\" | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:17:31.853Z",
+      "lastAccessed": "2026-11-04T09:17:31.853Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:17:31.853Z"
+    },
+    "cmd-1793783872826": {
+      "key": "cmd-1793783872826",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx -y skills@latest add pbakaus/impeccable -a claude-code -g -y 2>&1 | grep -E \\\"✓|Installed|Done|error|not found\\\" | head -12\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:17:52.826Z",
+      "lastAccessed": "2026-11-04T09:17:52.826Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:17:52.826Z"
+    },
+    "cmd-1793784605739": {
+      "key": "cmd-1793784605739",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/content.config.ts'; s=io.open(p,encoding='utf-8').read()\\nold = \\\"\\\"\\\"const services = defineCollection({\\n  loader: file('./src/content/services.yaml'),\\n  schema: z.object({\\n    title: z.string().min(1),\\n    detail: z.string().min(1),\\n    order: z.number().int(),\\n  }),\\n});\\\"\\\"\\\"\\nnew = \\\"\\\"\\\"/* Capability cards. Structure mirrors the reference: mono label, ghost number,\\n * heading, sub-line, checked bullets, an impact box, a target metric, and\\n * technology pills. */\\nconst services = defineCollection({\\n  loader: file('./src/content/services.yaml'),\\n  schema: z.object({\\n    order: z.number().int(),\\n    label: z.string().min(1),\\n    title: z.string().min(1),\\n    detail: z.string().min(1),\\n    bullets: z.array(z.string().min(1)).min(2),\\n    impact: z.string().min(1),\\n    metric: z.string().min(1),\\n    tech: z.array(z.string().min(1)).min(2),\\n  }),\\n});\\\"\\\"\\\"\\nassert old in s\\nio.open(p,'w',encoding='utf-8').write(s.replace(old,new,1))\\nprint('schema updated')\\nPY\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:30:05.739Z",
+      "lastAccessed": "2026-11-04T09:30:05.739Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:30:05.739Z"
+    },
+    "cmd-1793784624804": {
+      "key": "cmd-1793784624804",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && cat > src/content/services.yaml <<'YAML'\\n# Three capability cards, matching the reference structure.\\n# Facts are yours where known. Anything marked PLACEHOLDER is invented to fill\\n# the layout, per your instruction to build the shell first and fix copy later.\\n\\n- id: forecasting\\n  order: 1\\n  label: Forecasting & Liquidity Systems\\n  title: Production Cash & FX Forecasting\\n  detail: >-\\n    End-to-end forecasting across a multi-entity treasury, from raw bank\\n    statement text through to the application the business runs on.\\n  bullets:\\n    - Automated model selection across Prophet, ARIMA and XGBoost, scored per entity\\n    - Bank statement parsing with NLP for the free-text fields\\n    - Payment platform exports mapped automatically to liquidity categories\\n    - R Shiny applications deployed on Azure for country-level forecast management\\n  impact: >-\\n    Removed roughly 75 percent of manual forecast preparation across 27 countries\\n    and 2,200 legal entities, and took one recurring reporting workflow from\\n    eight hours to fifteen minutes.\\n  metric: 27 Countries · 2,200 Entities\\n  tech: [R / R SHINY, PYTHON, PROPHET, ARIMA, XGBOOST, AZURE, POSTGRESQL]\\n\\n- id: applied-ml\\n  order: 2\\n  label: Applied ML & Document Intelligence\\n  title: Classification & Retrieval Systems\\n  detail: >-\\n    Models in front of real operational volume, with the deterministic parts of\\n    the problem deliberately kept out of the model.\\n  bullets:\\n    - DistilBERT transaction classifier over 50,000+ payments a day\\n    - Confidence-scored routing to human review, feeding retraining\\n    - Canonical column mapping before any reasoning, so answers are computed not generated\\n    - Retrieval over statutory documents with per-criterion search\\n  impact: >-\\n    Removed roughly 85 percent of manual transaction categorisation and improved\\n    downstream reporting consistency, with uncertain cases escalated rather than\\n    flowing through as silent errors.\\n  metric:  …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:30:24.804Z",
+      "lastAccessed": "2026-11-04T09:30:24.804Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:30:24.804Z"
+    },
+    "cmd-1793784637558": {
+      "key": "cmd-1793784637558",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\nstart = s.index('      <dl class=\\\"services\\\">')\\nend = s.index('      </dl>', start) + len('      </dl>')\\nnew = '''      <div class=\\\"caps\\\">\\n        {\\n          services.map((sv, i) => (\\n            <article class=\\\"cap\\\">\\n              <div class=\\\"cap__top\\\">\\n                <span class=\\\"cap__icon\\\" aria-hidden=\\\"true\\\">\\n                  <svg viewBox=\\\"0 0 16 16\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"1.4\\\">\\n                    <rect x=\\\"2.5\\\" y=\\\"2.5\\\" width=\\\"11\\\" height=\\\"11\\\" rx=\\\"2\\\" />\\n                    <path d=\\\"M2.5 6.5h11M6.5 6.5v7\\\" />\\n                  </svg>\\n                </span>\\n                <p class=\\\"cap__label\\\">{sv.data.label}</p>\\n                <span class=\\\"cap__num\\\" aria-hidden=\\\"true\\\">{String(i + 1).padStart(2, '0')}</span>\\n              </div>\\n\\n              <h3 class=\\\"cap__title\\\">{sv.data.title}</h3>\\n              <p class=\\\"cap__detail\\\">{sv.data.detail}</p>\\n\\n              <ul class=\\\"cap__list\\\">\\n                {sv.data.bullets.map((b: string) => (\\n                  <li>\\n                    <svg class=\\\"cap__tick\\\" viewBox=\\\"0 0 16 16\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"1.5\\\" aria-hidden=\\\"true\\\">\\n                      <circle cx=\\\"8\\\" cy=\\\"8\\\" r=\\\"6.25\\\" />\\n                      <path d=\\\"M5.4 8.2l1.8 1.8 3.4-3.6\\\" />\\n                    </svg>\\n                    <span>{b}</span>\\n                  </li>\\n                ))}\\n              </ul>\\n\\n              <div class=\\\"cap__impact\\\">\\n                <p class=\\\"cap__impact-label\\\">Executive business impact</p>\\n                <p>{sv.data.impact}</p>\\n              </div>\\n\\n              <div class=\\\"cap__metric\\\">\\n                <span class=\\\"cap__metric-label\\\">Target<br />Metric:</span>\\n                <span class=\\\"cap__metric-value\\\">{sv.data.metric}</span>\\n              </div>\\n\\n              <ul class=\\\"cap__tech\\\">\\n                {sv.data.tech.map((t: string) => <li>{t}</l …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:30:37.558Z",
+      "lastAccessed": "2026-11-04T09:30:37.558Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:30:37.558Z"
+    },
+    "cmd-1793784666514": {
+      "key": "cmd-1793784666514",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\ns += \\\"\\\"\\\"\\n\\n/* ---------- capability cards ----------\\n * Anatomy taken from the reference: icon + mono label + ghost number, rule,\\n * heading, sub-line, ticked bullets, an inset impact box, a target metric,\\n * then technology pills. */\\n\\n.caps {\\n  display: grid;\\n  gap: var(--space-6);\\n  margin-top: var(--space-12);\\n}\\n\\n@media (min-width: 60rem) {\\n  .caps {\\n    grid-template-columns: repeat(3, 1fr);\\n  }\\n}\\n\\n.cap {\\n  display: flex;\\n  flex-direction: column;\\n  border: var(--border-hairline);\\n  border-radius: var(--radius-card);\\n  padding: var(--space-8);\\n  background-color: var(--color-bg);\\n}\\n\\n.cap__top {\\n  display: grid;\\n  grid-template-columns: auto 1fr auto;\\n  align-items: start;\\n  gap: var(--space-3);\\n  padding-bottom: var(--space-6);\\n  border-bottom: var(--border-hairline);\\n}\\n\\n.cap__icon {\\n  display: grid;\\n  place-items: center;\\n  width: 2rem;\\n  height: 2rem;\\n  border: var(--border-hairline);\\n  border-radius: var(--radius);\\n  color: var(--color-accent);\\n}\\n\\n.cap__icon svg {\\n  width: 1rem;\\n  height: 1rem;\\n}\\n\\n.cap__label {\\n  font-family: var(--font-mono);\\n  font-size: var(--scale-xs);\\n  line-height: 1.5;\\n  text-transform: uppercase;\\n  letter-spacing: 0.08em;\\n  color: var(--color-text-muted);\\n}\\n\\n.cap__num {\\n  font-family: var(--font-display);\\n  font-size: var(--scale-2xl);\\n  line-height: 1;\\n  color: var(--color-border);\\n}\\n\\n.cap__title {\\n  margin-top: var(--space-6);\\n  font-family: var(--font-body);\\n  font-size: var(--scale-xl);\\n  font-weight: 700;\\n  line-height: 1.25;\\n  letter-spacing: -0.01em;\\n}\\n\\n.cap__detail {\\n  margin-top: var(--space-3);\\n  font-size: var(--scale-sm);\\n  color: var(--color-text-muted);\\n}\\n\\n.cap__list {\\n  list-style: none;\\n  margin-top: var(--space-6);\\n  display: grid;\\n  gap: var(--space-3);\\n}\\n\\n.cap__list li {\\n  display: grid;\\n  grid-template-columns: auto 1fr;\\n  gap: var(--space-3);\\n  font-size: var(--scale-sm);\\n  line-heigh …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:31:06.514Z",
+      "lastAccessed": "2026-11-04T09:31:06.514Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:31:06.514Z"
+    },
+    "cmd-1793784687152": {
+      "key": "cmd-1793784687152",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T09:31:27.152Z",
+      "lastAccessed": "2026-11-04T09:31:27.152Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T09:31:27.152Z"
+    },
+    "cmd-1793788995163": {
+      "key": "cmd-1793788995163",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && cat > src/content/pipeline.yaml <<'YAML'\\n# Forecasting workflow stages for the Architecture Workbench.\\n# From your described pipeline. Latency values marked PLACEHOLDER are invented\\n# to fill the layout and must be replaced or removed before launch.\\n\\n- id: ingest\\n  order: 1\\n  tag: Raw Sources\\n  title: Statement & Platform Ingest\\n  summary: Bank statements and payment platform exports\\n  latency: PLACEHOLDER\\n  edge: Raw records\\n  governance: Inside tenancy\\n  responsibilities:\\n    - Pulls bank statement files and payment platform exports on a schedule.\\n    - Handles formats as they arrive rather than requiring a fixed schema.\\n    - Records what landed, so a missing file is visible rather than silent.\\n  safeguard: No data leaves the organisation's own infrastructure.\\n\\n- id: clean\\n  order: 2\\n  tag: Cleaning\\n  title: Parsing & Normalisation\\n  summary: NLP over free-text statement fields\\n  latency: PLACEHOLDER\\n  edge: Parsed rows\\n  governance: Deterministic first\\n  responsibilities:\\n    - Parses structured fields with ordinary rules, not a model.\\n    - Applies NLP only to the free-text description, where it is the single clue to what a line item is.\\n    - Flags rows it cannot parse instead of guessing at them.\\n  safeguard: Unparseable rows are escalated, never silently dropped.\\n\\n- id: map\\n  order: 3\\n  tag: Mapping\\n  title: Transaction Classification\\n  summary: DistilBERT with confidence-scored review\\n  latency: 50,000+ / day\\n  edge: Categorised flows\\n  governance: Human in the loop\\n  responsibilities:\\n    - Assigns a liquidity category to every payment, with a confidence score attached.\\n    - Routes low-confidence cases to a human review queue rather than letting them through.\\n    - Feeds those human decisions back into retraining, so the model improves where it is weakest.\\n  safeguard: Uncertain predictions never reach downstream reporting unreviewed.\\n\\n- id: series\\n  order: 4\\n  tag: History\\n  title: Clean Historical Series\\n  summ …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:43:15.163Z",
+      "lastAccessed": "2026-11-04T10:43:15.163Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:43:15.163Z"
+    },
+    "cmd-1793789006542": {
+      "key": "cmd-1793789006542",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/content.config.ts'; s=io.open(p,encoding='utf-8').read()\\nanchor = \\\"const skills = defineCollection({\\\"\\nnew = \\\"\\\"\\\"/* Stages in the Architecture Workbench diagram. */\\nconst pipeline = defineCollection({\\n  loader: file('./src/content/pipeline.yaml'),\\n  schema: z.object({\\n    order: z.number().int(),\\n    tag: z.string().min(1),\\n    title: z.string().min(1),\\n    summary: z.string().min(1),\\n    latency: z.string().min(1),\\n    edge: z.string().min(1),\\n    governance: z.string().min(1),\\n    responsibilities: z.array(z.string().min(1)).min(2),\\n    safeguard: z.string().min(1),\\n  }),\\n});\\n\\nconst skills = defineCollection({\\\"\\\"\\\"\\nassert anchor in s\\ns = s.replace(anchor, new, 1)\\ns = s.replace(\\\"export const collections = { projects, services, skills,\\\",\\n              \\\"export const collections = { projects, services, pipeline, skills,\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('collection registered')\\nPY\\ngrep -n \\\"export const collections\\\" src/content.config.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:43:26.542Z",
+      "lastAccessed": "2026-11-04T10:43:26.542Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:43:26.542Z"
+    },
+    "cmd-1793789040742": {
+      "key": "cmd-1793789040742",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && cat > src/components/Workbench.astro <<'ASTRO'\\n---\\nimport { getCollection } from 'astro:content';\\n\\nconst stages = (await getCollection('pipeline')).sort((a, b) => a.data.order - b.data.order);\\n\\n/* Node geometry. Stages zig-zag between two rows, as in the reference, so the\\n * edges read as a flow rather than a straight line. Coordinates are in the\\n * SVG viewBox space and the cards are positioned with the same percentages. */\\nconst COLS = stages.length;\\nconst x = (i: number) => (100 / COLS) * i + 100 / COLS / 2;\\nconst y = (i: number) => (i % 2 === 0 ? 26 : 74);\\n---\\n\\n<div class=\\\"wb\\\">\\n  <div class=\\\"wb__bar\\\">\\n    <p class=\\\"wb__title\\\"><span class=\\\"wb__dot\\\" aria-hidden=\\\"true\\\"></span>Cash &amp; FX Forecasting Pipeline</p>\\n    <button type=\\\"button\\\" class=\\\"wb__pulse\\\" id=\\\"wb-pulse\\\" aria-pressed=\\\"true\\\">\\n      <svg viewBox=\\\"0 0 16 16\\\" fill=\\\"currentColor\\\" aria-hidden=\\\"true\\\"><path d=\\\"M5 3.5l7 4.5-7 4.5z\\\" /></svg>\\n      Simulate signal pulse\\n    </button>\\n  </div>\\n\\n  <div class=\\\"wb__canvas\\\">\\n    {/* Edge layer. Dashed strokes with an animated dashoffset, the same\\n        technique the reference uses for its moving arrows. */}\\n    <svg class=\\\"wb__edges\\\" viewBox=\\\"0 0 100 100\\\" preserveAspectRatio=\\\"none\\\" aria-hidden=\\\"true\\\">\\n      {\\n        stages.slice(0, -1).map((s, i) => {\\n          const x1 = x(i);\\n          const y1 = y(i);\\n          const x2 = x(i + 1);\\n          const y2 = y(i + 1);\\n          const mx = (x1 + x2) / 2;\\n          return (\\n            <g class=\\\"wb__edge\\\">\\n              <path class=\\\"wb__edge-path\\\" d={`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`} />\\n            </g>\\n          );\\n        })\\n      }\\n    </svg>\\n\\n    <ul class=\\\"wb__nodes\\\">\\n      {\\n        stages.map((s, i) => (\\n          <li class=\\\"wb__node\\\" style={`left:${x(i)}%; top:${y(i)}%`}>\\n            <button\\n              type=\\\"button\\\"\\n              class=\\\"wb__card\\\"\\n              data-stage={s.id}\\n              aria-expanded=\\\"false\\\"\\n              aria-controls=\\\"wb …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:44:00.742Z",
+      "lastAccessed": "2026-11-04T10:44:00.742Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:44:00.742Z"
+    },
+    "cmd-1793789078605": {
+      "key": "cmd-1793789078605",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\ns += \\\"\\\"\\\"\\n\\n/* ---------- architecture workbench ----------\\n * Node graph with animated dashed edges. The reference uses React Flow, whose\\n * moving arrows are a dashed stroke with an animated dash offset. Same effect\\n * here in plain SVG, no library. */\\n\\n.wb {\\n  border: var(--border-hairline);\\n  border-radius: var(--radius-card);\\n  background-color: var(--color-bg);\\n  overflow: hidden;\\n}\\n\\n.wb__bar {\\n  display: flex;\\n  flex-wrap: wrap;\\n  gap: var(--space-3);\\n  align-items: center;\\n  padding: var(--space-4);\\n  border-bottom: var(--border-hairline);\\n}\\n\\n.wb__title {\\n  display: inline-flex;\\n  align-items: center;\\n  gap: var(--space-2);\\n  font-family: var(--font-mono);\\n  font-size: var(--scale-xs);\\n  padding: 0.4rem 0.75rem;\\n  border: var(--border-hairline);\\n  border-radius: 999px;\\n}\\n\\n.wb__dot {\\n  width: 6px;\\n  height: 6px;\\n  border-radius: 50%;\\n  background-color: var(--color-accent);\\n}\\n\\n.wb__pulse {\\n  display: inline-flex;\\n  align-items: center;\\n  gap: var(--space-2);\\n  font-family: var(--font-mono);\\n  font-size: var(--scale-xs);\\n  padding: 0.4rem 0.75rem;\\n  border: var(--border-hairline);\\n  border-radius: 999px;\\n  background-color: transparent;\\n  color: var(--color-text);\\n  cursor: pointer;\\n}\\n\\n.wb__pulse svg {\\n  width: 0.75rem;\\n  height: 0.75rem;\\n  color: var(--color-accent);\\n}\\n\\n.wb__pulse:hover {\\n  border-color: var(--color-text-muted);\\n}\\n\\n.wb__canvas {\\n  position: relative;\\n  min-height: 30rem;\\n  padding: var(--space-8) 0;\\n}\\n\\n.wb__edges {\\n  position: absolute;\\n  inset: 0;\\n  width: 100%;\\n  height: 100%;\\n}\\n\\n.wb__edge-path {\\n  fill: none;\\n  stroke: var(--color-text-muted);\\n  stroke-width: 0.25;\\n  stroke-dasharray: 1.4 1.2;\\n  vector-effect: non-scaling-stroke;\\n  animation: wb-dash 0.6s linear infinite;\\n}\\n\\n@keyframes wb-dash {\\n  to {\\n    stroke-dashoffset: -2.6;\\n  }\\n}\\n\\n.wb.is-paused .wb__edge-path {\\n  animation-play-state: paused;\\n}\\n\\n.wb__nod …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:44:38.605Z",
+      "lastAccessed": "2026-11-04T10:44:38.605Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:44:38.605Z"
+    },
+    "cmd-1793789094658": {
+      "key": "cmd-1793789094658",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\n\\ns = s.replace(\\\"import Link from '../components/Link.astro';\\\",\\n              \\\"import Link from '../components/Link.astro';\\\\nimport Workbench from '../components/Workbench.astro';\\\", 1)\\ns = s.replace(\\\"  contact: 'Available now.',\\\",\\n              \\\"  contact: 'Available now.',\\\\n  workbench: 'Interactive architecture workbench.',\\\", 1)\\n\\n# insert the workbench section after the services section\\nmarker = '    <section class=\\\"section\\\" data-reveal id=\\\"work\\\" aria-labelledby=\\\"work-h\\\">'\\nwb = '''    <section class=\\\"section\\\" data-reveal id=\\\"workbench\\\" aria-labelledby=\\\"wb-h\\\">\\n      <div class=\\\"wrap\\\">\\n      <p class=\\\"section__num\\\" aria-hidden=\\\"true\\\">02</p>\\n      <h2 id=\\\"wb-h\\\" class=\\\"section__label\\\">Technical depth</h2>\\n      <p class=\\\"section__headline\\\">{headline.workbench}</p>\\n      <p class=\\\"section__lead\\\">\\n        A node view of the cash and FX forecasting pipeline. Click any stage to see what it is\\n        responsible for, what it guarantees, and what it refuses to do.\\n      </p>\\n      <Workbench />\\n      </div>\\n    </section>\\n\\n'''\\nassert marker in s\\ns = s.replace(marker, wb + marker, 1)\\n\\n# renumber the sections that follow\\nfor old, new in [('\\\">03</p>','\\\">04</p>'), ('\\\">04</p>','\\\">05</p>')]:\\n    pass\\nnums = re.findall(r'section__num\\\" aria-hidden=\\\"true\\\">(\\\\d\\\\d)</p>', s)\\n# rebuild numbering in document order\\ndef renum(src):\\n    out=[]; i=0\\n    def rep(m):\\n        nonlocal i\\n        i+=1\\n        return 'section__num\\\" aria-hidden=\\\"true\\\">%02d</p>' % i\\n    return re.sub(r'section__num\\\" aria-hidden=\\\"true\\\">\\\\d\\\\d</p>', rep, src)\\ns = renum(s)\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('numbers now:', re.findall(r'section__num\\\" aria-hidden=\\\"true\\\">(\\\\d\\\\d)</p>', s))\\nPY\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:44:54.658Z",
+      "lastAccessed": "2026-11-04T10:44:54.658Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:44:54.658Z"
+    },
+    "cmd-1793789116714": {
+      "key": "cmd-1793789116714",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\n\\n# hover on the capability cards, which the reference has and mine lacked\\ns = s.replace(\\\"\\\"\\\"  padding: var(--space-8);\\n  background-color: var(--color-bg);\\n}\\n\\n.cap__top {\\\"\\\"\\\",\\n\\\"\\\"\\\"  padding: var(--space-8);\\n  background-color: var(--color-bg);\\n  transition:\\n    border-color 200ms ease-out,\\n    box-shadow 200ms ease-out,\\n    transform 200ms ease-out;\\n}\\n\\n.cap:hover {\\n  border-color: var(--color-text-muted);\\n  box-shadow: var(--shadow-sm);\\n  transform: translateY(-3px);\\n}\\n\\n.cap:hover .cap__num {\\n  color: var(--color-accent);\\n}\\n\\n.cap__num {\\n  transition: color 200ms ease-out;\\n}\\n\\n.cap__top {\\\"\\\"\\\")\\n\\n# section lead paragraph under the headline\\ns = s.replace(\\\".section--band {\\\",\\n\\\"\\\"\\\".section__lead {\\n  max-width: var(--measure);\\n  font-size: var(--scale-lg);\\n  line-height: 1.6;\\n  color: var(--color-text-muted);\\n  margin-top: calc(var(--space-12) * -1 + var(--space-4));\\n  margin-bottom: var(--space-12);\\n}\\n\\n.section--band {\\\"\\\"\\\", 1)\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('hover + lead added')\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:45:16.714Z",
+      "lastAccessed": "2026-11-04T10:45:16.714Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:45:16.714Z"
+    },
+    "cmd-1793789142924": {
+      "key": "cmd-1793789142924",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:45:42.924Z",
+      "lastAccessed": "2026-11-04T10:45:42.924Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:45:42.924Z"
+    },
+    "cmd-1793789167754": {
+      "key": "cmd-1793789167754",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"\\\\.astro:|\\\\.ts:\\\" | head -3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:46:07.754Z",
+      "lastAccessed": "2026-11-04T10:46:07.754Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:46:07.754Z"
+    },
+    "cmd-1793789193393": {
+      "key": "cmd-1793789193393",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -B2 -A2 \\\"hint\\\\|ts(\\\" | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:46:33.393Z",
+      "lastAccessed": "2026-11-04T10:46:33.393Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:46:33.393Z"
+    },
+    "cmd-1793789225512": {
+      "key": "cmd-1793789225512",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -i '28s/map((s, i) => {/map((_s, i) => {/' src/components/Workbench.astro && npm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -2 && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:47:05.512Z",
+      "lastAccessed": "2026-11-04T10:47:05.512Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:47:05.512Z"
+    },
+    "cmd-1793789307023": {
+      "key": "cmd-1793789307023",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\n\\ns = s.replace(\\\"\\\"\\\".wb__nodes {\\n  list-style: none;\\n  position: relative;\\n  height: 100%;\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"/* Fills the canvas so the nodes' percentage offsets have something to resolve\\n * against. Without this the ul collapses to zero height and every node lands\\n * on the same line. */\\n.wb__nodes {\\n  list-style: none;\\n  position: absolute;\\n  inset: var(--space-8) var(--space-4);\\n}\\\"\\\"\\\")\\n\\ns = s.replace(\\\"\\\"\\\"  transform: translate(-50%, -50%);\\n  width: min(15rem, 42vw);\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"  transform: translate(-50%, -50%);\\n  width: min(11.5rem, 15vw);\\n}\\\"\\\"\\\")\\n\\ns = s.replace(\\\"\\\"\\\".wb__canvas {\\n  position: relative;\\n  min-height: 30rem;\\n  padding: var(--space-8) 0;\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\".wb__canvas {\\n  position: relative;\\n  min-height: 34rem;\\n  padding: var(--space-8) 0;\\n}\\\"\\\"\\\")\\n\\ns = s.replace(\\\"\\\"\\\"  padding: var(--space-4);\\n  border: var(--border-hairline);\\n  border-radius: var(--radius);\\n  background-color: var(--color-bg);\\n  cursor: pointer;\\\"\\\"\\\",\\n\\\"\\\"\\\"  padding: var(--space-3);\\n  border: var(--border-hairline);\\n  border-radius: var(--radius);\\n  background-color: var(--color-bg);\\n  cursor: pointer;\\\"\\\"\\\")\\n\\ns = s.replace(\\\"\\\"\\\".wb__card-foot {\\n  display: flex;\\n  justify-content: space-between;\\n  gap: var(--space-2);\\\"\\\"\\\",\\n\\\"\\\"\\\".wb__card-foot {\\n  display: flex;\\n  flex-wrap: wrap;\\n  justify-content: space-between;\\n  gap: 0.25rem var(--space-2);\\\"\\\"\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('layout fixed')\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -2\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:48:27.023Z",
+      "lastAccessed": "2026-11-04T10:48:27.023Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:48:27.023Z"
+    },
+    "cmd-1793789829664": {
+      "key": "cmd-1793789829664",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace(\\\"\\\"\\\"  --color-accent: #046a38;     /*  6.38:1 on white */\\n  --color-accent-weak: #ecfdf5;\\n  --color-focus: #046a38;\\\"\\\"\\\",\\n\\\"\\\"\\\"  --color-accent: #046a38;        /*  6.72:1 on white */\\n  --color-accent-strong: #10b981; /* icons and status marks only, never text */\\n  --color-accent-weak: #d1fae5;   /* chip background */\\n  --color-accent-on: #064e3b;     /* text on chip, 10.4:1 on #d1fae5 */\\n  --color-focus: #046a38;\\\"\\\"\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('mint tokens added')\\nPY\\nnode -e \\\"const l=c=>{c/=255;return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4)};const L=h=>{const n=parseInt(h.slice(1),16);return 0.2126*l((n>>16)&255)+0.7152*l((n>>8)&255)+0.0722*l(n&255)};const r=(a,b)=>{const[x,y]=[L(a),L(b)].sort((p,q)=>q-p);return (x+0.05)/(y+0.05)};console.log('chip text on mint:', r('#d1fae5','#064e3b').toFixed(2))\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:57:09.664Z",
+      "lastAccessed": "2026-11-04T10:57:09.664Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:57:09.664Z"
+    },
+    "cmd-1793789842360": {
+      "key": "cmd-1793789842360",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/layouts/BaseLayout.astro'; s=io.open(p,encoding='utf-8').read()\\nstart = s.index('    <header class=\\\"site-header\\\">')\\nend = s.index('    <main id=\\\"main\\\">')\\nnew = '''    <header class=\\\"site-header\\\">\\n      <div class=\\\"wrap site-header__inner\\\">\\n        <a class=\\\"site-header__name\\\" href=\\\"/\\\">{name}</a>\\n        <span class=\\\"chip site-header__chip\\\">Forecasting &amp; Production ML</span>\\n\\n        <nav aria-label=\\\"Primary\\\">\\n          <ul class=\\\"nav\\\">\\n            {\\n              nav.map((item) => (\\n                <li>\\n                  <a href={item.href}>{item.label}</a>\\n                </li>\\n              ))\\n            }\\n          </ul>\\n        </nav>\\n\\n        <div class=\\\"site-header__actions\\\">\\n          <ThemeToggle />\\n          <a class=\\\"btn btn--primary btn--sm\\\" href={`mailto:${email}`}>\\n            Get in touch\\n            <svg\\n              class=\\\"btn__arrow\\\"\\n              viewBox=\\\"0 0 16 16\\\"\\n              fill=\\\"none\\\"\\n              stroke=\\\"currentColor\\\"\\n              stroke-width=\\\"1.6\\\"\\n              stroke-linecap=\\\"round\\\"\\n              stroke-linejoin=\\\"round\\\"\\n              aria-hidden=\\\"true\\\"\\n            >\\n              <path d=\\\"M4.5 11.5l7-7M6 4.5h5.5V10\\\" />\\n            </svg>\\n          </a>\\n        </div>\\n      </div>\\n    </header>\\n\\n'''\\nio.open(p,'w',encoding='utf-8').write(s[:start] + new + s[end:])\\nprint('header markup replaced')\\nPY\\ngrep -n \\\"isHome\\\" src/layouts/BaseLayout.astro | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:57:22.360Z",
+      "lastAccessed": "2026-11-04T10:57:22.360Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:57:22.360Z"
+    },
+    "cmd-1793789859749": {
+      "key": "cmd-1793789859749",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\np='src/layouts/BaseLayout.astro'; s=io.open(p,encoding='utf-8').read()\\n# isHome is no longer used: the wordmark now shows on every page\\ns = re.sub(r\\\"\\\\n// The homepage h1 is the name[\\\\s\\\\S]*?const isHome = path === '/';\\\\n\\\", \\\"\\\\n\\\", s)\\ns = s.replace(\\\"const path = Astro.url.pathname.replace(/\\\\\\\\/$/, '') || '/';\\\\n\\\", \\\"\\\")\\n\\nold_css_start = s.index('  .site-header {')\\nold_css_end = s.index('  .nav {')\\nnew_css = '''  /* Sticky, so the bar stays available the way the reference's does. */\\n  .site-header {\\n    position: sticky;\\n    top: 0;\\n    z-index: 30;\\n    background-color: var(--color-bg);\\n    border-bottom: var(--border-hairline);\\n    padding-block: var(--space-3);\\n  }\\n\\n  .site-header__inner {\\n    display: flex;\\n    align-items: center;\\n    gap: var(--space-4);\\n  }\\n\\n  .site-header__name {\\n    font-size: var(--scale-sm);\\n    font-weight: 700;\\n    letter-spacing: 0.14em;\\n    text-transform: uppercase;\\n    color: var(--color-text);\\n    text-decoration: none;\\n    white-space: nowrap;\\n  }\\n\\n  .site-header__chip {\\n    display: none;\\n  }\\n\\n  @media (min-width: 72rem) {\\n    .site-header__chip {\\n      display: inline-block;\\n    }\\n  }\\n\\n  /* Nav takes the middle, actions sit hard right. */\\n  .site-header nav {\\n    margin-left: auto;\\n  }\\n\\n  .site-header__actions {\\n    display: flex;\\n    align-items: center;\\n    gap: var(--space-3);\\n  }\\n\\n'''\\ns = s[:old_css_start] + new_css + s[old_css_end:]\\n\\n# nav styling to match: uppercase, spaced\\ns = s.replace(\\\"\\\"\\\"  .nav {\\n    display: flex;\\n    flex-wrap: wrap;\\n    gap: var(--space-4);\\n    list-style: none;\\n    font-family: var(--font-ui);\\n    font-size: var(--scale-sm);\\n  }\\\"\\\"\\\",\\n\\\"\\\"\\\"  .nav {\\n    display: flex;\\n    flex-wrap: wrap;\\n    gap: var(--space-6);\\n    list-style: none;\\n    font-size: var(--scale-xs);\\n    font-weight: 500;\\n    letter-spacing: 0.12em;\\n    text-transform: uppercase;\\n  }\\\"\\\"\\\")\\n\\ns = s.replace(\\\"\\\"\\\"  @media (max-width: 34rem) {\\n    .nav {\\n      order: 3;\\n      width: 1 …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:57:39.749Z",
+      "lastAccessed": "2026-11-04T10:57:39.749Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:57:39.749Z"
+    },
+    "cmd-1793789866831": {
+      "key": "cmd-1793789866831",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -n \\\"isHome\\\\|const path\\\" src/layouts/BaseLayout.astro\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:57:46.831Z",
+      "lastAccessed": "2026-11-04T10:57:46.831Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:57:46.831Z"
+    },
+    "cmd-1793789885429": {
+      "key": "cmd-1793789885429",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -i '28d' src/layouts/BaseLayout.astro && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace(\\\"\\\"\\\"/* ---------- buttons ----------\\\"\\\"\\\",\\n\\\"\\\"\\\"/* Mint chip, the reference's pill badge for location, role and status. */\\n.chip {\\n  display: inline-block;\\n  padding: 0.3rem 0.7rem;\\n  border-radius: 999px;\\n  background-color: var(--color-accent-weak);\\n  color: var(--color-accent-on);\\n  font-size: var(--scale-xs);\\n  font-weight: 500;\\n  letter-spacing: 0.08em;\\n  text-transform: uppercase;\\n  white-space: nowrap;\\n}\\n\\n.chip--dot::before {\\n  content: '';\\n  display: inline-block;\\n  width: 6px;\\n  height: 6px;\\n  margin-right: 0.5rem;\\n  border-radius: 50%;\\n  background-color: var(--color-accent-strong);\\n  vertical-align: 0.1em;\\n}\\n\\n/* ---------- buttons ----------\\\"\\\"\\\", 1)\\n\\ns = s.replace(\\\"\\\"\\\".btn--primary {\\\"\\\"\\\",\\n\\\"\\\"\\\".btn--sm {\\n  height: 2.25rem;\\n  padding-inline: var(--space-4);\\n}\\n\\n.btn--primary {\\\"\\\"\\\", 1)\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('chip + small button added')\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -3\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:58:05.429Z",
+      "lastAccessed": "2026-11-04T10:58:05.429Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:58:05.429Z"
+    },
+    "cmd-1793789908835": {
+      "key": "cmd-1793789908835",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\n\\ns = s.replace(\\\"\\\"\\\".wb__canvas {\\n  position: relative;\\n  min-height: 34rem;\\n  padding: var(--space-8) 0;\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\"/* Canvas left, detail panel right, as in the reference. Below 72rem the panel\\n * drops underneath so neither column gets squeezed. */\\n.wb__body {\\n  display: grid;\\n}\\n\\n@media (min-width: 72rem) {\\n  .wb__body.has-panel {\\n    grid-template-columns: minmax(0, 1fr) 22rem;\\n  }\\n}\\n\\n.wb__canvas {\\n  position: relative;\\n  min-height: 34rem;\\n  padding: var(--space-8) 0;\\n}\\\"\\\"\\\")\\n\\ns = s.replace(\\\"\\\"\\\".wb__panel {\\n  position: relative;\\n  border-top: var(--border-hairline);\\n  padding: var(--space-8);\\n  background-color: var(--color-surface);\\n}\\\"\\\"\\\",\\n\\\"\\\"\\\".wb__panel {\\n  position: relative;\\n  border-top: var(--border-hairline);\\n  padding: var(--space-6);\\n  background-color: var(--color-surface);\\n}\\n\\n@media (min-width: 72rem) {\\n  .wb__panel {\\n    border-top: 0;\\n    border-left: var(--border-hairline);\\n    align-self: stretch;\\n    overflow-y: auto;\\n    max-height: 42rem;\\n  }\\n}\\\"\\\"\\\")\\n\\n# narrower column: node width must shrink when the panel is open\\ns = s.replace(\\\"  width: min(11.5rem, 15vw);\\\",\\n              \\\"  width: clamp(8.5rem, 14vw, 11.5rem);\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('panel layout css done')\\nPY\\npython - <<'PY'\\nimport io\\np='src/components/Workbench.astro'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace('  <div class=\\\"wb__canvas\\\">', '  <div class=\\\"wb__body\\\" id=\\\"wb-body\\\">\\\\n  <div class=\\\"wb__canvas\\\">', 1)\\ns = s.replace('''  {/* Detail panel. Hidden until a stage is chosen; every stage's content is in\\n      the HTML so it works before any script runs. */}''',\\n'''  {/* Detail panel. Sits to the right of the canvas on wide screens and below\\n      it on narrow ones. Hidden until a stage is chosen. */}''')\\n# close wb__body after the panel\\ns = s.replace('''    <button type=\\\"button\\\" class=\\\"wb__close\\\" id=\\\"wb-close\\\" aria-label=\\\"Close stag …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:58:28.835Z",
+      "lastAccessed": "2026-11-04T10:58:28.835Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:58:28.835Z"
+    },
+    "cmd-1793789928776": {
+      "key": "cmd-1793789928776",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)|\\\\.astro:\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T10:58:48.776Z",
+      "lastAccessed": "2026-11-04T10:58:48.776Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T10:58:48.776Z"
+    },
+    "cmd-1793790731801": {
+      "key": "cmd-1793790731801",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && cat > src/content/case-studies.yaml <<'YAML'\\n# Three case studies for the homepage. Figures come from resume.md unless\\n# marked. Each links to its full write-up.\\n\\n- id: planscan\\n  order: 1\\n  period: \\\"2026\\\"\\n  category: Irish Planning Compliance & Retrieval\\n  title: PlanScan\\n  summary: >-\\n    Rules-first retrieval over Irish development plans, with an LLM scoring\\n    proposals against planning criteria and refusing to answer when no source\\n    supports it.\\n  role: Sole author\\n  href: /work/planscan\\n  metrics:\\n    - label: Development plan sections\\n      sub: Indexed across 24 Irish councils\\n      value: ~8,200\\n    - label: Compliance criteria\\n      sub: Scored per application\\n      value: \\\"12\\\"\\n    - label: Citation fabrication\\n      sub: Evaluated on 11 real appeal decisions\\n      value: 0%\\n\\n- id: cash-agent\\n  order: 2\\n  period: In progress\\n  category: Finance Q&A & Evaluation-First RAG\\n  title: Cash Agent\\n  summary: >-\\n    Evaluation-first retrieval over treasury documents. Chunking strategies\\n    compared on a hand-built question set, and numeric answers computed by\\n    verified SQL rather than produced by the model.\\n  role: Sole author\\n  href: /work/cash-agent\\n  metrics:\\n    - label: Chunking comparison\\n      sub: Section-heading against semantic, scored on recall@k\\n      value: recall@k\\n    - label: Numeric answers\\n      sub: Verified SQL on DuckDB, per-user permissions\\n      value: SQL\\n    - label: Model arithmetic\\n      sub: The model decides what to compute, never computes it\\n      value: None\\n\\n- id: churn\\n  order: 3\\n  period: \\\"2026\\\"\\n  category: Churn Prediction & Revenue at Risk\\n  title: Revenue at Risk\\n  summary: >-\\n    A churn model for a usage-based subscription business, framed so the\\n    validation split and the metric could not flatter the result. Method only,\\n    no client data.\\n  role: Sole author\\n  href: /work/churn-revenue-at-risk\\n  metrics:\\n    - label: Model\\n      sub: Nine features, benchmarked once again …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T11:12:11.801Z",
+      "lastAccessed": "2026-11-04T11:12:11.801Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T11:12:11.801Z"
+    },
+    "cmd-1793790742093": {
+      "key": "cmd-1793790742093",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/content.config.ts'; s=io.open(p,encoding='utf-8').read()\\nanchor = \\\"const skills = defineCollection({\\\"\\nnew = \\\"\\\"\\\"const caseStudies = defineCollection({\\n  loader: file('./src/content/case-studies.yaml'),\\n  schema: z.object({\\n    order: z.number().int(),\\n    period: z.string().min(1),\\n    category: z.string().min(1),\\n    title: z.string().min(1),\\n    summary: z.string().min(1),\\n    role: z.string().min(1),\\n    href: z.string().min(1),\\n    metrics: z\\n      .array(z.object({ label: z.string().min(1), sub: z.string().min(1), value: z.string().min(1) }))\\n      .min(2),\\n  }),\\n});\\n\\nconst trajectory = defineCollection({\\n  loader: file('./src/content/trajectory.yaml'),\\n  schema: z.object({\\n    order: z.number().int(),\\n    period: z.string().min(1),\\n    status: z.string().min(1),\\n    org: z.string().min(1),\\n    location: z.string().min(1),\\n    title: z.string().min(1),\\n    subtitle: z.string().min(1),\\n    summary: z.string().min(1),\\n    bullets: z.array(z.string().min(1)).min(1),\\n    tech: z.array(z.string().min(1)).min(1),\\n  }),\\n});\\n\\nconst skills = defineCollection({\\\"\\\"\\\"\\nassert anchor in s\\ns = s.replace(anchor, new, 1)\\ns = s.replace(\\\"export const collections = { projects, services, pipeline, skills,\\\",\\n              \\\"export const collections = { projects, services, pipeline, caseStudies, trajectory, skills,\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('registered')\\nPY\\ngrep -n \\\"export const collections\\\" src/content.config.ts\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T11:12:22.093Z",
+      "lastAccessed": "2026-11-04T11:12:22.093Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T11:12:22.093Z"
+    },
+    "cmd-1793790757014": {
+      "key": "cmd-1793790757014",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\n\\ns = s.replace(\\\"const skills = (await getCollection('skills'))\\\",\\n  \\\"const caseStudies = (await getCollection('caseStudies')).sort((a, b) => a.data.order - b.data.order);\\\\nconst trajectory = (await getCollection('trajectory')).sort((a, b) => a.data.order - b.data.order);\\\\nconst skills = (await getCollection('skills'))\\\", 1)\\n\\ns = s.replace(\\\"  workbench: 'Interactive architecture workbench.',\\\",\\n  \\\"  workbench: 'Interactive architecture workbench.',\\\\n  cases: 'Selected case studies.',\\\\n  trajectory: 'Career trajectory and milestones.',\\\", 1)\\n\\n# Replace the old \\\"work\\\" section with the case studies section\\nstart = s.index('    <section class=\\\"section\\\" data-reveal id=\\\"work\\\"')\\nend = s.index('    <section class=\\\"section', start + 10)\\nnew = '''    <section class=\\\"section\\\" data-reveal id=\\\"work\\\" aria-labelledby=\\\"work-h\\\">\\n      <div class=\\\"wrap\\\">\\n      <p class=\\\"section__num\\\" aria-hidden=\\\"true\\\">03</p>\\n      <h2 id=\\\"work-h\\\" class=\\\"section__label\\\">Selected engagements</h2>\\n      <p class=\\\"section__headline\\\">{headline.cases}</p>\\n      <p class=\\\"section__lead\\\">\\n        Three systems, written up with the decisions that shaped them and what each one still\\n        cannot do. Open any card for the full write-up.\\n      </p>\\n\\n      <div class=\\\"cs\\\">\\n        {\\n          caseStudies.map((c, i) => (\\n            <a class=\\\"cs__card\\\" href={c.data.href}>\\n              <span class=\\\"cs__head\\\">\\n                <span class=\\\"cs__num\\\" aria-hidden=\\\"true\\\">{String(i + 1).padStart(2, '0')}</span>\\n                <span class=\\\"cs__period\\\">{c.data.period}</span>\\n              </span>\\n              <span class=\\\"cs__cat\\\">{c.data.category}</span>\\n              <span class=\\\"cs__title\\\">{c.data.title}</span>\\n              <span class=\\\"cs__summary\\\">{c.data.summary}</span>\\n              <span class=\\\"cs__role\\\">\\n                <span class=\\\"cs__role-label\\\">Role:</span> {c.data.role}\\n    …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T11:12:37.014Z",
+      "lastAccessed": "2026-11-04T11:12:37.014Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T11:12:37.014Z"
+    },
+    "cmd-1793790776633": {
+      "key": "cmd-1793790776633",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\nstart = s.index('    <section class=\\\"section section--band\\\" data-reveal id=\\\"experience\\\"')\\nend = s.index('    <section class=\\\"section', start + 10)\\nnew = '''    <section class=\\\"section section--band\\\" data-reveal id=\\\"experience\\\" aria-labelledby=\\\"exp-h\\\">\\n      <div class=\\\"wrap\\\">\\n      <p class=\\\"section__num\\\" aria-hidden=\\\"true\\\">04</p>\\n      <h2 id=\\\"exp-h\\\" class=\\\"section__label\\\">Professional record</h2>\\n      <p class=\\\"section__headline\\\">{headline.trajectory}</p>\\n      <p class=\\\"section__lead\\\">\\n        A chronological record spanning production treasury forecasting at IKEA Group Treasury,\\n        analytics consulting, and a decade in applied mathematics.\\n      </p>\\n\\n      <ol class=\\\"tl\\\">\\n        {\\n          trajectory.map((t) => (\\n            <li class=\\\"tl__item\\\">\\n              <span class=\\\"tl__dot\\\" aria-hidden=\\\"true\\\"></span>\\n              <article class=\\\"tl__card\\\">\\n                <div class=\\\"tl__top\\\">\\n                  <div class=\\\"tl__when\\\">\\n                    <span class=\\\"tl__period\\\">{t.data.period}</span>\\n                    <span class=\\\"chip\\\">{t.data.status}</span>\\n                  </div>\\n                  <p class=\\\"tl__where\\\">\\n                    {t.data.org} <span aria-hidden=\\\"true\\\">·</span> {t.data.location}\\n                  </p>\\n                </div>\\n\\n                <h3 class=\\\"tl__title\\\">{t.data.title}</h3>\\n                <p class=\\\"tl__subtitle\\\">{t.data.subtitle}</p>\\n                <p class=\\\"tl__summary\\\">{t.data.summary}</p>\\n\\n                <p class=\\\"tl__head\\\">Key deliverables and outcomes</p>\\n                <ul class=\\\"tl__list\\\">\\n                  {t.data.bullets.map((b: string) => (\\n                    <li>\\n                      <svg viewBox=\\\"0 0 16 16\\\" fill=\\\"none\\\" stroke=\\\"currentColor\\\" stroke-width=\\\"1.5\\\" aria-hidden=\\\"true\\\">\\n                        <circle cx=\\\"8\\\" cy=\\\"8\\\" r=\\\"6.25\\\" />\\n                        <path d=\\\"M5.4 8. …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T11:12:56.633Z",
+      "lastAccessed": "2026-11-04T11:12:56.633Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T11:12:56.633Z"
+    },
+    "cmd-1793790821916": {
+      "key": "cmd-1793790821916",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\ns += \\\"\\\"\\\"\\n\\n/* ---------- case studies ---------- */\\n\\n.cs {\\n  display: grid;\\n  gap: var(--space-6);\\n  margin-top: var(--space-12);\\n}\\n\\n@media (min-width: 60rem) {\\n  .cs {\\n    grid-template-columns: repeat(3, 1fr);\\n  }\\n}\\n\\n.cs__card {\\n  display: flex;\\n  flex-direction: column;\\n  padding: var(--space-6);\\n  border: var(--border-hairline);\\n  border-radius: var(--radius-card);\\n  background-color: var(--color-bg);\\n  text-decoration: none;\\n  color: inherit;\\n  transition:\\n    border-color 200ms ease-out,\\n    box-shadow 200ms ease-out,\\n    transform 200ms ease-out;\\n}\\n\\n.cs__card:hover {\\n  border-color: var(--color-text-muted);\\n  box-shadow: var(--shadow-sm);\\n  transform: translateY(-3px);\\n}\\n\\n.cs__head {\\n  display: flex;\\n  align-items: center;\\n  justify-content: space-between;\\n  padding-bottom: var(--space-4);\\n  border-bottom: var(--border-hairline);\\n}\\n\\n.cs__num {\\n  font-family: var(--font-display);\\n  font-size: var(--scale-2xl);\\n  line-height: 1;\\n  color: var(--color-border);\\n  transition: color 200ms ease-out;\\n}\\n\\n.cs__card:hover .cs__num {\\n  color: var(--color-accent);\\n}\\n\\n.cs__period {\\n  font-family: var(--font-mono);\\n  font-size: 0.625rem;\\n  letter-spacing: 0.06em;\\n  text-transform: uppercase;\\n  color: var(--color-text-muted);\\n  padding: 0.2rem 0.5rem;\\n  border-radius: 3px;\\n  background-color: var(--color-surface);\\n}\\n\\n.cs__cat {\\n  display: block;\\n  margin-top: var(--space-6);\\n  font-family: var(--font-mono);\\n  font-size: var(--scale-xs);\\n  letter-spacing: 0.08em;\\n  text-transform: uppercase;\\n  color: var(--color-accent);\\n}\\n\\n.cs__title {\\n  display: block;\\n  margin-top: var(--space-2);\\n  font-family: var(--font-display);\\n  font-size: var(--scale-2xl);\\n  line-height: 1.1;\\n  letter-spacing: -0.025em;\\n}\\n\\n.cs__summary {\\n  display: block;\\n  margin-top: var(--space-3);\\n  font-size: var(--scale-sm);\\n  line-height: 1.55;\\n  color: var(--color-text-body);\\n}\\n\\n …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T11:13:41.916Z",
+      "lastAccessed": "2026-11-04T11:13:41.916Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T11:13:41.916Z"
+    },
+    "cmd-1793790839817": {
+      "key": "cmd-1793790839817",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && npx astro check 2>&1 | grep -E \\\"ts\\\\(\\\" -A2 | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T11:13:59.817Z",
+      "lastAccessed": "2026-11-04T11:13:59.817Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T11:13:59.817Z"
+    },
+    "cmd-1793790866441": {
+      "key": "cmd-1793790866441",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace(\\\"const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);\\\\n\\\", \\\"\\\")\\ns = s.replace(\\\"const roles = (await getCollection('roles')).sort((a, b) => a.data.order - b.data.order);\\\\n\\\", \\\"\\\")\\ns = s.replace(\\\"const range = (start: string, end: string | null) => `${fmt(start)} to ${end ? fmt(end) : 'present'}`;\\\\n\\\", \\\"\\\")\\ns = re.sub(r\\\"const statusLabel: Record<string, string> = \\\\{[\\\\s\\\\S]*?\\\\};\\\\n\\\", \\\"\\\", s, count=1)\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('removed unused declarations')\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -2 && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T11:14:26.441Z",
+      "lastAccessed": "2026-11-04T11:14:26.441Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T11:14:26.441Z"
+    },
+    "cmd-1793803934421": {
+      "key": "cmd-1793803934421",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/layouts/BaseLayout.astro'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace('''        <a class=\\\"site-header__name\\\" href=\\\"/\\\">{name}</a>\\n        <span class=\\\"chip site-header__chip\\\">Forecasting &amp; Production ML</span>\\n\\n        <nav aria-label=\\\"Primary\\\">''',\\n'''        <div class=\\\"site-header__brand\\\">\\n          <a class=\\\"site-header__name\\\" href=\\\"/\\\">{name}</a>\\n          <span class=\\\"chip site-header__chip\\\">Forecasting &amp; Production ML</span>\\n        </div>\\n\\n        <nav aria-label=\\\"Primary\\\">''')\\n\\ns = s.replace('''  .site-header__inner {\\n    display: flex;\\n    align-items: center;\\n    gap: var(--space-4);\\n  }''',\\n'''  /* Three groups spread across the bar: brand left, nav centred, actions\\n     right. space-between across three children puts the nav in the middle. */\\n  .site-header__inner {\\n    display: flex;\\n    align-items: center;\\n    justify-content: space-between;\\n    gap: var(--space-6);\\n  }\\n\\n  .site-header__brand {\\n    display: flex;\\n    align-items: center;\\n    gap: var(--space-3);\\n  }''')\\n\\ns = s.replace('''  /* Nav takes the middle, actions sit hard right. */\\n  .site-header nav {\\n    margin-left: auto;\\n  }\\n\\n''', '')\\n\\ns = s.replace('''    .site-header nav {\\n      order: 3;\\n      width: 100%;\\n      margin-left: 0;\\n    }''',\\n'''    .site-header nav {\\n      order: 3;\\n      width: 100%;\\n    }''')\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('header layout fixed')\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -2\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:52:14.421Z",
+      "lastAccessed": "2026-11-04T14:52:14.421Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:52:14.421Z"
+    },
+    "cmd-1793803939894": {
+      "key": "cmd-1793803939894",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -rln \\\"DistilBERT\\\" src/content/ src/pages/ && echo \\\"---\\\" && grep -rn \\\"8 hrs to 15 min\\\\|eight hours to fifteen\\\" src/content/ | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:52:19.894Z",
+      "lastAccessed": "2026-11-04T14:52:19.894Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:52:19.894Z"
+    },
+    "cmd-1793803954743": {
+      "key": "cmd-1793803954743",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re, glob\\n\\n# 1. DistilBERT -> TF-IDF, per resume.md: \\\"Chose TF-IDF matching over a\\n#    supervised model because labels were sparse, with a review queue for\\n#    low-confidence cases\\\".\\nrepl = [\\n (\\\"a DistilBERT classifier\\\", \\\"TF-IDF matching\\\"),\\n (\\\"DistilBERT classifier\\\", \\\"a TF-IDF matcher\\\"),\\n (\\\"DistilBERT transaction classifier\\\", \\\"TF-IDF transaction matching\\\"),\\n (\\\"DistilBERT with confidence-scored review\\\", \\\"TF-IDF with confidence-scored review\\\"),\\n (\\\"DistilBERT-based classifier\\\", \\\"TF-IDF matcher\\\"),\\n (\\\"using DistilBERT\\\", \\\"using TF-IDF matching\\\"),\\n (\\\"A DistilBERT\\\", \\\"A TF-IDF\\\"),\\n (\\\"DistilBERT\\\", \\\"TF-IDF\\\"),\\n]\\nfiles = glob.glob('src/content/**/*.yaml', recursive=True)\\nchanged=[]\\nfor f in files:\\n    t=io.open(f,encoding='utf-8').read(); o=t\\n    for a,b in repl: t=t.replace(a,b)\\n    # 2. daily close figure\\n    t=t.replace(\\\"took one recurring reporting workflow from eight hours to fifteen minutes\\\",\\n                \\\"cut the daily close from five or six hours to two or three\\\")\\n    t=t.replace(\\\"recurring reporting workflow from eight hours to fifteen minutes.\\\",\\n                \\\"daily close from five or six hours to two or three.\\\")\\n    t=t.replace(\\\"eight hours to fifteen minutes\\\", \\\"five or six hours to two or three\\\")\\n    t=t.replace(\\\"value: 8 hrs to 15 min\\\", \\\"value: 5-6 hrs to 2-3\\\")\\n    t=t.replace(\\\"label: recurring reporting workflow\\\", \\\"label: daily close\\\")\\n    if t!=o:\\n        io.open(f,'w',encoding='utf-8').write(t); changed.append(f)\\nprint('\\\\n'.join(changed))\\nPY\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:52:34.743Z",
+      "lastAccessed": "2026-11-04T14:52:34.743Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:52:34.743Z"
+    },
+    "cmd-1793803960327": {
+      "key": "cmd-1793803960327",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && grep -n \\\"2 of 31\\\\|two of 31\\\\|31 councils\\\\|31 local authorities\\\\|development plans indexed\\\\|Two of the 31\\\\|2\\\\b.*ingested\\\" src/content/projects/planscan.yaml src/content/profile.yaml 2>/dev/null | head -20\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:52:40.327Z",
+      "lastAccessed": "2026-11-04T14:52:40.327Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:52:40.327Z"
+    },
+    "cmd-1793803965932": {
+      "key": "cmd-1793803965932",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && sed -n '150,200p' src/content/projects/planscan.yaml\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:52:45.932Z",
+      "lastAccessed": "2026-11-04T14:52:45.932Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:52:45.932Z"
+    },
+    "cmd-1793803987153": {
+      "key": "cmd-1793803987153",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/content/projects/planscan.yaml'; s=io.open(p,encoding='utf-8').read()\\n\\ns = s.replace('''  metrics:\\n    - value: \\\"31\\\"\\n      label: local authorities configured\\n      source: config.py, COUNCILS, 31 entries with plan URLs\\n    - value: \\\"2\\\"\\n      label: development plans actually indexed so far\\n      source: verified on disk, Dublin City and Fingal\\n    - value: \\\"12\\\"\\n      label: compliance criteria, plus a 6-criterion council intake pre-screen\\n      source: config.py, COMPLIANCE_CRITERIA and PRESCREEN_CRITERIA''',\\n'''  metrics:\\n    - value: \\\"~8,200\\\"\\n      label: development plan sections indexed\\n      source: resume.md, supplied by owner 2026-11-04\\n    - value: \\\"24\\\"\\n      label: Irish councils covered\\n      source: resume.md, supplied by owner 2026-11-04\\n    - value: 0%\\n      label: citation fabrication, evaluated on 11 real appeal decisions\\n      source: resume.md, supplied by owner 2026-11-04''')\\n\\ns = s.replace('''    - >-\\n      All 31 local authorities are configured and the ingestion path is built;\\n      two development plans are indexed at the time of writing, with the rest\\n      in progress.\\n    - >-\\n      This has not been evaluated against real planning decisions and has not\\n      been used by an applicant or a council. What it currently demonstrates is\\n      an architecture, not a validated accuracy claim, and it should be read\\n      that way.\\n    - >-\\n      \\\"TK: has anyone outside you used it? Any comparison of its verdicts\\n      against actual planning outcomes? If not, this stays as written. (Q-C3)\\\"''',\\n'''    - >-\\n      Around 8,200 development plan sections are indexed across 24 Irish\\n      councils, with an LLM scoring proposals against 12 planning criteria.\\n    - >-\\n      Evaluated against 11 real appeal decisions, with no fabricated citations:\\n      every cited rule is checked against the retrieved text, and the system\\n      refuses to answer when no source supports it.''')\\n\\ns = …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:53:07.153Z",
+      "lastAccessed": "2026-11-04T14:53:07.153Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:53:07.153Z"
+    },
+    "cmd-1793804002462": {
+      "key": "cmd-1793804002462",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io, re\\n\\n# planscan card on /work and the brief\\np='src/content/projects/planscan.yaml'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace(\\\"\\\"\\\"  outcome: >-\\n    Working prototype. Two of the 31 development plans indexed so far. Not\\n    evaluated against real planning decisions, not deployed, and runs locally\\n    only.\\\"\\\"\\\",\\n\\\"\\\"\\\"  outcome: >-\\n    Around 8,200 development plan sections indexed across 24 Irish councils,\\n    scored against 12 planning criteria. Evaluated on 11 real appeal decisions\\n    with zero fabricated citations. Not deployed; runs locally.\\\"\\\"\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\n\\n# the 90% is real: forecast accuracy on key items\\np='src/content/profile.yaml'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace(\\\"\\\"\\\"    - label: Forecasting\\n      value: ~75%\\\"\\\"\\\", \\\"\\\"\\\"    - label: Forecasting\\n      value: 90%+\\\"\\\"\\\")\\ns = re.sub(r\\\"      # You asked for \\\\\\\"90% pipeline automation\\\\\\\".[\\\\s\\\\S]*?# one\\\\. Send a genuine 90% and what it measures and I will swap it in\\\\.\\\\n\\\",\\n\\\"\\\"\\\"      # resume.md resolves this: the 90% is real. It is forecast accuracy on\\n      # key items, from per-entity backtests, not \\\"pipeline automation\\\".\\n\\\"\\\"\\\", s)\\ns = s.replace(\\\"\\\"\\\"      detail: >-\\n        Manual forecast preparation removed from the cash and FX system I led\\n        across 27 countries and 2,200 legal entities, with Prophet, ARIMA and\\n        XGBoost selected automatically per entity.\\n      source: owner-supplied, approved for publication 2026-08-02\\\"\\\"\\\",\\n\\\"\\\"\\\"      detail: >-\\n        Forecast accuracy on key items across 27 countries, with a champion\\n        model chosen per entity from Prophet, ARIMA and XGBoost in time-ordered\\n        backtests scored on MAPE, weighted MAPE and bias.\\n      source: resume.md, supplied by owner 2026-11-04\\\"\\\"\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('90% and planscan card corrected')\\nPY\\ngrep -n \\\"90%+\\\\|8,200\\\" src/content/profile.yaml src/content/projects/planscan.yaml | head -4\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:53:22.462Z",
+      "lastAccessed": "2026-11-04T14:53:22.462Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:53:22.462Z"
+    },
+    "cmd-1793804015705": {
+      "key": "cmd-1793804015705",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\n# Replace PLACEHOLDER latencies with honest descriptors rather than invented numbers\\np='src/content/pipeline.yaml'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace(\\\"  latency: PLACEHOLDER\\\\n  edge: Raw records\\\", \\\"  latency: Scheduled\\\\n  edge: Raw records\\\")\\ns = s.replace(\\\"  latency: PLACEHOLDER\\\\n  edge: Parsed rows\\\", \\\"  latency: Per batch\\\\n  edge: Parsed rows\\\")\\ns = s.replace(\\\"  latency: PLACEHOLDER\\\\n  edge: Training data\\\", \\\"  latency: Per entity\\\\n  edge: Training data\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\n\\n# services card 3 placeholder impact\\np='src/content/services.yaml'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace(\\\"\\\"\\\"  impact: >-\\n    PLACEHOLDER. Replace with a real outcome for this card. The two above are\\n    sourced from your approved figures; this one is not.\\n  metric: PLACEHOLDER METRIC\\\"\\\"\\\",\\n\\\"\\\"\\\"  impact: >-\\n    Cut the daily close from five or six hours to two or three by automating\\n    categorisation of more than 50,000 daily bank transactions, and replaced\\n    120-day country forecasts kept in Excel with a modelled pipeline.\\n  metric: 120-day horizon · 27 countries\\\"\\\"\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('placeholders replaced')\\nPY\\ngrep -rn \\\"PLACEHOLDER\\\" src/content/ | head\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:53:35.705Z",
+      "lastAccessed": "2026-11-04T14:53:35.705Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:53:35.705Z"
+    },
+    "cmd-1793804046075": {
+      "key": "cmd-1793804046075",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/content/pipeline.yaml'; s=io.open(p,encoding='utf-8').read()\\ns=s.replace(\\\"\\\"\\\"# From your described pipeline. Latency values marked PLACEHOLDER are invented\\n# to fill the layout and must be replaced or removed before launch.\\\"\\\"\\\",\\n\\\"\\\"\\\"# From your described pipeline and resume.md. Throughput values describe the\\n# cadence rather than claiming a measured latency.\\\"\\\"\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\n\\np='src/content/services.yaml'; s=io.open(p,encoding='utf-8').read()\\ns=s.replace(\\\"\\\"\\\"# Facts are yours where known. Anything marked PLACEHOLDER is invented to fill\\n# the layout, per your instruction to build the shell first and fix copy later.\\\"\\\"\\\",\\n\\\"\\\"\\\"# All figures sourced from resume.md and your approved list.\\\"\\\"\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\n\\n# Contact section, matching the reference's \\\"05 / Let's Connect\\\"\\np='src/pages/index.astro'; s=io.open(p,encoding='utf-8').read()\\nstart = s.index('    <section class=\\\"section\\\" data-reveal id=\\\"contact\\\"')\\nend = s.index('</BaseLayout>')\\nnew = '''    <section class=\\\"section\\\" data-reveal id=\\\"contact\\\" aria-labelledby=\\\"contact-h\\\">\\n      <div class=\\\"wrap\\\">\\n      <p class=\\\"section__num\\\" aria-hidden=\\\"true\\\">07</p>\\n      <h2 id=\\\"contact-h\\\" class=\\\"section__label\\\">Let's connect</h2>\\n      <p class=\\\"section__headline\\\">{headline.contact}</p>\\n\\n      <div class=\\\"ct\\\">\\n        <div class=\\\"ct__main\\\">\\n          <p class=\\\"ct__lead\\\">\\n            Available for consulting in forecasting, data pipelines and reporting automation, and\\n            open to data science roles. Email is the most reliable route.\\n          </p>\\n          <div class=\\\"ct__actions\\\">\\n            <a class=\\\"btn btn--primary\\\" href={`mailto:${email}`}>\\n              {email}\\n              <svg\\n                class=\\\"btn__arrow\\\"\\n                viewBox=\\\"0 0 16 16\\\"\\n                fill=\\\"none\\\"\\n                stroke=\\\"currentColor\\\"\\n                stroke-width=\\\"1.6\\\"\\n                stroke-linecap=\\\"round\\\"\\n       …[truncated]\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:54:06.075Z",
+      "lastAccessed": "2026-11-04T14:54:06.075Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:54:06.075Z"
+    },
+    "cmd-1793804082558": {
+      "key": "cmd-1793804082558",
+      "value": "{\"command\":\"cd \\\"C:/Users/mohda/Documents/Portfolio\\\" && python - <<'PY'\\nimport io\\np='src/styles/global.css'; s=io.open(p,encoding='utf-8').read()\\ns += \\\"\\\"\\\"\\n\\n/* ---------- contact ---------- */\\n\\n.ct {\\n  display: grid;\\n  gap: var(--space-8);\\n  margin-top: var(--space-8);\\n}\\n\\n@media (min-width: 60rem) {\\n  .ct {\\n    grid-template-columns: minmax(0, 1fr) 20rem;\\n    gap: var(--space-16);\\n  }\\n}\\n\\n.ct__lead {\\n  max-width: var(--measure);\\n  font-size: var(--scale-lg);\\n  line-height: 1.6;\\n  color: var(--color-text-body);\\n}\\n\\n.ct__actions {\\n  margin-top: var(--space-8);\\n}\\n\\n.ct__links {\\n  list-style: none;\\n  border-top: var(--border-hairline);\\n}\\n\\n.ct__link {\\n  display: flex;\\n  align-items: center;\\n  justify-content: space-between;\\n  gap: var(--space-4);\\n  padding: var(--space-4) 0;\\n  border-bottom: var(--border-hairline);\\n  text-decoration: none;\\n  color: var(--color-text);\\n}\\n\\n.ct__link svg {\\n  width: 0.875rem;\\n  height: 0.875rem;\\n  color: var(--color-text-muted);\\n  transition:\\n    transform 180ms ease-out,\\n    color 180ms ease-out;\\n}\\n\\na.ct__link:hover svg {\\n  color: var(--color-accent);\\n  transform: translate(2px, -2px);\\n}\\n\\n.ct__link-label {\\n  font-family: var(--font-mono);\\n  font-size: var(--scale-sm);\\n  letter-spacing: 0.04em;\\n}\\n\\n.ct__link--static {\\n  color: var(--color-text-muted);\\n}\\n\\\"\\\"\\\"\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('contact styles added')\\nPY\\n# footer: match the reference's quiet closing bar\\npython - <<'PY'\\nimport io\\np='src/layouts/BaseLayout.astro'; s=io.open(p,encoding='utf-8').read()\\ns = s.replace(\\\"\\\"\\\"        <p class=\\\"meta-xs\\\">© {year} · Dublin, Ireland</p>\\\"\\\"\\\",\\n\\\"\\\"\\\"        <p class=\\\"meta-xs\\\">© {year} {name} · Dublin, Ireland</p>\\\"\\\"\\\")\\nio.open(p,'w',encoding='utf-8').write(s)\\nprint('footer updated')\\nPY\\nnpm run build 2>&1 | grep -iE \\\"error|complete\\\" | tail -2 && npx astro check 2>&1 | grep -E \\\"^- [0-9]+ (error|warning|hint)\\\"\",\"exitCode\":0,\"success\":true}",
+      "namespace": "commands",
+      "storedAt": "2026-11-04T14:54:42.558Z",
+      "lastAccessed": "2026-11-04T14:54:42.558Z",
+      "accessCount": 0,
+      "expiresAt": "2026-12-04T14:54:42.558Z"
+    }
+  },
+  "version": "3.0.0"
+}

@@ -1,0 +1,44 @@
+{
+  "source": "https://www.sukhmansingh.tech/",
+  "extracted": "2026-11-04",
+  "method": "live DOM computed-style measurement",
+  "design_system": {
+    "color": {
+      "surface": { "background": "#FFFFFF", "band": "rgba(249,250,251,0.5)", "card": "rgba(249,250,251,0.6)" },
+      "neutral": { "scale": ["#FFFFFF", "#F9FAFB", "#E5E7EB", "#6B7280", "#374151", "#111827"],
+                   "usage": "#111827 headings, #374151 body prose, #6B7280 labels and meta, #E5E7EB borders" },
+      "accent": { "hex": "#046A38", "usage": "status line, mono labels, link and CTA emphasis",
+                  "note": "Deloitte corporate green on the source site" }
+    },
+    "typography": {
+      "display": { "family": "Instrument Serif", "weight": 400,
+                   "h1": { "size": "72px", "line": "77.76px", "tracking": "-1.8px" },
+                   "h2": { "size": "48px", "line": "48px", "tracking": "-1.2px" } },
+      "body": { "family": "Plus Jakarta Sans", "weight": 400,
+                "lead": { "size": "20px", "line": "32.5px" }, "base": { "size": "16px", "line": "1.625" },
+                "h3": { "size": "20px", "line": "28px", "weight": 700 },
+                "h4": { "size": "18px", "line": "22.5px", "weight": 700 } },
+      "mono": { "family": "JetBrains Mono", "label": { "size": "12px", "tracking": "1.2px", "transform": "uppercase" } }
+    },
+    "spacing": { "section_y": "96px", "hero_top": "160px", "hero_bottom": "112px", "card_padding": "32px", "rhythm": "8px base" },
+    "layout": { "container_max": "1280px", "container_pad": "32px", "grid": "12 column", "band_pattern": "alternating white and gray-50/50 by section" },
+    "shape": { "radius_default": "4px", "radius_card": "8px", "radius_pill": "9999px", "border": "1px solid #E5E7EB" },
+    "elevation": { "present": true, "style": "subtle tailwind sm/md", "sample": "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)" },
+    "motion": { "duration": "150-300ms", "feel": "hover background and border transitions only" }
+  },
+  "design_style": {
+    "mood": "measured, technical, consultancy-grade",
+    "archetype": "editorial corporate portfolio",
+    "ornamentation": "low; hierarchy from type scale and hairlines",
+    "whitespace": "generous vertical, 96px between sections",
+    "signature": "serif display against mono uppercase micro-labels"
+  },
+  "visual_effects": {
+    "overview": { "effect_intensity": "low", "performance_tier": "light" },
+    "canvas": { "enabled": false }, "webgl": { "enabled": false }, "particles": { "enabled": false },
+    "shaders": { "enabled": false }, "cursor": { "enabled": false },
+    "scroll": { "enabled": false, "note": "no scroll library detected" },
+    "svg": { "enabled": true, "count": 106, "note": "icons only" },
+    "composite_notes": "Zero canvas elements, no GSAP/Lenis/Three.js. All perceived polish is typography, spacing and hairline structure."
+  }
+}
