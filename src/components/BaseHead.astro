@@ -35,19 +35,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 
-{/* The two faces used above the fold on every page. The serif italic is not
-    preloaded: it appears only in publication venues on /research. */}
+{/* The three faces used above the fold on every page: the display serif, the
+    body sans and the label mono. Each matches an
+    @font-face in global.css, so nothing here downloads a font the CSS never asks for. */}
 <link
   rel="preload"
-  href="/fonts/source-serif-4-latin-wght-normal.woff2"
+  href="/fonts/instrument-serif-latin-400-normal.woff2"
   as="font"
   type="font/woff2"
   crossorigin
 />
-<link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link
   rel="preload"
-  href="/fonts/geist-mono-latin-wght-normal.woff2"
+  href="/fonts/jetbrains-mono-latin-wght-normal.woff2"
   as="font"
   type="font/woff2"
   crossorigin
