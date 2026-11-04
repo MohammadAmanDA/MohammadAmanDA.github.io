@@ -27,3 +27,7 @@ OPEN_QUESTIONS.md
 # os
 .DS_Store
 Thumbs.db
+
+# Agent tool state, not part of the site
+.claude-flow/
+.swarm/
