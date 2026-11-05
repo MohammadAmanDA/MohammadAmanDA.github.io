@@ -136,7 +136,18 @@ const diagrams = boards.map((b) => {
               <span class="wb__dot" aria-hidden="true" />
               {d.title}
             </p>
-            <button type="button" class="wb__pulse" data-wb-pulse aria-pressed="true">
+            {/* The label below is hidden by CSS at 760px and under, which left
+                the button with no accessible name on every phone: the only
+                remaining child is an aria-hidden icon. The aria-label is what
+                it is named by, and it repeats the visible text word for word
+                so the two agree wherever both are present. */}
+            <button
+              type="button"
+              class="wb__pulse"
+              data-wb-pulse
+              aria-pressed="true"
+              aria-label="Simulate signal pulse"
+            >
               <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                 <path d="M5 3.5l7 4.5-7 4.5z" />
               </svg>

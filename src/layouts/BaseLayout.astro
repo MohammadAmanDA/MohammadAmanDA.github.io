@@ -2,6 +2,7 @@
 import { getEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import LiquidNav from '../components/LiquidNav.astro';
 import Link from '../components/Link.astro';
 import '../styles/global.css';
 
@@ -55,17 +56,7 @@ const year = new Date().getFullYear();
           <span class="chip site-header__chip">Forecasting &amp; Production ML</span>
         </div>
 
-        <nav aria-label="Primary">
-          <ul class="nav">
-            {
-              nav.map((item) => (
-                <li>
-                  <a href={item.href}>{item.label}</a>
-                </li>
-              ))
-            }
-          </ul>
-        </nav>
+        <LiquidNav items={nav} />
 
         <div class="site-header__actions">
           <ThemeToggle />
@@ -177,12 +168,31 @@ const year = new Date().getFullYear();
 </html>
 
 <style>
-  /* Sticky, so the bar stays available the way the reference's does. */
+  /* Sticky, so the bar stays available the way the reference's does.
+   *
+   * The bar is translucent rather than solid, because the glass pill inside it
+   * has nothing to refract over a flat fill: liquid glass over an opaque bar
+   * is just a tinted rectangle.
+   *
+   * 90% is not a taste decision, it is the measured floor. Only three things
+   * sit directly on the bar: the brand name, the nav items and the theme
+   * toggle; the chip and the button paint their own backgrounds and are
+   * unaffected. Taking the worst case, where solid body ink passes underneath,
+   * the muted ink used by the nav and the toggle measures 3.84:1 at 80%,
+   * 4.29:1 at 86% and 4.61:1 at 90%, so anything below 89% fails AA in light
+   * mode. Dark mode needs only 84%. 90% clears both with margin and still
+   * leaves a tenth of what is behind showing through the blur.
+   *
+   * The solid declaration first is the fallback for browsers without
+   * color-mix. */
   .site-header {
     position: sticky;
     top: 0;
     z-index: 30;
     background-color: var(--color-bg);
+    background-color: color-mix(in srgb, var(--color-bg) 90%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    backdrop-filter: blur(14px) saturate(1.1);
     border-bottom: var(--border-hairline);
     padding-block: var(--space-3);
   }
@@ -228,32 +238,8 @@ const year = new Date().getFullYear();
     gap: var(--space-3);
   }
 
-  /* Same face, size, weight and tracking as .section__label, so the nav and
-     the heading it points at are visibly the same thing. It used to be the
-     sans at 0.12em, which rendered a shade larger and wider than the mono
-     labels below it. */
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-5);
-    list-style: none;
-    font-family: var(--font-mono);
-    font-size: var(--scale-xs);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .nav a {
-    color: var(--color-text-muted);
-    text-decoration: none;
-  }
-
-  .nav a:hover {
-    color: var(--color-text);
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
-  }
+  /* The nav's type lives in LiquidNav.astro and matches .section__label, so
+     the nav and the heading it points at are visibly the same thing. */
 
   main {
     padding-block: var(--space-12) var(--space-24);

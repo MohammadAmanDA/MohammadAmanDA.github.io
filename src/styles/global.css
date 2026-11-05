@@ -1,7 +1,8 @@
 /*
  * Design tokens and base styles.
  *
- * Identity: ink on warm paper, one restrained accent in deep slate teal, a
+ * Identity: ink on warm paper, one restrained accent in Claude Amber's
+ * terracotta, a
  * serif for reading and a sans reserved for metadata. Hierarchy is carried by
  * type size, weight and space rather than by colour, boxes or motion. There are
  * no animations and no transitions beyond hover feedback on interactive
@@ -59,25 +60,36 @@
 
 :root {
   /* ---- colour: light ----
-   * The page tint is one variable. Warmer alternatives that also clear AA:
-   * #f8edeb (blush), #ffedd8 (lace), #ffe5ec (pink). Swap --color-bg and nudge
-   * --color-surface to match. */
-  /* Measured from the reference site on 2026-11-03. White page, near-black
-   * ink, Tailwind's grey ramp for secondary text, and a deep green accent.
-   * Note: #046a38 is Deloitte's corporate green, which is on brand for that
-   * site's author and not for you. It is one variable to change. */
-  --color-bg: #ffffff;
-  --color-surface: #f9fafb;
-  --color-border: #e5e7eb;
-  --color-rule: #e5e7eb;
-  --color-text: #111827;       /* 17.74:1 on white */
-  --color-text-muted: #6b7280; /*  4.83:1 on white */
-  --color-text-body: #374151;  /* 10.31:1 on white, used for prose */
-  --color-accent: #046a38;        /*  6.72:1 on white */
-  --color-accent-strong: #10b981; /* icons and status marks only, never text */
-  --color-accent-weak: #d1fae5;   /* chip background */
-  --color-accent-on: #064e3b;     /* text on chip, 10.4:1 on #d1fae5 */
-  --color-focus: #046a38;
+   * Replaced on 2026-11-05. The previous palette was measured from the
+   * reference site: a white page, near-black ink, Tailwind's grey ramp and
+   * #046a38, which is Deloitte's corporate green and was never yours.
+   *
+   * Claude Amber, from 21st.dev. Its own values are used verbatim where they
+   * clear WCAG AA, and corrected where they do not. The two corrections, both
+   * measured rather than guessed:
+   *
+   *   Amber's --muted-foreground #6e6d68 clears AA on the page (4.92:1) but
+   *   fails on its own secondary surface (4.15:1), so it is darkened one step
+   *   to #67665f, which passes on all six surfaces the site actually uses.
+   *
+   *   Amber's --primary #c96442 is 3.70:1 on the paper and fails as text
+   *   everywhere, and white on it is 3.90:1, so it cannot be a link, a label
+   *   or a filled button. It is kept verbatim as --color-accent-strong, which
+   *   is only ever a 6px or 11px decorative dot (3.70:1 clears the 3:1 bar for
+   *   non-text objects), and --color-accent is the same hue darkened to the
+   *   lightest value that passes on every surface. */
+  --color-bg: #faf9f5;      /* Amber --background, verbatim */
+  --color-surface: #f5f4ef; /* Amber --card, verbatim */
+  --color-border: #dad9d4;  /* Amber --border, verbatim */
+  --color-rule: #dad9d4;
+  --color-text: #3d3929;       /* Amber --foreground, verbatim. 10.98:1 on bg */
+  --color-text-muted: #67665f; /*  5.47:1 on bg, 5.24 surface, 5.04 deck */
+  --color-text-body: #4a4635;  /*  8.98:1 on bg, used for prose */
+  --color-accent: #a8431f;        /*  5.72:1 on bg; white on it 6.02:1 */
+  --color-accent-strong: #c96442; /* Amber --primary, verbatim. Dots only, never text */
+  --color-accent-weak: #e9e6dc;   /* Amber --accent, verbatim. Chip background */
+  --color-accent-on: #7a3a20;     /* text on chip, 6.85:1 on #e9e6dc */
+  --color-focus: #a8431f;
 
   /* ---- deck tints ----
    * Four paper colours for the credential deck. Each is a near-white wash, so
@@ -87,13 +99,18 @@
    * 9.7 / 9.7 : 1, and --color-text-muted 4.59 / 4.66 / 4.54 / 4.54 : 1. The
    * fourth was lightened from #fff1f2, which measured 4.40 against muted and
    * would have failed. */
-  --deck-1: #ecfdf5;
-  --deck-2: #fffbeb;
-  --deck-3: #f0f9ff;
-  --deck-4: #fef6f6;
-  --deck-ghost: rgba(17, 24, 39, 0.06);
-  --deck-shadow-rest: 0 1px 2px rgba(17, 24, 39, 0.06), 0 8px 18px -10px rgba(17, 24, 39, 0.28);
-  --deck-shadow-lift: 0 2px 6px rgba(17, 24, 39, 0.08), 0 28px 48px -16px rgba(17, 24, 39, 0.34);
+  /* Retinted to the Amber family. The previous four were a mint, a cream, a
+   * sky and a blush, which read as foreign objects on warm paper. Measured
+   * against the ink that sits on them, every pair clears AA: --color-text
+   * 10.27 / 10.15 / 10.21 / 10.11 : 1, --color-text-body 8.41 / 8.31 / 8.35 /
+   * 8.27 : 1, --color-text-muted 5.12 / 5.06 / 5.09 / 5.04 : 1. */
+  --deck-1: #f6f1e7;
+  --deck-2: #f4f0e4;
+  --deck-3: #f2f1e9;
+  --deck-4: #f7eee8;
+  --deck-ghost: rgba(61, 57, 41, 0.07);
+  --deck-shadow-rest: 0 1px 2px rgba(61, 57, 41, 0.07), 0 8px 18px -10px rgba(61, 57, 41, 0.3);
+  --deck-shadow-lift: 0 2px 6px rgba(61, 57, 41, 0.09), 0 28px 48px -16px rgba(61, 57, 41, 0.36);
 
   /* ---- type ---- */
   /* Body and UI are the sans. The serif is reserved for display headings. */
@@ -166,68 +183,97 @@
 
   /* ---- diagram surface ----
    * Non-text marks, so these sit below the 4.5:1 text floor by design. */
-  --color-grid-dot: #94a3b8;
-  --color-edge: #9aa3ad;
-  --color-border-faint: #f0f2f4;
-  --color-accent-border: #a7f3d0;
-  --color-accent-wash: #ecfdf5;
-  --color-panel: rgba(255, 255, 255, 0.95);
+  --color-grid-dot: #b8b2a3;
+  --color-edge: #7d786b; /* diagram strokes, 4.18:1, clears the 3:1 bar */
+  --color-border-faint: #f2f0ea;
+  --color-accent-border: #e6c3b2;
+  --color-accent-wash: #f9f0ea; /* carries accent-on 7.61:1 and body 8.42:1 */
+  --color-panel: rgba(250, 249, 245, 0.95);
+
+  /* ---- liquid nav ----
+   * The navbar's water is drawn by a WebGL shader, which cannot read CSS. The
+   * script reads these four as hex and passes them in as uniforms, so the
+   * water is tinted from the palette rather than from numbers buried in the
+   * shader, and it re-tints when the theme changes. They are non-text marks.
+   *   --lq-water  the body of the drop, a pale wash
+   *   --lq-lens   the saturated rim and refracted edge
+   *   --lq-glass  the pill behind the items
+   *   --lq-rim    the inner highlight along the pill's top edge */
+  --lq-water: #fbe9df;
+  --lq-lens: #c96442;
+  --lq-glass: rgba(255, 255, 255, 0.34);
+  --lq-rim: rgba(255, 255, 255, 0.75);
+  --lq-shadow: 0 10px 28px -14px rgba(61, 57, 41, 0.5), 0 2px 6px rgba(61, 57, 41, 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --color-bg: #121415;
-    --color-surface: #1b1e20;
-    --color-border: #2a2e31;
-    --color-rule: #3a4044;
-    --color-text: #e9e7e3;       /* 14.96:1 on bg */
-    --color-text-muted: #9da4aa; /*  7.32:1 on bg, 6.64:1 on surface */
-    --color-accent: #7fb5c5;     /*  8.20:1 on bg */
-    --color-accent-weak: #1a2a31;
-    /* Previously missing, which left body text at 1.79:1 and chip text at
-       1.52:1 in dark mode. Measured: 11.41:1 and 9.27:1. */
-    --color-text-body: #c6ccd2;
-    --color-accent-on: #a8d4e0;
-    --color-grid-dot: #3a4044;
-    --color-edge: #5a6066;
-    --color-border-faint: #22262a;
-    --color-accent-border: #2f4d56;
-    --color-accent-wash: #16242a;
-    --color-panel: rgba(18, 20, 21, 0.95);
-    --color-focus: #7fb5c5;
-    --deck-1: #13211d;
-    --deck-2: #201c14;
-    --deck-3: #141c26;
-    --deck-4: #221619;
-    --deck-ghost: rgba(233, 231, 227, 0.07);
+    --color-bg: #262624;      /* Amber dark --background, verbatim */
+    --color-surface: #2c2c2b; /* Amber dark --card, verbatim */
+    --color-border: #3e3e38;  /* Amber dark --border, verbatim */
+    --color-rule: #4a4a43;
+    --color-text: #f1f1ef;       /* Amber verbatim. 13.41:1 on bg */
+    --color-text-muted: #b7b5a9; /* Amber verbatim.  7.36:1 on bg, 6.79 surface */
+    --color-text-body: #dcdad2;  /* 10.83:1 on bg */
+    /* Amber's dark --primary #d97757 is 4.86:1 on the page but 4.48:1 on the
+       card, so it is lightened one step for text and kept verbatim for fills. */
+    --color-accent: #e08a6c;        /*  5.79:1 on bg, 5.34 on surface */
+    --color-accent-strong: #d97757; /* Amber verbatim. Dots only, 4.86:1 */
+    --color-accent-weak: #3a2a22;
+    --color-accent-on: #f0bda6;     /*  8.17:1 on #3a2a22 */
+    --color-focus: #e08a6c;
+    --color-grid-dot: #4a4a43;
+    --color-edge: #7d7768; /* 3.40:1, clears the 3:1 bar */
+    --color-border-faint: #2a2a26;
+    --color-accent-border: #5a4034;
+    --color-accent-wash: #2e241f; /* carries accent-on 9.03:1 and body 10.81:1 */
+    --color-panel: rgba(38, 38, 36, 0.95);
+    --lq-water: #4a3729;
+    --lq-lens: #d97757;
+    --lq-glass: rgba(241, 241, 239, 0.1);
+    --lq-rim: rgba(241, 241, 239, 0.3);
+    --lq-shadow: 0 10px 28px -14px rgba(0, 0, 0, 0.75), 0 2px 6px rgba(0, 0, 0, 0.3);
+    --deck-1: #2b2821;
+    --deck-2: #2a2820;
+    --deck-3: #282824;
+    --deck-4: #2e2622;
+    --deck-ghost: rgba(241, 241, 239, 0.07);
     --deck-shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 18px -10px rgba(0, 0, 0, 0.7);
     --deck-shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 28px 48px -16px rgba(0, 0, 0, 0.8);
   }
 }
 
 :root[data-theme='dark'] {
-  --color-bg: #121415;
-  --color-surface: #1b1e20;
-  --color-border: #2a2e31;
-  --color-rule: #3a4044;
-  --color-text: #e9e7e3;
-  --color-text-muted: #9da4aa;
-  --color-accent: #7fb5c5;
-  --color-accent-weak: #1a2a31;
-  --color-text-body: #c6ccd2;
-  --color-accent-on: #a8d4e0;
-  --color-grid-dot: #3a4044;
-  --color-edge: #5a6066;
-  --color-border-faint: #22262a;
-  --color-accent-border: #2f4d56;
-  --color-accent-wash: #16242a;
-  --color-panel: rgba(18, 20, 21, 0.95);
-  --color-focus: #7fb5c5;
-  --deck-1: #13211d;
-  --deck-2: #201c14;
-  --deck-3: #141c26;
-  --deck-4: #221619;
-  --deck-ghost: rgba(233, 231, 227, 0.07);
+  --color-bg: #262624;      /* Amber dark --background, verbatim */
+  --color-surface: #2c2c2b; /* Amber dark --card, verbatim */
+  --color-border: #3e3e38;  /* Amber dark --border, verbatim */
+  --color-rule: #4a4a43;
+  --color-text: #f1f1ef;       /* Amber verbatim. 13.41:1 on bg */
+  --color-text-muted: #b7b5a9; /* Amber verbatim.  7.36:1 on bg, 6.79 surface */
+  --color-text-body: #dcdad2;  /* 10.83:1 on bg */
+  /* Amber's dark --primary #d97757 is 4.86:1 on the page but 4.48:1 on the
+     card, so it is lightened one step for text and kept verbatim for fills. */
+  --color-accent: #e08a6c;        /*  5.79:1 on bg, 5.34 on surface */
+  --color-accent-strong: #d97757; /* Amber verbatim. Dots only, 4.86:1 */
+  --color-accent-weak: #3a2a22;
+  --color-accent-on: #f0bda6;     /*  8.17:1 on #3a2a22 */
+  --color-focus: #e08a6c;
+  --color-grid-dot: #4a4a43;
+  --color-edge: #7d7768; /* 3.40:1, clears the 3:1 bar */
+  --color-border-faint: #2a2a26;
+  --color-accent-border: #5a4034;
+  --color-accent-wash: #2e241f; /* carries accent-on 9.03:1 and body 10.81:1 */
+  --color-panel: rgba(38, 38, 36, 0.95);
+  --lq-water: #4a3729;
+  --lq-lens: #d97757;
+  --lq-glass: rgba(241, 241, 239, 0.1);
+  --lq-rim: rgba(241, 241, 239, 0.3);
+  --lq-shadow: 0 10px 28px -14px rgba(0, 0, 0, 0.75), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --deck-1: #2b2821;
+  --deck-2: #2a2820;
+  --deck-3: #282824;
+  --deck-4: #2e2622;
+  --deck-ghost: rgba(241, 241, 239, 0.07);
   --deck-shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 18px -10px rgba(0, 0, 0, 0.7);
   --deck-shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 28px 48px -16px rgba(0, 0, 0, 0.8);
 
