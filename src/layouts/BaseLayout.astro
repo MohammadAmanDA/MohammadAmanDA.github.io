@@ -50,32 +50,32 @@ const year = new Date().getFullYear();
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <div class="wrap site-header__inner">
-        <div class="site-header__brand">
-          <a class="site-header__name" href="/">{name}</a>
-          <span class="chip site-header__chip">Forecasting &amp; Production ML</span>
-        </div>
+      <div class="wrap">
+        <LiquidNav items={nav}>
+          <Fragment slot="start">
+            <a class="site-header__name" href="/">{name}</a>
+            <span class="chip site-header__chip">Forecasting &amp; Production ML</span>
+          </Fragment>
 
-        <LiquidNav items={nav} />
-
-        <div class="site-header__actions">
-          <ThemeToggle />
-          <a class="btn btn--primary btn--sm" href={`mailto:${email}`}>
-            Get in touch
-            <svg
-              class="btn__arrow"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M4.5 11.5l7-7M6 4.5h5.5V10" />
-            </svg>
-          </a>
-        </div>
+          <Fragment slot="end">
+            <ThemeToggle />
+            <a class="btn btn--primary btn--sm" href={`mailto:${email}`}>
+              Get in touch
+              <svg
+                class="btn__arrow"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4.5 11.5l7-7M6 4.5h5.5V10" />
+              </svg>
+            </a>
+          </Fragment>
+        </LiquidNav>
       </div>
     </header>
 
@@ -168,48 +168,17 @@ const year = new Date().getFullYear();
 </html>
 
 <style>
-  /* Sticky, so the bar stays available the way the reference's does.
-   *
-   * The bar is translucent rather than solid, because the glass pill inside it
-   * has nothing to refract over a flat fill: liquid glass over an opaque bar
-   * is just a tinted rectangle.
-   *
-   * 90% is not a taste decision, it is the measured floor. Only three things
-   * sit directly on the bar: the brand name, the nav items and the theme
-   * toggle; the chip and the button paint their own backgrounds and are
-   * unaffected. Taking the worst case, where solid body ink passes underneath,
-   * the muted ink used by the nav and the toggle measures 3.84:1 at 80%,
-   * 4.29:1 at 86% and 4.61:1 at 90%, so anything below 89% fails AA in light
-   * mode. Dark mode needs only 84%. 90% clears both with margin and still
-   * leaves a tenth of what is behind showing through the blur.
-   *
-   * The solid declaration first is the fallback for browsers without
-   * color-mix. */
+  /* Sticky, and otherwise empty. The header paints nothing: the glass bar
+   * inside it carries the fill, the blur, the rim and the shadow, so the page
+   * is visible sliding past above, below and on both sides of it. An earlier
+   * version tinted the header as well, which made the bar a tinted rectangle
+   * inside another tinted rectangle. The contrast floor that opacity has to
+   * clear now lives with --lq-pane, where the fill is. */
   .site-header {
     position: sticky;
     top: 0;
     z-index: 30;
-    background-color: var(--color-bg);
-    background-color: color-mix(in srgb, var(--color-bg) 90%, transparent);
-    -webkit-backdrop-filter: blur(14px) saturate(1.1);
-    backdrop-filter: blur(14px) saturate(1.1);
-    border-bottom: var(--border-hairline);
     padding-block: var(--space-3);
-  }
-
-  /* Three groups spread across the bar: brand left, nav centred, actions
-     right. space-between across three children puts the nav in the middle. */
-  .site-header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
-  }
-
-  .site-header__brand {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
   }
 
   .site-header__name {
@@ -226,20 +195,22 @@ const year = new Date().getFullYear();
     display: none;
   }
 
-  @media (min-width: 72rem) {
+  /* 84rem, not 72rem. At 72rem the bar already holds the name, four links,
+     the toggle and the button, and adding the chip leaves the three groups
+     fighting for the same pixels. Measured at 1152px the chip's text ran
+     straight over "Selected work". The chip is the least load-bearing thing
+     on the bar, so it is the thing that waits for room. */
+  @media (min-width: 84rem) {
     .site-header__chip {
       display: inline-block;
+      white-space: nowrap;
     }
   }
 
-  .site-header__actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  /* The nav's type lives in LiquidNav.astro and matches .section__label, so
-     the nav and the heading it points at are visibly the same thing. */
+  /* The bar's own layout, including the gap between the brand and the chip
+     and between the toggle and the button, lives in LiquidNav.astro, which
+     owns the three groups. The nav's type matches .section__label, so the
+     nav and the heading it points at are visibly the same thing. */
 
   main {
     padding-block: var(--space-12) var(--space-24);
@@ -290,16 +261,22 @@ const year = new Date().getFullYear();
     list-style: none;
   }
 
+  /* The bar wraps itself below 56rem; that rule lives with the bar.
+   *
+   * What belongs here is what the wrapping costs. A bar holding the name, the
+   * theme toggle, the mail button and four links needs three rows at 320px,
+   * which measures 169px tall. Sticky, that would cover a quarter of a phone
+   * screen for the whole visit, so below 56rem the header scrolls away with
+   * the page instead. The back-to-top control in the corner is always there,
+   * and it is a link to #main, not a scroll listener, so it cannot fail. */
   @media (max-width: 56rem) {
-    .site-header__inner {
-      flex-wrap: wrap;
+    .site-header {
+      position: static;
     }
-    .site-header nav {
-      order: 3;
-      width: 100%;
-    }
-    .site-header__actions {
-      margin-left: auto;
+
+    .site-header__name {
+      font-size: var(--scale-xs);
+      letter-spacing: 0.08em;
     }
   }
 </style>

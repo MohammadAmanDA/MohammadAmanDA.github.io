@@ -197,11 +197,24 @@
    * shader, and it re-tints when the theme changes. They are non-text marks.
    *   --lq-water  the body of the drop, a pale wash
    *   --lq-lens   the saturated rim and refracted edge
-   *   --lq-glass  the pill behind the items
-   *   --lq-rim    the inner highlight along the pill's top edge */
+   *   --lq-glass  the hairline border drawn inside the pill's edge
+   *   --lq-rim    the inner highlight along the pill's top edge
+   *
+   * --lq-pane is the pill's own fill, and it is the only thing between the
+   * bar's text and whatever scrolls underneath it, so its opacity is a
+   * measured floor rather than a taste decision. Worst case is solid page ink
+   * passing directly under an item. At 92% the muted ink used by the nav and
+   * the theme toggle measures 4.77:1 in light and 5.86:1 in dark, and the
+   * accent 4.98:1 and 4.61:1. Below 89% light, or 84% dark, it fails AA.
+   *
+   * An earlier version filled the pill with --lq-glass, a white wash, over a
+   * translucent header. In dark mode that wash lightens the pane and takes the
+   * nav text to 4.14:1 against the same worst case, which is a fail. The wash
+   * is now only the hairline; the fill is the page's own colour. */
   --lq-water: #fbe9df;
   --lq-lens: #c96442;
   --lq-glass: rgba(255, 255, 255, 0.34);
+  --lq-pane: color-mix(in srgb, var(--color-bg) 92%, transparent);
   --lq-rim: rgba(255, 255, 255, 0.75);
   --lq-shadow: 0 10px 28px -14px rgba(61, 57, 41, 0.5), 0 2px 6px rgba(61, 57, 41, 0.08);
 }
@@ -977,50 +990,44 @@ code {
   background-color: color-mix(in srgb, var(--color-surface) 50%, var(--color-bg));
 }
 
-/* On wide screens the number and label move out into the left margin, so the
- * reading column starts at the top of the section instead of below two lines of
- * heading. Uses less vertical space and fills the width.
+/* Removed, 2026-11-05: a rule that moved the number and the label out into the
+ * left margin above 82rem.
  *
- * Only above 82rem, where the 54rem column plus a 12rem gutter is guaranteed to
- * fit. Below that they stay stacked above the content, which is why this is not
- * done with a grid: there must be no chance of the label being pushed outside
- * the viewport, since the body clips horizontal overflow. */
-@media (min-width: 82rem) {
-  .section__num,
-  .section__label {
-    position: absolute;
-    left: calc(var(--space-12) * -1 - 8rem);
-    width: 8rem;
-    text-align: right;
-    margin: 0;
-  }
-
-  .section__num {
-    top: var(--space-8);
-  }
-
-  .section__label {
-    top: calc(var(--space-8) + 1.4rem);
-  }
-}
+ * It never worked. It positioned them with left:-176px against .section, and
+ * .section is full bleed, so -176px is 176px outside the viewport, not 176px
+ * into a gutter. Above 1312px every section number and label was therefore
+ * drawn off the left edge of the page and clipped by the body's overflow,
+ * which is why the headings looked untouched on a wide screen: they were not
+ * there. The comment it carried assumed a 54rem reading column, and the column
+ * is 80rem, so the gutter it was counting on had never existed.
+ *
+ * The number and the label now stack above the headline at every width, which
+ * is what every screen under 1312px was already showing. */
 
 /* The number sits outside the heading so it never lands in the accessible
  * name. It is decorative and marked aria-hidden in the markup. */
+/* The accent sits on the label, not on the number. The number is counting;
+ * the label is the name of the section and the thing the nav points at, so it
+ * is the one worth colouring. Before the palette change it was the other way
+ * round, which left the heading reading grey while the rest of the site
+ * turned amber. --color-accent measures 5.72:1 on the page in light and
+ * 5.79:1 in dark, and roughly 5.6:1 on the banded sections, which sit between
+ * the page and the surface. */
 .section__num {
   font-family: var(--font-mono);
   font-size: var(--scale-xs);
   letter-spacing: 0.06em;
-  color: var(--color-accent);
+  color: var(--color-text-muted);
   margin-bottom: var(--space-2);
 }
 
 .section__label {
   font-family: var(--font-mono);
   font-size: var(--scale-xs);
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-accent);
   margin-bottom: var(--space-8);
 }
 
