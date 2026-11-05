@@ -1,11 +1,29 @@
 ---
 import { getCollection } from 'astro:content';
 
-const stages = (await getCollection('pipeline')).sort((a, b) => a.data.order - b.data.order);
+const all = await getCollection('pipeline');
+
+/* Two diagrams, each its own tab. Labels and notes are structural copy: they
+ * describe sections that already exist. The notes are deliberately modest.
+ * PlanScan is a personal project and is labelled as one, per the brief. */
+const boards = [
+  {
+    key: 'cashfx',
+    label: 'Cash & FX Forecasting',
+    note: 'Production treasury system',
+    title: 'Cash & FX Forecasting Pipeline',
+  },
+  {
+    key: 'planscan',
+    label: 'PlanScan',
+    note: 'Personal project',
+    title: 'PlanScan Compliance Pipeline',
+  },
+] as const;
 
 /* Node geometry, in real pixels inside the pannable viewport.
  *
- * Two things the previous version got wrong.
+ * Two things an earlier version got wrong.
  *
  * First, it drew the edges into a `viewBox="0 0 100 100"` SVG with
  * `preserveAspectRatio="none"`, which scales x and y by different factors, so
@@ -13,36 +31,26 @@ const stages = (await getCollection('pipeline')).sort((a, b) => a.data.order - b
  * the horizontal and vertical runs. Here the edge SVG is sized to the content
  * in px and never stretched, so a curve is the curve that was authored.
  *
- * Second, it put all six stages in one row. The reference has five nodes in
- * 1250px of content and fits them comfortably; six at the same pitch is
- * 1630px, which only fits beside the detail panel at 0.35 scale, far too
- * small to read. So the stages serpentine instead: left to right along the
- * top row, a U-turn on the right, then right to left along the bottom. That
- * is 890px of content, which fits at ~0.63 scale, giving an on-screen card
- * width of 133px against the reference's measured 134px.
+ * Second, it serpentined the stages, three across the top and three back along
+ * the bottom. That puts consecutive stages side by side, so every connector is
+ * a short horizontal hop and every label is wedged into the gap between two
+ * cards, which is what made it read as a flat grid of boxes.
  */
-/* 232, not the reference's 210. Measured: the widest footer pair here,
- * "50,000+ / day" beside "Human in the loop", needs 193px of inner width,
- * and 210 leaves only 176. Widening is better than shrinking the type below
- * what is comfortable to read. Every card uses this one width. */
+/* 232, not 210. Measured: the widest footer pair here, "50,000+ / day" beside
+ * "Human in the loop", needs 193px of inner width, and 210 leaves only 176.
+ * Widening is better than shrinking the type below what is comfortable to
+ * read. Every card uses this one width. */
 const NODE_W = 232;
-/* 118. The reference's cards are deliberately light: a short title, one line
- * of summary, a thin footer. Mine had grown to 156 because the summary was
- * wrapping to two lines, which is what made the graph read as a wall of
- * boxes rather than as a diagram. The summary now truncates to one line and
- * the full text lives in the panel, where there is room for it. */
+/* 118. The cards are deliberately light: a short title, one line of summary, a
+ * thin footer. They had grown to 156 because the summary wrapped to two lines.
+ * The summary now truncates to one line and the full text lives in the panel,
+ * where there is room for it. */
 const NODE_H = 118;
-/* The geometry that actually makes the reference look like a diagram.
- *
- * Every node alternates between a top band and a bottom band, so the vertical
- * swing (260) is five times the horizontal gap (PITCH - NODE_W = 50). Each
+/* The geometry that actually makes this read as a diagram. Every node
+ * alternates between a top band and a bottom band, so the vertical swing (330)
+ * is more than six times the horizontal gap (PITCH - NODE_W = 50). Each
  * connector is therefore a long, steep S-curve rather than a short hop, and
- * each label lands in the empty band between the two rows instead of being
- * crammed into the gap between two cards.
- *
- * The previous serpentine put consecutive stages side by side in the same
- * row, which produced short horizontal runs and labels wedged between cards.
- * That is the single thing that made it read as a flat grid. */
+ * each label lands in the empty band between the two rows. */
 const PITCH = 282;
 const SWING = 330;
 const PAD = 40;
@@ -51,457 +59,592 @@ const xOf = (i: number) => PAD + i * PITCH;
 const yOf = (i: number) => PAD + (i % 2 === 0 ? 0 : SWING);
 const cyOf = (i: number) => yOf(i) + NODE_H / 2;
 
-const pos = stages.map((_s, i) => ({ x: xOf(i), y: yOf(i) }));
+const stageNo = (i: number) => String(i + 1).padStart(2, '0');
 
-const CONTENT_W = PAD * 2 + (stages.length - 1) * PITCH + NODE_W;
-const CONTENT_H = PAD * 2 + SWING + NODE_H;
+/* Geometry is computed per board rather than shared, so a diagram with a
+ * different number of stages still lays out correctly. */
+const diagrams = boards.map((b) => {
+  const stages = all
+    .filter((s) => s.data.diagram === b.key)
+    .sort((x, y) => x.data.order - y.data.order);
+  const pos = stages.map((_s, i) => ({ x: xOf(i), y: yOf(i) }));
 
-/* Connectors leave the right edge of one card and arrive at the left edge of
- * the next. Control points sit on the midpoint x, which gives the flat-then-
- * steep-then-flat curve the reference uses. */
-const edges = stages.slice(0, -1).map((s, i) => {
-  const sx = pos[i].x + NODE_W;
-  const sy = cyOf(i);
-  const tx = pos[i + 1].x;
-  const ty = cyOf(i + 1);
-  const mx = (sx + tx) / 2;
+  /* Connectors leave the right edge of one card and arrive at the left edge of
+   * the next. Control points sit on the midpoint x, which gives the flat, then
+   * steep, then flat curve. */
+  const edges = stages.slice(0, -1).map((s, i) => {
+    const sx = pos[i].x + NODE_W;
+    const sy = cyOf(i);
+    const tx = pos[i + 1].x;
+    const ty = cyOf(i + 1);
+    const mx = (sx + tx) / 2;
+    return {
+      d: `M${sx},${sy} C${mx},${sy} ${mx},${ty} ${tx},${ty}`,
+      label: s.data.edge,
+      lx: mx,
+      ly: (sy + ty) / 2,
+    };
+  });
+
   return {
-    d: `M${sx},${sy} C${mx},${sy} ${mx},${ty} ${tx},${ty}`,
-    label: s.data.edge,
-    lx: mx,
-    ly: (sy + ty) / 2,
+    ...b,
+    stages,
+    pos,
+    edges,
+    contentW: PAD * 2 + (stages.length - 1) * PITCH + NODE_W,
+    contentH: PAD * 2 + SWING + NODE_H,
+    /* Stage one opens by default. */
+    defaultId: stages[0]?.id,
   };
 });
-
-/* Stage one opens by default. */
-const DEFAULT_INDEX = 0;
-const defaultId = stages[DEFAULT_INDEX].id;
-
-const stageNo = (i: number) => String(i + 1).padStart(2, '0');
 ---
 
-<div class="wb" id="wb" data-content-w={CONTENT_W} data-content-h={CONTENT_H}>
-  {/* Title strip, overlaid on the canvas rather than stacked above it, so the
-      framed area is all diagram. */}
-  <div class="wb__topbar">
-    <p class="wb__title">
-      <span class="wb__dot" aria-hidden="true"></span>Cash &amp; FX Forecasting Pipeline
-    </p>
-    <button type="button" class="wb__pulse" id="wb-pulse" aria-pressed="true">
-      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.5l7 4.5-7 4.5z" /></svg>
-      <span>Simulate signal pulse</span>
-    </button>
-  </div>
-
-  {/* The pannable surface. The dot grid is a background on this element and is
-      re-offset on pan, so it reads as graph paper the diagram sits on. */}
-  <div class="wb__pane" id="wb-pane">
-    <div class="wb__viewport" id="wb-viewport" style={`width:${CONTENT_W}px; height:${CONTENT_H}px`}>
-      <svg
-        class="wb__edges"
-        width={CONTENT_W}
-        height={CONTENT_H}
-        viewBox={`0 0 ${CONTENT_W} ${CONTENT_H}`}
-        aria-hidden="true"
-      >
-        {edges.map((e) => <path class="wb__edge" d={e.d} />)}
-        {
-          edges.map((e) => (
-            <g class="wb__edge-label" transform={`translate(${e.lx} ${e.ly})`}>
-              <rect
-                x={-(e.label.length * 2.8 + 5)}
-                y="-8"
-                width={e.label.length * 5.6 + 10}
-                height="16"
-                rx="2"
-              />
-              <text text-anchor="middle" dy="0.32em">{e.label}</text>
-            </g>
-          ))
-        }
-      </svg>
-
-      {
-        stages.map((s, i) => (
-          <button
-            type="button"
-            class="wb__card"
-            data-stage={s.id}
-            data-in={i > 0 ? 'l' : ''}
-            data-out={i < stages.length - 1 ? 'r' : ''}
-            style={`left:${pos[i].x}px; top:${pos[i].y}px; width:${NODE_W}px; height:${NODE_H}px`}
-            aria-controls="wb-panel"
-            aria-pressed={s.id === defaultId ? 'true' : 'false'}
-          >
-            <span class="wb__card-top">
-              <span class="wb__stage">Stage {stageNo(i)}</span>
-              <span class="wb__tag">{s.data.tag}</span>
-            </span>
-            <span class="wb__card-title">{s.data.title}</span>
-            <span class="wb__card-sub">{s.data.summary}</span>
-            <span class="wb__card-foot">
-              <span class="wb__latency">
-                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
-                  ><path d="M9.6 1.2L3.2 9h3.4l-1.3 5.8 6.5-7.8H8.4z" /></svg
-                >{s.data.latency}
-              </span>
-              <span class="wb__secured">
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
-                  ><path
-                    d="M13.3 8.6c0 3.3-2.3 5-5.1 6a.7.7 0 01-.44 0C5 13.6 2.7 11.9 2.7 8.6V4a.7.7 0 01.66-.67c1.33 0 3-.8 4.16-1.81a.78.78 0 011.01 0C9.67 2.53 11.34 3.33 12.67 3.33a.7.7 0 01.66.67z"
-                  /><path d="M6 8l1.33 1.33L10 6.67" /></svg
-                >{s.data.governance}
-              </span>
-            </span>
-          </button>
-        ))
-      }
-    </div>
-  </div>
-
-  {/* Zoom controls, bottom left, as on the reference. */}
-  <div class="wb__controls" role="group" aria-label="Diagram view">
-    <button type="button" id="wb-in" aria-label="Zoom in">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
-        ><path d="M8 3.5v9M3.5 8h9" /></svg
-      >
-    </button>
-    <button type="button" id="wb-out" aria-label="Zoom out">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
-        ><path d="M3.5 8h9" /></svg
-      >
-    </button>
-    <button type="button" id="wb-fit" aria-label="Fit diagram to view">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
-        ><path d="M6 2.5H2.5V6M10 2.5h3.5V6M6 13.5H2.5V10M10 13.5h3.5V10" /></svg
-      >
-    </button>
-  </div>
-
-  <p class="wb__hint">Click a stage, drag to pan, Ctrl and scroll to zoom</p>
-
-  {/* Detail panel. Overlaid on the canvas, inset from three edges, so opening
-      and closing it never resizes the diagram underneath. */}
-  <aside class="wb__panel" id="wb-panel" aria-label="Stage detail">
+<div class="wbt" data-wbt>
+  <div class="wbt__tabs" role="tablist" aria-label="Architecture diagrams">
     {
-      stages.map((s, i) => (
-        <article class="wb__detail" data-detail={s.id} hidden={s.id !== defaultId}>
-          <p class="wb__detail-eyebrow">
-            <span>Stage {stageNo(i)}</span>
-            <span class="wb__tag">{s.data.tag}</span>
-          </p>
-          <h4 class="wb__detail-title">{s.data.title}</h4>
-          <p class="wb__detail-sub">{s.data.summary}</p>
-
-          <div class="wb__meta">
-            <div>
-              <p class="wb__meta-label">Throughput</p>
-              <p class="wb__meta-value">{s.data.latency}</p>
-            </div>
-            <div>
-              <p class="wb__meta-label">Control</p>
-              <p class="wb__meta-value wb__meta-value--accent">{s.data.governance}</p>
-            </div>
-          </div>
-
-          <p class="wb__sec-head">Core responsibilities</p>
-          <ul class="wb__detail-list">
-            {s.data.responsibilities.map((r: string) => (
-              <li>
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                  <circle cx="8" cy="8" r="6.25" />
-                  <path d="M5.4 8.2l1.8 1.8 3.4-3.6" />
-                </svg>
-                <span>{r}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div class="wb__safeguard">
-            <p class="wb__safeguard-head">Safeguard</p>
-            <p class="wb__safeguard-body">{s.data.safeguard}</p>
-          </div>
-
-          <div class="wb__techwrap">
-            <p class="wb__tech-head">Stage technologies</p>
-            <ul class="wb__tech">{s.data.tech.map((t: string) => <li>{t}</li>)}</ul>
-          </div>
-        </article>
+      diagrams.map((d, i) => (
+        <button
+          type="button"
+          role="tab"
+          class="wbt__tab"
+          id={`wbt-${d.key}`}
+          aria-controls={`wbp-${d.key}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          <span class="wbt__tab-name">{d.label}</span>
+          <span class="wbt__tab-note">{d.note}</span>
+        </button>
       ))
     }
-    <button type="button" class="wb__close" id="wb-close" aria-label="Close stage detail">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-        <path d="M4 4l8 8M12 4l-8 8" />
-      </svg>
-    </button>
+  </div>
 
-    {/* Walk the pipeline without hunting for a node. The later stages sit
-        under this panel, exactly as they do on the reference, so stepping is
-        the honest way to reach them. */}
-    <div class="wb__step">
-      <button type="button" id="wb-prev" class="wb__step-btn">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"
-          ><path d="M9.5 3.5L5 8l4.5 4.5" /></svg
-        >
-        <span>Prev</span>
-      </button>
-      <p class="wb__step-count" id="wb-count" aria-live="polite"></p>
-      <button type="button" id="wb-next" class="wb__step-btn">
-        <span>Next</span>
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"
-          ><path d="M6.5 3.5L11 8l-4.5 4.5" /></svg
-        >
-      </button>
-    </div>
-  </aside>
+  {
+    diagrams.map((d, di) => (
+      <div
+        class="wbt__panel"
+        id={`wbp-${d.key}`}
+        role="tabpanel"
+        aria-labelledby={`wbt-${d.key}`}
+        hidden={di !== 0}
+      >
+        <div class="wb" data-wb data-content-w={d.contentW} data-content-h={d.contentH}>
+          {/* Title strip, overlaid on the canvas rather than stacked above it,
+              so the framed area is all diagram. */}
+          <div class="wb__topbar">
+            <p class="wb__title">
+              <span class="wb__dot" aria-hidden="true" />
+              {d.title}
+            </p>
+            <button type="button" class="wb__pulse" data-wb-pulse aria-pressed="true">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M5 3.5l7 4.5-7 4.5z" />
+              </svg>
+              <span>Simulate signal pulse</span>
+            </button>
+          </div>
+
+          {/* The pannable surface. The dot grid is a background on this element
+              and is re-offset on pan, so it reads as graph paper. */}
+          <div class="wb__pane" data-wb-pane>
+            <div
+              class="wb__viewport"
+              data-wb-viewport
+              style={`width:${d.contentW}px; height:${d.contentH}px`}
+            >
+              <svg
+                class="wb__edges"
+                width={d.contentW}
+                height={d.contentH}
+                viewBox={`0 0 ${d.contentW} ${d.contentH}`}
+                aria-hidden="true"
+              >
+                {d.edges.map((e) => (
+                  <path class="wb__edge" d={e.d} />
+                ))}
+                {d.edges.map((e) => (
+                  <g class="wb__edge-label" transform={`translate(${e.lx} ${e.ly})`}>
+                    <rect
+                      x={-(e.label.length * 2.8 + 5)}
+                      y="-8"
+                      width={e.label.length * 5.6 + 10}
+                      height="16"
+                      rx="2"
+                    />
+                    <text text-anchor="middle" dy="0.32em">
+                      {e.label}
+                    </text>
+                  </g>
+                ))}
+              </svg>
+
+              {d.stages.map((s, i) => (
+                <button
+                  type="button"
+                  class="wb__card"
+                  data-stage={s.id}
+                  data-in={i > 0 ? 'l' : ''}
+                  data-out={i < d.stages.length - 1 ? 'r' : ''}
+                  style={`left:${d.pos[i].x}px; top:${d.pos[i].y}px; width:${NODE_W}px; height:${NODE_H}px`}
+                  aria-controls={`wbp-${d.key}-detail`}
+                  aria-pressed={s.id === d.defaultId ? 'true' : 'false'}
+                >
+                  <span class="wb__card-top">
+                    <span class="wb__stage">Stage {stageNo(i)}</span>
+                    <span class="wb__tag">{s.data.tag}</span>
+                  </span>
+                  <span class="wb__card-title">{s.data.title}</span>
+                  <span class="wb__card-sub">{s.data.summary}</span>
+                  <span class="wb__card-foot">
+                    <span class="wb__latency">
+                      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                        <path d="M9.6 1.2L3.2 9h3.4l-1.3 5.8 6.5-7.8H8.4z" />
+                      </svg>
+                      {s.data.latency}
+                    </span>
+                    <span class="wb__secured">
+                      <svg
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        aria-hidden="true"
+                      >
+                        <path d="M13.3 8.6c0 3.3-2.3 5-5.1 6a.7.7 0 01-.44 0C5 13.6 2.7 11.9 2.7 8.6V4a.7.7 0 01.66-.67c1.33 0 3-.8 4.16-1.81a.78.78 0 011.01 0C9.67 2.53 11.34 3.33 12.67 3.33a.7.7 0 01.66.67z" />
+                        <path d="M6 8l1.33 1.33L10 6.67" />
+                      </svg>
+                      {s.data.governance}
+                    </span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Zoom controls, bottom left. */}
+          <div class="wb__controls" role="group" aria-label="Diagram view">
+            <button type="button" data-wb-in aria-label="Zoom in">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M8 3.5v9M3.5 8h9" />
+              </svg>
+            </button>
+            <button type="button" data-wb-out aria-label="Zoom out">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M3.5 8h9" />
+              </svg>
+            </button>
+            <button type="button" data-wb-fit aria-label="Fit diagram to view">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M6 2.5H2.5V6M10 2.5h3.5V6M6 13.5H2.5V10M10 13.5h3.5V10" />
+              </svg>
+            </button>
+          </div>
+
+          <p class="wb__hint">Click a stage, drag to pan, Ctrl and scroll to zoom</p>
+
+          {/* Detail panel. Overlaid on the canvas, inset from three edges, so
+              opening and closing it never resizes the diagram underneath. */}
+          <aside class="wb__panel" id={`wbp-${d.key}-detail`} data-wb-panel aria-label="Stage detail">
+            {d.stages.map((s, i) => (
+              <article class="wb__detail" data-detail={s.id} hidden={s.id !== d.defaultId}>
+                <p class="wb__detail-eyebrow">
+                  <span>Stage {stageNo(i)}</span>
+                  <span class="wb__tag">{s.data.tag}</span>
+                </p>
+                <h3 class="wb__detail-title">{s.data.title}</h3>
+                <p class="wb__detail-sub">{s.data.summary}</p>
+
+                <div class="wb__meta">
+                  <div>
+                    <p class="wb__meta-label">Throughput</p>
+                    <p class="wb__meta-value">{s.data.latency}</p>
+                  </div>
+                  <div>
+                    <p class="wb__meta-label">Control</p>
+                    <p class="wb__meta-value wb__meta-value--accent">{s.data.governance}</p>
+                  </div>
+                </div>
+
+                <p class="wb__sec-head">Core responsibilities</p>
+                <ul class="wb__detail-list">
+                  {s.data.responsibilities.map((r: string) => (
+                    <li>
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <circle cx="8" cy="8" r="6.25" />
+                        <path d="M5.4 8.2l1.8 1.8 3.4-3.6" />
+                      </svg>
+                      <span>{r}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="wb__safeguard">
+                  <p class="wb__safeguard-head">Safeguard</p>
+                  <p class="wb__safeguard-body">{s.data.safeguard}</p>
+                </div>
+
+                <div class="wb__techwrap">
+                  <p class="wb__tech-head">Stage technologies</p>
+                  <ul class="wb__tech">
+                    {s.data.tech.map((t: string) => (
+                      <li>{t}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+
+            <button type="button" class="wb__close" data-wb-close aria-label="Close stage detail">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M4 4l8 8M12 4l-8 8" />
+              </svg>
+            </button>
+
+            {/* Walk the pipeline without hunting for a node. The later stages
+                sit under this panel, so stepping is the honest way to reach
+                them. */}
+            <div class="wb__step">
+              <button type="button" data-wb-prev class="wb__step-btn">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                  <path d="M9.5 3.5L5 8l4.5 4.5" />
+                </svg>
+                <span>Prev</span>
+              </button>
+              <p class="wb__step-count" data-wb-count aria-live="polite" />
+              <button type="button" data-wb-next class="wb__step-btn">
+                <span>Next</span>
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                  <path d="M6.5 3.5L11 8l-4.5 4.5" />
+                </svg>
+              </button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    ))
+  }
 </div>
 
 <script is:inline>
   (() => {
-    const root = document.getElementById('wb');
-    const pane = document.getElementById('wb-pane');
-    const vp = document.getElementById('wb-viewport');
-    const panel = document.getElementById('wb-panel');
-    if (!root || !pane || !vp || !panel) return;
+    /* One instance per diagram. Everything is queried inside the board's own
+       root, so the two tabs cannot reach into each other. */
+    const initBoard = (root) => {
+      const q = (sel) => root.querySelector(sel);
+      const pane = q('[data-wb-pane]');
+      const vp = q('[data-wb-viewport]');
+      const panel = q('[data-wb-panel]');
+      if (!pane || !vp || !panel) return;
 
-    const cards = [...root.querySelectorAll('.wb__card')];
-    const details = [...root.querySelectorAll('[data-detail]')];
-    const contentW = +root.dataset.contentW;
-    const contentH = +root.dataset.contentH;
+      const cards = [...root.querySelectorAll('.wb__card')];
+      const details = [...root.querySelectorAll('[data-detail]')];
+      const contentW = +root.dataset.contentW;
+      const contentH = +root.dataset.contentH;
 
-    const MIN = 0.3;
-    const MAX = 1.8;
-    const GRID = 24;
-    let scale = 1;
-    let tx = 0;
-    let ty = 0;
+      const MIN = 0.3;
+      const MAX = 1.8;
+      const GRID = 24;
+      let scale = 1;
+      let tx = 0;
+      let ty = 0;
 
-    /* The dot grid is painted on the pane, so it has to be re-offset and
-       re-sized by hand to stay locked to the diagram as it moves. */
-    const apply = () => {
-      vp.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
-      const step = GRID * scale;
-      pane.style.backgroundSize = step + 'px ' + step + 'px';
-      pane.style.backgroundPosition = tx + 'px ' + ty + 'px';
-    };
+      /* The dot grid is painted on the pane, so it has to be re-offset and
+         re-sized by hand to stay locked to the diagram as it moves. */
+      const apply = () => {
+        vp.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
+        const step = GRID * scale;
+        pane.style.backgroundSize = step + 'px ' + step + 'px';
+        pane.style.backgroundPosition = tx + 'px ' + ty + 'px';
+      };
 
-    /* Fit into the area the panel is not covering, so no stage starts life
-       hidden behind it. Below the tablet break the panel is a bottom sheet,
-       so the reserved space is vertical instead. */
-    const isPhone = () => innerWidth <= 760;
+      const isPhone = () => innerWidth <= 760;
 
-    const fit = () => {
-      const left = 20;
-      const top = 52;
+      const fit = () => {
+        const left = 20;
+        const top = 52;
 
-      /* On a phone, fitting the whole diagram would mean 0.3 scale and cards
-         70px wide, which is not readable. A diagram is a thing you pan, so
-         below the tablet break it opens at a legible scale anchored top left
-         and the reader drags, which is also why the hint stays visible there. */
-      if (isPhone()) {
-        scale = 0.8;
-        tx = left;
-        ty = top;
-        apply();
-        return;
-      }
-
-      /* Fit to the whole frame, not to the strip left of the panel. The
-         reference does the same: its later stages sit under the panel and you
-         drag or step to them. Reserving the panel's width instead would shrink
-         the diagram by a third and undo the point of the layout. */
-      const availW = pane.clientWidth - left - 20;
-      const availH = pane.clientHeight - top - 44;
-      scale = Math.max(MIN, Math.min(MAX, Math.min(availW / contentW, availH / contentH)));
-      tx = left + (availW - contentW * scale) / 2;
-      ty = top + (availH - contentH * scale) / 2;
-      apply();
-      revealSelected();
-    };
-
-    /* Because the panel overlays the right of the canvas, a stage can be
-       selected while sitting behind it. Slide the canvas just enough that the
-       selected card is fully in the clear, and no further. This is the part
-       the reference leaves to the reader. */
-    const revealSelected = () => {
-      if (isPhone() || panel.hidden) return;
-      const card = root.querySelector('.wb__card[aria-pressed="true"]');
-      if (!card) return;
-      const pr = pane.getBoundingClientRect();
-      const cr = card.getBoundingClientRect();
-      const clearRight = panel.getBoundingClientRect().left - 20;
-      let shift = 0;
-      if (cr.right > clearRight) shift = clearRight - cr.right;
-      if (cr.left + shift < pr.left + 20) shift = pr.left + 20 - cr.left;
-      if (shift) {
-        tx += shift;
-        apply();
-      }
-    };
-
-    /* Zoom about a fixed point, so the diagram grows under the cursor or the
-       centre of the frame rather than sliding away from it. */
-    const zoomAt = (factor, cx, cy) => {
-      const next = Math.max(MIN, Math.min(MAX, scale * factor));
-      if (next === scale) return;
-      tx = cx - ((cx - tx) * next) / scale;
-      ty = cy - ((cy - ty) * next) / scale;
-      scale = next;
-      apply();
-    };
-
-    const zoomCentre = (f) => zoomAt(f, pane.clientWidth / 2, pane.clientHeight / 2);
-
-    document.getElementById('wb-in').addEventListener('click', () => zoomCentre(1.25));
-    document.getElementById('wb-out').addEventListener('click', () => zoomCentre(0.8));
-    document.getElementById('wb-fit').addEventListener('click', fit);
-
-    /* Ctrl or Cmd plus wheel zooms. A bare wheel is left alone deliberately:
-       hijacking it would trap the reader's page scroll inside the diagram. */
-    pane.addEventListener(
-      'wheel',
-      (e) => {
-        if (!e.ctrlKey && !e.metaKey) return;
-        e.preventDefault();
-        const r = pane.getBoundingClientRect();
-        zoomAt(e.deltaY < 0 ? 1.12 : 0.89, e.clientX - r.left, e.clientY - r.top);
-      },
-      { passive: false }
-    );
-
-    // Drag to pan. A drag that moves is not treated as a click on a card.
-    let dragging = false;
-    let moved = false;
-    let ox = 0;
-    let oy = 0;
-
-    pane.addEventListener('pointerdown', (e) => {
-      if (e.button !== 0) return;
-      dragging = true;
-      moved = false;
-      ox = e.clientX - tx;
-      oy = e.clientY - ty;
-      pane.setPointerCapture(e.pointerId);
-      pane.classList.add('is-grabbing');
-    });
-
-    pane.addEventListener('pointermove', (e) => {
-      if (!dragging) return;
-      const nx = e.clientX - ox;
-      const ny = e.clientY - oy;
-      if (Math.abs(nx - tx) > 2 || Math.abs(ny - ty) > 2) moved = true;
-      tx = nx;
-      ty = ny;
-      apply();
-    });
-
-    const endDrag = () => {
-      dragging = false;
-      pane.classList.remove('is-grabbing');
-    };
-    pane.addEventListener('pointerup', endDrag);
-    pane.addEventListener('pointercancel', endDrag);
-
-    // Pinch to zoom on a touch screen.
-    let pinch = 0;
-    pane.addEventListener(
-      'touchmove',
-      (e) => {
-        if (e.touches.length !== 2) return;
-        e.preventDefault();
-        const a = e.touches[0];
-        const b = e.touches[1];
-        const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
-        if (pinch) {
-          const r = pane.getBoundingClientRect();
-          zoomAt(d / pinch, (a.clientX + b.clientX) / 2 - r.left, (a.clientY + b.clientY) / 2 - r.top);
-        }
-        pinch = d;
-      },
-      { passive: false }
-    );
-    pane.addEventListener('touchend', () => (pinch = 0));
-
-    const select = (id) => {
-      const wasHidden = panel.hidden;
-      details.forEach((d) => (d.hidden = d.dataset.detail !== id));
-      panel.hidden = false;
-      cards.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.stage === id)));
-      if (wasHidden) fit();
-      else revealSelected();
-      syncStepper();
-    };
-
-    cards.forEach((card) => {
-      card.addEventListener('click', (e) => {
-        if (moved) {
-          e.preventDefault();
+        /* On a phone, fitting the whole diagram would mean 0.3 scale and cards
+           70px wide, which is not readable. A diagram is a thing you pan, so
+           below the tablet break it opens at a legible scale anchored top left
+           and the reader drags, which is also why the hint stays visible. */
+        if (isPhone()) {
+          scale = 0.8;
+          tx = left;
+          ty = top;
+          apply();
           return;
         }
-        select(card.dataset.stage);
+
+        /* Fit to the whole frame, not to the strip left of the panel.
+           Reserving the panel's width would shrink the diagram by a third and
+           undo the point of the layout; revealSelected handles the overlap. */
+        const availW = pane.clientWidth - left - 20;
+        const availH = pane.clientHeight - top - 44;
+        if (availW <= 0 || availH <= 0) return;
+        scale = Math.max(MIN, Math.min(MAX, Math.min(availW / contentW, availH / contentH)));
+        tx = left + (availW - contentW * scale) / 2;
+        ty = top + (availH - contentH * scale) / 2;
+        apply();
+        revealSelected();
+      };
+
+      /* Because the panel overlays the right of the canvas, a stage can be
+         selected while sitting behind it. Slide the canvas just enough that
+         the selected card is fully in the clear, and no further. */
+      const revealSelected = () => {
+        if (isPhone() || panel.hidden) return;
+        const card = root.querySelector('.wb__card[aria-pressed="true"]');
+        if (!card) return;
+        const pr = pane.getBoundingClientRect();
+        const cr = card.getBoundingClientRect();
+        const clearRight = panel.getBoundingClientRect().left - 20;
+        let shift = 0;
+        if (cr.right > clearRight) shift = clearRight - cr.right;
+        if (cr.left + shift < pr.left + 20) shift = pr.left + 20 - cr.left;
+        if (shift) {
+          tx += shift;
+          apply();
+        }
+      };
+
+      /* Zoom about a fixed point, so the diagram grows under the cursor or the
+         centre of the frame rather than sliding away from it. */
+      const zoomAt = (factor, cx, cy) => {
+        const next = Math.max(MIN, Math.min(MAX, scale * factor));
+        if (next === scale) return;
+        tx = cx - ((cx - tx) * next) / scale;
+        ty = cy - ((cy - ty) * next) / scale;
+        scale = next;
+        apply();
+      };
+
+      const zoomCentre = (f) => zoomAt(f, pane.clientWidth / 2, pane.clientHeight / 2);
+
+      q('[data-wb-in]').addEventListener('click', () => zoomCentre(1.25));
+      q('[data-wb-out]').addEventListener('click', () => zoomCentre(0.8));
+      q('[data-wb-fit]').addEventListener('click', fit);
+
+      /* Ctrl or Cmd plus wheel zooms. A bare wheel is left alone deliberately:
+         hijacking it would trap the reader's page scroll inside the diagram. */
+      pane.addEventListener(
+        'wheel',
+        (e) => {
+          if (!e.ctrlKey && !e.metaKey) return;
+          e.preventDefault();
+          const r = pane.getBoundingClientRect();
+          zoomAt(e.deltaY < 0 ? 1.12 : 0.89, e.clientX - r.left, e.clientY - r.top);
+        },
+        { passive: false }
+      );
+
+      /* Drag to pan.
+       *
+       * Pointer capture is deliberately NOT taken on pointerdown. Under an
+       * active pointer capture the browser retargets the following `click` to
+       * the capturing element, so every click on a stage was being delivered
+       * to the pane instead of to the card, and the detail panel never
+       * changed. Capture is taken only once the pointer has travelled past the
+       * drag threshold, which is the only case that needs it. A click that
+       * does not move is therefore never retargeted. */
+      const SLOP = 3;
+      let dragging = false;
+      let moved = false;
+      let ox = 0;
+      let oy = 0;
+      let downX = 0;
+      let downY = 0;
+
+      pane.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0) return;
+        dragging = true;
+        moved = false;
+        ox = e.clientX - tx;
+        oy = e.clientY - ty;
+        downX = e.clientX;
+        downY = e.clientY;
+        pane.classList.add('is-grabbing');
       });
-    });
 
-    document.getElementById('wb-close').addEventListener('click', () => {
-      panel.hidden = true;
-      cards.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+      pane.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        if (!moved) {
+          if (Math.abs(e.clientX - downX) < SLOP && Math.abs(e.clientY - downY) < SLOP) return;
+          moved = true;
+          try {
+            pane.setPointerCapture(e.pointerId);
+          } catch (err) {}
+        }
+        tx = e.clientX - ox;
+        ty = e.clientY - oy;
+        apply();
+      });
+
+      const endDrag = (e) => {
+        dragging = false;
+        if (moved && e) {
+          try {
+            pane.releasePointerCapture(e.pointerId);
+          } catch (err) {}
+        }
+        pane.classList.remove('is-grabbing');
+      };
+      pane.addEventListener('pointerup', endDrag);
+      pane.addEventListener('pointercancel', endDrag);
+
+      // Pinch to zoom on a touch screen.
+      let pinch = 0;
+      pane.addEventListener(
+        'touchmove',
+        (e) => {
+          if (e.touches.length !== 2) return;
+          e.preventDefault();
+          const a = e.touches[0];
+          const b = e.touches[1];
+          const dist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+          if (pinch) {
+            const r = pane.getBoundingClientRect();
+            zoomAt(dist / pinch, (a.clientX + b.clientX) / 2 - r.left, (a.clientY + b.clientY) / 2 - r.top);
+          }
+          pinch = dist;
+        },
+        { passive: false }
+      );
+      pane.addEventListener('touchend', () => (pinch = 0));
+
+      const ids = cards.map((c) => c.dataset.stage);
+      const prevBtn = q('[data-wb-prev]');
+      const nextBtn = q('[data-wb-next]');
+      const count = q('[data-wb-count]');
+
+      const currentIndex = () => {
+        const on = root.querySelector('.wb__card[aria-pressed="true"]');
+        return on ? ids.indexOf(on.dataset.stage) : -1;
+      };
+
+      const syncStepper = () => {
+        const i = currentIndex();
+        prevBtn.disabled = i <= 0;
+        nextBtn.disabled = i < 0 || i >= ids.length - 1;
+        count.textContent = i < 0 ? '' : 'Stage ' + (i + 1) + ' of ' + ids.length;
+      };
+
+      const select = (id) => {
+        const wasHidden = panel.hidden;
+        details.forEach((d) => (d.hidden = d.dataset.detail !== id));
+        panel.hidden = false;
+        cards.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.stage === id)));
+        if (wasHidden) fit();
+        else revealSelected();
+        syncStepper();
+      };
+
+      /* Delegated, with a hit-test fallback. If anything ever retargets the
+         click away from the card again, the fallback still finds the card that
+         was under the pointer, so selection cannot silently break twice. */
+      pane.addEventListener('click', (e) => {
+        if (moved) {
+          moved = false;
+          return;
+        }
+        let card = e.target.closest ? e.target.closest('.wb__card') : null;
+        if (!card && e.clientX) {
+          const hit = document.elementFromPoint(e.clientX, e.clientY);
+          card = hit && hit.closest ? hit.closest('.wb__card') : null;
+        }
+        if (card) select(card.dataset.stage);
+      });
+
+      q('[data-wb-close]').addEventListener('click', () => {
+        panel.hidden = true;
+        cards.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+        syncStepper();
+        fit();
+      });
+
+      prevBtn.addEventListener('click', () => {
+        const i = currentIndex();
+        if (i > 0) select(ids[i - 1]);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        const i = currentIndex();
+        if (i > -1 && i < ids.length - 1) select(ids[i + 1]);
+      });
+
+      // Left and right arrows step the pipeline once the diagram has focus.
+      root.addEventListener('keydown', (e) => {
+        if (panel.hidden) return;
+        if (e.key === 'Escape') {
+          q('[data-wb-close]').click();
+        } else if (e.key === 'ArrowRight') {
+          nextBtn.click();
+        } else if (e.key === 'ArrowLeft') {
+          prevBtn.click();
+        }
+      });
+
+      // Pause and resume the travelling dashes.
+      const pulse = q('[data-wb-pulse]');
+      pulse.addEventListener('click', () => {
+        const on = pulse.getAttribute('aria-pressed') !== 'true';
+        pulse.setAttribute('aria-pressed', String(on));
+        root.classList.toggle('is-paused', !on);
+      });
+
+      if (isPhone()) {
+        panel.hidden = true;
+        cards.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+      }
+
+      syncStepper();
       fit();
-    });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !panel.hidden) document.getElementById('wb-close').click();
-    });
+      /* A board in a hidden tab has zero width, so it cannot be fitted until
+         its tab is shown. The tab strip calls this on reveal. */
+      root.refit = fit;
 
-    const ids = cards.map((c) => c.dataset.stage);
-    const prevBtn = document.getElementById('wb-prev');
-    const nextBtn = document.getElementById('wb-next');
-    const count = document.getElementById('wb-count');
+      let t;
+      addEventListener('resize', () => {
+        clearTimeout(t);
+        t = setTimeout(fit, 150);
+      });
+    };
 
-    const currentIndex = () => ids.indexOf(root.querySelector('.wb__card[aria-pressed="true"]')?.dataset.stage);
+    document.querySelectorAll('[data-wb]').forEach(initBoard);
 
-    function syncStepper() {
-      const i = currentIndex();
-      prevBtn.disabled = i <= 0;
-      nextBtn.disabled = i < 0 || i >= ids.length - 1;
-      count.textContent = i < 0 ? '' : 'Stage ' + (i + 1) + ' of ' + ids.length;
-    }
+    // Tab strip. Standard tablist keyboard model: arrows move, Home and End jump.
+    document.querySelectorAll('[data-wbt]').forEach((wrap) => {
+      const tabs = [...wrap.querySelectorAll('[role="tab"]')];
+      if (tabs.length < 2) return;
 
-    prevBtn.addEventListener('click', () => {
-      const i = currentIndex();
-      if (i > 0) select(ids[i - 1]);
-    });
+      const show = (index, focus) => {
+        tabs.forEach((tab, i) => {
+          const on = i === index;
+          tab.setAttribute('aria-selected', String(on));
+          tab.tabIndex = on ? 0 : -1;
+          const target = document.getElementById(tab.getAttribute('aria-controls'));
+          if (!target) return;
+          target.hidden = !on;
+          // Fit on reveal: the board had no measurable width while hidden.
+          if (on) target.querySelectorAll('[data-wb]').forEach((b) => b.refit && b.refit());
+        });
+        if (focus) tabs[index].focus();
+      };
 
-    nextBtn.addEventListener('click', () => {
-      const i = currentIndex();
-      if (i > -1 && i < ids.length - 1) select(ids[i + 1]);
-    });
-
-    // Left and right arrows step the pipeline once the diagram has focus.
-    root.addEventListener('keydown', (e) => {
-      if (panel.hidden) return;
-      if (e.key === 'ArrowRight') nextBtn.click();
-      else if (e.key === 'ArrowLeft') prevBtn.click();
-    });
-
-    // Pause and resume the travelling dashes.
-    const pulse = document.getElementById('wb-pulse');
-    pulse.addEventListener('click', () => {
-      const on = pulse.getAttribute('aria-pressed') !== 'true';
-      pulse.setAttribute('aria-pressed', String(on));
-      root.classList.toggle('is-paused', !on);
-    });
-
-    if (isPhone()) {
-      panel.hidden = true;
-      cards.forEach((c) => c.setAttribute('aria-pressed', 'false'));
-    }
-
-    syncStepper();
-    fit();
-    let t;
-    addEventListener('resize', () => {
-      clearTimeout(t);
-      t = setTimeout(fit, 150);
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => show(i, false));
+        tab.addEventListener('keydown', (e) => {
+          const last = tabs.length - 1;
+          let next = -1;
+          if (e.key === 'ArrowRight') next = i === last ? 0 : i + 1;
+          else if (e.key === 'ArrowLeft') next = i === 0 ? last : i - 1;
+          else if (e.key === 'Home') next = 0;
+          else if (e.key === 'End') next = last;
+          if (next < 0) return;
+          e.preventDefault();
+          show(next, true);
+        });
+      });
     });
   })();
 </script>

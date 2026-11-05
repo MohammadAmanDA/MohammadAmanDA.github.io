@@ -107,6 +107,10 @@ const services = defineCollection({
 const pipeline = defineCollection({
   loader: file('./src/content/pipeline.yaml'),
   schema: z.object({
+    // Which diagram this stage belongs to. The workbench renders one tab per
+    // diagram; a stage without one would be unreachable, so it is required
+    // rather than defaulted.
+    diagram: z.enum(['cashfx', 'planscan']),
     order: z.number().int(),
     tag: z.string().min(1),
     title: z.string().min(1),

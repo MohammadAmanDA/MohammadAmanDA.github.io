@@ -18,8 +18,11 @@ const { name, email, profiles } = profile.data;
 
 // The site is one page. Nav entries are anchors into it, and resolve back to it
 // from a project page.
+// Each label is the section's own label, word for word. A nav that says
+// "Work" over a section headed "Selected engagements" reads as two different
+// sites; the descriptive line is the section headline's job, not the nav's.
 const nav = [
-  { href: '/#work', label: 'Work' },
+  { href: '/#work', label: 'Selected work' },
   { href: '/#experience', label: 'Experience' },
   { href: '/#research', label: 'Research' },
   { href: '/#contact', label: 'Contact' },
@@ -225,14 +228,19 @@ const year = new Date().getFullYear();
     gap: var(--space-3);
   }
 
+  /* Same face, size, weight and tracking as .section__label, so the nav and
+     the heading it points at are visibly the same thing. It used to be the
+     sans at 0.12em, which rendered a shade larger and wider than the mono
+     labels below it. */
   .nav {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-6);
+    gap: var(--space-5);
     list-style: none;
+    font-family: var(--font-mono);
     font-size: var(--scale-xs);
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 

@@ -32,6 +32,11 @@ const selectedPubs = (await getCollection('publications'))
 
 const scholar = profiles.find((p) => p.kind === 'scholar');
 
+/* Deck tilts, in degrees. Deliberately irregular and all under four degrees:
+ * a stack dealt by hand, not a fan. Index into this list by card position, so
+ * adding a fifth highlight reuses the first angle rather than breaking. */
+const TILTS = [-3.4, 2.6, -1.8, 3.2];
+
 const fmt = (value: string) => {
   if (!/^\d{4}-\d{2}$/.test(value)) return value;
   const [y, m] = value.split('-').map(Number);
@@ -110,32 +115,59 @@ const headline: Record<string, string> = {
         <a class="btn btn--secondary" href="#work">View the work</a>
       </div>
 
-      <div class="cards" data-reveal>
+      {/* Credential deck.
+          Four cards dealt into a shallow stack, each with its own small tilt
+          and its own paper tint. Hovering or focusing one lifts it, squares it
+          up and brings it to the front. Clicking one squares up the whole deck
+          and holds it there, so all four can be read side by side; clicking
+          the same card again, or pressing Escape, deals them back out.
+
+          Two structural decisions worth recording.
+
+          The click target is a button, not a link, because its job is to
+          square the deck up rather than to navigate. The one element that
+          leaves the page is the footer link. An <a> cannot be nested inside a
+          <button>, so the button is an absolutely positioned overlay and the
+          link sits above it; the text between them is inert.
+
+          Under prefers-reduced-motion the whole arrangement collapses to a
+          plain four-column grid with no tilt and no overlap. A stack that
+          cannot animate is a pile, not a deck. */}
+      <div class="deck" data-deck data-reveal style={`--deck-count:${highlights.length}`}>
         {
-          highlights.map((h) => {
-            const Tag = h.href ? 'a' : 'div';
-            return (
-              <Tag class="card" href={h.href}>
-                <p class="card__label">{h.label}</p>
-                <p class="card__value">{h.value}</p>
-                <p class="card__detail">{h.detail}</p>
-                {h.href && (
+          highlights.map((h, i) => (
+            <article class="deck__card" data-tone={(i % 4) + 1} style={`--i:${i}; --tilt:${TILTS[i % TILTS.length]}deg; --z:${i + 1}`}>
+              <button type="button" class="deck__hit" data-deck-hit aria-pressed="false">
+                <span class="visually-hidden">Bring {h.label} to the front</span>
+              </button>
+
+              <span class="deck__grain" aria-hidden="true"></span>
+              <span class="deck__ghost" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+
+              <p class="deck__label">{h.label}</p>
+              <p class="deck__value">{h.value}</p>
+              <p class="deck__detail">{h.detail}</p>
+
+              {/* href is optional in the schema, so a highlight without one
+                  is simply a card with nothing to go to. */}
+              {h.href && (
+                <a class="deck__go" href={h.href}>
+                  <span>{h.href.startsWith('#') ? 'Jump to the research' : 'Read the write-up'}</span>
                   <svg
-                    class="card__arrow"
                     viewBox="0 0 16 16"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="1.6"
+                    stroke-width="1.7"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     aria-hidden="true"
                   >
-                    <path d="M4 12L12 4M6 4h6v6" />
+                    <path d="M3 8h10M9 4l4 4-4 4" />
                   </svg>
-                )}
-              </Tag>
-            );
-          })
+                </a>
+              )}
+            </article>
+          ))
         }
       </div>
     </div>
@@ -212,7 +244,7 @@ const headline: Record<string, string> = {
     <section class="section" data-reveal id="work" aria-labelledby="work-h">
       <div class="wrap">
       <p class="section__num" aria-hidden="true">03</p>
-      <h2 id="work-h" class="section__label">Selected engagements</h2>
+      <h2 id="work-h" class="section__label">Selected work</h2>
       <p class="section__headline">{headline.cases}</p>
       <p class="section__lead">
         Three systems, written up with the decisions that shaped them and what each one still
@@ -259,7 +291,7 @@ const headline: Record<string, string> = {
     <section class="section section--band" data-reveal id="experience" aria-labelledby="exp-h">
       <div class="wrap">
       <p class="section__num" aria-hidden="true">04</p>
-      <h2 id="exp-h" class="section__label">Professional record</h2>
+      <h2 id="exp-h" class="section__label">Experience</h2>
       <p class="section__headline">{headline.trajectory}</p>
       <p class="section__lead">
         A chronological record spanning production treasury forecasting at IKEA Group Treasury,
@@ -313,7 +345,7 @@ const headline: Record<string, string> = {
     <section class="section" data-reveal id="research" aria-labelledby="res-h">
       <div class="wrap">
       <p class="section__num" aria-hidden="true">05</p>
-      <h2 id="res-h" class="section__label">Research and education</h2>
+      <h2 id="res-h" class="section__label">Research</h2>
       <p class="section__headline">{headline.research}</p>
 
       <div class="prose">
@@ -395,8 +427,8 @@ const headline: Record<string, string> = {
 
     <section class="section" data-reveal id="contact" aria-labelledby="contact-h">
       <div class="wrap">
-      <p class="section__num" aria-hidden="true">07</p>
-      <h2 id="contact-h" class="section__label">Let's connect</h2>
+      <p class="section__num" aria-hidden="true">08</p>
+      <h2 id="contact-h" class="section__label">Contact</h2>
       <p class="section__headline">{headline.contact}</p>
 
       <div class="ct">
@@ -455,6 +487,46 @@ const headline: Record<string, string> = {
       </div>
       </div>
     </section>
+
+<script is:inline>
+  (() => {
+    const deck = document.querySelector('[data-deck]');
+    if (!deck) return;
+
+    const cards = [...deck.querySelectorAll('.deck__card')];
+
+    /* Squaring up is a presentational state, so it is held on the deck and
+       mirrored onto each card's own control as aria-pressed. Pressing the
+       active card again, or Escape, deals the stack back out. */
+    const setActive = (card) => {
+      // Booleans, not the result of && on a possibly-null card: aria-pressed
+      // must be "true" or "false", and String(null) is "null".
+      const squaring = Boolean(card) && !card.classList.contains('is-active');
+      deck.classList.toggle('is-square', squaring);
+      cards.forEach((c) => {
+        const on = squaring && c === card;
+        c.classList.toggle('is-active', on);
+        const hit = c.querySelector('[data-deck-hit]');
+        if (hit) hit.setAttribute('aria-pressed', String(on));
+      });
+    };
+
+    cards.forEach((card) => {
+      const hit = card.querySelector('[data-deck-hit]');
+      if (hit) hit.addEventListener('click', () => setActive(card));
+    });
+
+    deck.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || !deck.classList.contains('is-square')) return;
+      // Hold the control that was pressed before clearing it, so Escape
+      // leaves focus on the card it dealt back out rather than on the body.
+      const wasActive = deck.querySelector('.deck__card.is-active [data-deck-hit]');
+      setActive(null);
+      if (wasActive) wasActive.focus();
+    });
+  })();
+</script>
+
 </BaseLayout>
 
 <style>

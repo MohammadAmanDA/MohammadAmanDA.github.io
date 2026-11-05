@@ -3,6 +3,7 @@
 # cadence rather than claiming a measured latency.
 
 - id: ingest
+  diagram: cashfx
   order: 1
   tag: Raw Sources
   title: Statement & Platform Ingest
@@ -21,6 +22,7 @@
     - Azure
 
 - id: clean
+  diagram: cashfx
   order: 2
   tag: Cleaning
   title: Parsing & Normalisation
@@ -38,6 +40,7 @@
     - SQL
 
 - id: map
+  diagram: cashfx
   order: 3
   tag: Mapping
   title: Transaction Classification
@@ -55,6 +58,7 @@
     - Python
 
 - id: series
+  diagram: cashfx
   order: 4
   tag: History
   title: Clean Historical Series
@@ -72,6 +76,7 @@
     - PostgreSQL
 
 - id: models
+  diagram: cashfx
   order: 5
   tag: Model Selection
   title: Automated Model Selection
@@ -91,6 +96,7 @@
     - XGBoost
 
 - id: forecast
+  diagram: cashfx
   order: 6
   tag: Output
   title: Forecast & Monitoring
@@ -107,3 +113,123 @@
     - R Shiny
     - Azure
     - Power BI
+
+# ---------------------------------------------------------------------------
+# PlanScan, second workbench tab.
+#
+# Every line below is drawn from src/content/projects/planscan.yaml, which the
+# owner supplied and approved. Nothing here introduces a fact, a number or a
+# technology that the case study does not already stand behind: the stack is
+# exactly its published stack, and the figures (~8,200 sections, 12 criteria,
+# 11 appeal decisions, zero fabricated citations) are its published figures.
+# ---------------------------------------------------------------------------
+
+- id: ps-route
+  diagram: planscan
+  order: 1
+  tag: Routing
+  title: Eircode to Council
+  summary: Postcode resolved to the governing authority
+  latency: Per request
+  edge: Council and plan
+  governance: Deterministic
+  responsibilities:
+    - Maps an Eircode to the local authority that governs the site.
+    - Selects that council's development plan, so every later stage reads the right statutory document.
+    - Removes the lookup an applicant would otherwise have to get right first.
+  safeguard: Which council applies is resolved from the postcode in code, never inferred by a model.
+  tech:
+    - Python
+    - SQLite
+
+- id: ps-index
+  diagram: planscan
+  order: 2
+  tag: Indexing
+  title: Plan Ingest & Embedding
+  summary: Statutory plans chunked and embedded on CPU
+  latency: ~8,200 sections
+  edge: Vector store
+  governance: Stays local
+  responsibilities:
+    - Chunks development plans with overlap, so a policy split across a page boundary is still retrievable.
+    - Computes 384-dimension embeddings locally on CPU with a small sentence-transformer model.
+    - Writes them to a persistent local vector store rather than a hosted service.
+  safeguard: Documents stay on the machine, which is what the council-facing case requires.
+  tech:
+    - Python
+    - ChromaDB
+    - sentence-transformers
+
+- id: ps-rules
+  diagram: planscan
+  order: 3
+  tag: Rules
+  title: Deterministic Validation
+  summary: Fees, notice windows and approved newspapers, in code
+  latency: No model call
+  edge: Procedural verdicts
+  governance: By construction
+  responsibilities:
+    - Tests the newspaper against the council's approved list as a set membership check.
+    - Computes the statutory notice window by date arithmetic, and the fee by formula.
+    - Compares the description on the form against the one in the notice for consistency.
+  safeguard: This layer costs nothing and cannot fabricate a result, so judgement is never asked for where arithmetic will do.
+  tech:
+    - Python
+
+- id: ps-retrieve
+  diagram: planscan
+  order: 4
+  tag: Retrieval
+  title: Per-Criterion Retrieval
+  summary: A separate search for each compliance criterion
+  latency: 12 criteria
+  edge: Ranked passages
+  governance: Source-bound
+  responsibilities:
+    - Searches separately per criterion, because drainage and overlooking sit in different parts of a plan.
+    - Deduplicates the results, re-ranks them by relevance and truncates to the strongest passages.
+    - Returns nothing when a council's plan has not been indexed, and the report is flagged as unbacked.
+  safeguard: With no retrieved source the system refuses, rather than answering from general knowledge.
+  tech:
+    - Python
+    - ChromaDB
+    - sentence-transformers
+
+- id: ps-judge
+  diagram: planscan
+  order: 5
+  tag: Judgement
+  title: One Structured Call
+  summary: Strict JSON, every criterion in a single request
+  latency: One call
+  edge: Scored verdicts
+  governance: Low temperature
+  responsibilities:
+    - Sends the retrieved passages for all criteria in one generation call, not one call per criterion.
+    - Requires strict JSON, a verdict per criterion with a confidence score, the finding and its plan reference.
+    - Holds temperature low, so the same proposal does not score differently between runs.
+  safeguard: The model is used only where the question needs a development plan read and a judgement formed.
+  tech:
+    - Llama 3.3 70B (Groq)
+    - Python
+
+- id: ps-report
+  diagram: planscan
+  order: 6
+  tag: Output
+  title: Report & Audit Trail
+  summary: Pass, warning, fail or missing information
+  latency: Local only
+  edge: Pre-submission report
+  governance: Fails visibly
+  responsibilities:
+    - Reports what passes, what fails and what paperwork is missing, before the application is submitted.
+    - Returns a structured error report with the raw response attached when parsing fails, instead of crashing.
+    - Stores the run, so a verdict can be traced back to the passages behind it.
+  safeguard: Evaluated on 11 real appeal decisions with no fabricated citations, every cited rule checked against the retrieved text.
+  tech:
+    - Streamlit
+    - SQLite
+    - Python

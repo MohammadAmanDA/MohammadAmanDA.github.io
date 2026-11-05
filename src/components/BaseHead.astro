@@ -23,6 +23,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+{/* Without this the browser asks for /favicon.ico on every page load and
+    gets a 404, which is a console error on a site whose acceptance criteria
+    say there are none. One file, no request beyond the icon itself. */}
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 {noindex && <meta name="robots" content="noindex" />}
 
 <meta property="og:type" content="website" />

@@ -79,6 +79,22 @@
   --color-accent-on: #064e3b;     /* text on chip, 10.4:1 on #d1fae5 */
   --color-focus: #046a38;
 
+  /* ---- deck tints ----
+   * Four paper colours for the credential deck. Each is a near-white wash, so
+   * the deck reads as four sheets of tinted paper rather than four coloured
+   * boxes. Measured against the ink that sits on them, every pair clears AA:
+   * --color-text 16.8 / 17.1 / 16.6 / 16.7 : 1, --color-text-body 9.8 / 9.9 /
+   * 9.7 / 9.7 : 1, and --color-text-muted 4.59 / 4.66 / 4.54 / 4.54 : 1. The
+   * fourth was lightened from #fff1f2, which measured 4.40 against muted and
+   * would have failed. */
+  --deck-1: #ecfdf5;
+  --deck-2: #fffbeb;
+  --deck-3: #f0f9ff;
+  --deck-4: #fef6f6;
+  --deck-ghost: rgba(17, 24, 39, 0.06);
+  --deck-shadow-rest: 0 1px 2px rgba(17, 24, 39, 0.06), 0 8px 18px -10px rgba(17, 24, 39, 0.28);
+  --deck-shadow-lift: 0 2px 6px rgba(17, 24, 39, 0.08), 0 28px 48px -16px rgba(17, 24, 39, 0.34);
+
   /* ---- type ---- */
   /* Body and UI are the sans. The serif is reserved for display headings. */
   --font-body: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
@@ -130,6 +146,19 @@
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  /* ---- motion ----
+   * These four were referenced by the workbench and the tab strip but never
+   * defined, so every `transition: ... var(--duration-base) var(--ease-out)`
+   * was an invalid declaration and was dropped whole: the panel slide and the
+   * card hover transitions had simply never run. Defining them here turns
+   * them back on at the values the brief sets, 150-300ms and ease-out.
+   * --lift is the motion budget's hard ceiling on travel. */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --lift: 8px;
   --radius-lg: 14px;
   --radius-node: 10px;
   --radius-panel: 12px;
@@ -166,6 +195,13 @@
     --color-accent-wash: #16242a;
     --color-panel: rgba(18, 20, 21, 0.95);
     --color-focus: #7fb5c5;
+    --deck-1: #13211d;
+    --deck-2: #201c14;
+    --deck-3: #141c26;
+    --deck-4: #221619;
+    --deck-ghost: rgba(233, 231, 227, 0.07);
+    --deck-shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 18px -10px rgba(0, 0, 0, 0.7);
+    --deck-shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 28px 48px -16px rgba(0, 0, 0, 0.8);
   }
 }
 
@@ -187,6 +223,14 @@
   --color-accent-wash: #16242a;
   --color-panel: rgba(18, 20, 21, 0.95);
   --color-focus: #7fb5c5;
+  --deck-1: #13211d;
+  --deck-2: #201c14;
+  --deck-3: #141c26;
+  --deck-4: #221619;
+  --deck-ghost: rgba(233, 231, 227, 0.07);
+  --deck-shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 18px -10px rgba(0, 0, 0, 0.7);
+  --deck-shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 28px 48px -16px rgba(0, 0, 0, 0.8);
+
 }
 
 /* ---------- reset ---------- */
@@ -360,116 +404,388 @@ code {
   color: var(--color-text-muted);
 }
 
-/* ---------- evidence cards ----------
- * Matches the reference structure measured on 2026-11-03: one rounded
- * container with a hairline border and a faint grey fill, divided into cells
- * by hairlines rather than separate boxes, 32px padding per cell, and the cell
- * turning white on hover. Each cell carries a corner arrow. */
+/* ---------- credential deck ----------
+ * Four cards dealt into an overlapping stack, each on its own tint of paper
+ * and set at its own small angle.
+ *
+ * Three states.
+ *   Resting   the stack. Each card covers the right edge of the one before
+ *             it, so a stacked card shows a teaser, not its whole self.
+ *   Raised    hover or keyboard focus. That card squares up, lifts by the
+ *             motion budget's 8px, comes clear of its neighbours and drops
+ *             its veil, so it can be read in full without clicking.
+ *   Squared   click. The whole deck straightens AND spreads into an even
+ *             four-up row with nothing overlapping, so all four read at once.
+ *             Clicking the same card again, or Escape, deals them back out.
+ *
+ * Geometry. Resting, --deck-step is the distance between card origins, set so
+ * the first card starts at the left edge and the last ends at the right one;
+ * the overlap is whatever is left over. Squared, the cards take an equal
+ * share of the row with a gap between them. Both states are expressed as
+ * `left` and `width`, not as a change of display, so the deck can animate
+ * between them instead of snapping.
+ *
+ * The veil. A stacked card's text would otherwise be sliced mid-line by its
+ * neighbour, which reads as a bug rather than as depth. ::after lays a
+ * gradient in the card's own tint over the covered strip, and it lifts the
+ * moment the card does.
+ *
+ * This component's motion is wider than the rest of the site allows, and that
+ * is deliberate: the owner asked for it specifically on 2026-11-05, having
+ * seen it elsewhere. It is confined here, it runs only on hover and click,
+ * and it is removed entirely under reduced motion. */
 
-.cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  border: var(--border-hairline);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  background-color: var(--color-surface);
-}
-
-.cards > * + * {
-  border-top: 1px solid var(--color-border);
-}
-
-@media (min-width: 48rem) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .cards > * + * {
-    border-top: 0;
-  }
-  .cards > *:nth-child(n + 3) {
-    border-top: 1px solid var(--color-border);
-  }
-  .cards > *:nth-child(even) {
-    border-left: 1px solid var(--color-border);
-  }
-}
-
-@media (min-width: 72rem) {
-  .cards {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .cards > *:nth-child(n + 3) {
-    border-top: 0;
-  }
-  .cards > * + * {
-    border-left: 1px solid var(--color-border);
-  }
-}
-
-.card {
+.deck {
+  --deck-gap: var(--space-4);
+  /* 33%: wide enough that the largest value, "192 citations" at the display
+     size, clears the veil, and still leaving roughly 128px of overlap, which
+     is what makes it read as a stack rather than a row. */
+  --deck-card-w: max(270px, 33%);
+  --deck-veil: 36%;
+  --deck-h: clamp(276px, 21vw, 312px);
+  /* Squared cards are a quarter of the row rather than a third, so they need
+     more height for the same text. */
+  --deck-h-square: clamp(300px, 25vw, 352px);
+  --deck-step: calc((100% - var(--deck-card-w)) / (var(--deck-count) - 1));
+  --deck-sq-w: calc((100% - (var(--deck-count) - 1) * var(--deck-gap)) / var(--deck-count));
   position: relative;
+  height: var(--deck-h);
+  /* The gap under the two buttons above. There was none, so the deck sat
+     hard against them. */
+  margin-top: var(--space-16);
+  transition: height var(--duration-base) var(--ease-out);
+}
+
+.deck.is-square {
+  height: var(--deck-h-square);
+}
+
+.deck__card {
+  --deck-tone: var(--deck-1);
+  position: absolute;
+  top: 0;
+  left: calc(var(--i) * var(--deck-step));
+  z-index: var(--z);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding: var(--space-8);
-  text-decoration: none;
-  color: inherit;
-  background-color: transparent;
-  transition: background-color 180ms ease-out;
+  width: var(--deck-card-w);
+  height: 100%;
+  padding: var(--space-5);
+  overflow: hidden;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-card);
+  background-color: var(--deck-tone);
+  box-shadow: var(--deck-shadow-rest);
+  transform: rotate(var(--tilt));
+  /* Pivot low and central, so a card swings like a sheet resting on the one
+     under it rather than spinning about its middle. */
+  transform-origin: 50% 85%;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    left var(--duration-base) var(--ease-out),
+    width var(--duration-base) var(--ease-out);
 }
 
-/* Colour inversion rather than a tint. This is the move that makes the grid
- * read as designed rather than as three boxes with a grey hover. */
-/* The source lifts the cell to white against a gray-50 container, rather than
- * inverting it. Subtler, and it matches. */
-a.card:hover,
-a.card:focus-visible {
-  background-color: var(--color-bg);
-  box-shadow: var(--shadow-sm);
+.deck__card[data-tone='2'] {
+  --deck-tone: var(--deck-2);
 }
 
-.card__label {
+.deck__card[data-tone='3'] {
+  --deck-tone: var(--deck-3);
+}
+
+.deck__card[data-tone='4'] {
+  --deck-tone: var(--deck-4);
+}
+
+/* The veil over the strip the next card covers. */
+.deck__card::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 4;
+  width: var(--deck-veil);
+  pointer-events: none;
+  background: linear-gradient(to right, transparent, var(--deck-tone) 68%);
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+/* Nothing covers the last card, so it is never veiled. */
+.deck__card:last-child::after {
+  opacity: 0;
+}
+
+/* Raised. Squared up, lifted by --lift, fractionally larger so the lift reads
+   as "toward the reader" rather than "upward", and unveiled. */
+.deck__card:hover,
+.deck__card:focus-within {
+  z-index: 50;
+  transform: translateY(calc(var(--lift) * -1)) scale(1.04);
+  box-shadow: var(--deck-shadow-lift);
+}
+
+.deck__card:hover::after,
+.deck__card:focus-within::after,
+.deck.is-square .deck__card::after {
+  opacity: 0;
+}
+
+/* Squared. Upright, evenly spread, nothing overlapping. */
+.deck.is-square .deck__card {
+  left: calc(var(--i) * (var(--deck-sq-w) + var(--deck-gap)));
+  width: var(--deck-sq-w);
+  transform: none;
+}
+
+/* The card that was clicked stays marked, by lift alone. No scale here: the
+   row has no spare width for a card to grow into. */
+.deck.is-square .deck__card.is-active {
+  z-index: 50;
+  transform: translateY(calc(var(--lift) * -1));
+  box-shadow: var(--deck-shadow-lift);
+}
+
+.deck.is-square .deck__card:hover,
+.deck.is-square .deck__card:focus-within {
+  transform: translateY(calc(var(--lift) * -1));
+}
+
+/* A quarter-width card is taller and narrower, so more lines fit. */
+.deck.is-square .deck__detail {
+  -webkit-line-clamp: 8;
+  line-clamp: 8;
+}
+
+/* The click target: an overlay covering the whole card, sitting under the
+   text and under the footer link. It carries a visually hidden name, because
+   its job is to square the deck up, not to describe the card. */
+.deck__hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.deck__hit:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+/* Everything between the overlay and the link is inert, so a click anywhere
+   on the body reaches the overlay underneath it. */
+.deck__label,
+.deck__value,
+.deck__detail,
+.deck__grain,
+.deck__ghost {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Graphics. A corner of the same dot grid the workbench canvas uses, and a
+   large ghosted index numeral. Both decorative, both aria-hidden, neither
+   standing in for data. */
+.deck__grain {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 54%;
+  height: 46%;
+  background-image: radial-gradient(circle at center, var(--deck-ghost) 1px, transparent 1.1px);
+  background-size: 11px 11px;
+  -webkit-mask-image: linear-gradient(205deg, rgb(0 0 0 / 100%), transparent 72%);
+  mask-image: linear-gradient(205deg, rgb(0 0 0 / 100%), transparent 72%);
+}
+
+.deck__ghost {
+  position: absolute;
+  right: var(--space-4);
+  bottom: calc(var(--space-2) * -1);
+  font-family: var(--font-display);
+  font-size: 5.5rem;
+  line-height: 1;
+  color: var(--deck-ghost);
+  user-select: none;
+}
+
+.deck__label {
   font-family: var(--font-mono);
   font-size: var(--scale-xs);
-  text-transform: uppercase;
+  font-weight: 500;
   letter-spacing: 0.1em;
-  color: var(--color-text-muted);
+  text-transform: uppercase;
+  color: var(--color-text-body);
 }
 
-.card__value {
+.deck__value {
+  margin-top: var(--space-3);
   font-family: var(--font-display);
-  font-size: var(--scale-2xl);
-  line-height: 1.1;
+  font-size: var(--scale-3xl);
+  line-height: 1;
   letter-spacing: -0.025em;
   color: var(--color-text);
 }
 
-.card__detail {
+.deck__detail {
+  margin-top: var(--space-3);
   font-size: var(--scale-sm);
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--color-text-body);
+  /* Clamped so a long detail cannot push the footer link out of the card.
+     The full text stays in the DOM, so nothing is hidden from a screen
+     reader or a crawler, and the write-up carries it in full. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  overflow: hidden;
 }
 
-/* Corner arrow. Sits still until the card is hovered or focused, then steps
- * 2px up and right. Movement stays inside the motion budget and is removed
- * entirely under prefers-reduced-motion by the block at the end of this file. */
-.card__arrow {
-  position: absolute;
-  top: var(--space-6);
-  right: var(--space-6);
-  width: 14px;
-  height: 14px;
-  color: var(--color-border);
-  transition:
-    transform 180ms ease-out,
-    color 180ms ease-out;
-}
-
-a.card:hover .card__arrow,
-a.card:focus-visible .card__arrow {
+/* The one thing that leaves the page. Above the overlay, so it takes its own
+   clicks, and left-aligned so the veil never falls across it. */
+.deck__go {
+  position: relative;
+  z-index: 5;
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--scale-xs);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
   color: var(--color-accent);
-  transform: translate(2px, -2px);
+  transition: gap var(--duration-fast) var(--ease-out);
+}
+
+.deck__go svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
+
+.deck__go:hover,
+.deck__go:focus-visible {
+  gap: var(--space-3);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* Below the tablet break the deck stacks vertically, still overlapping and
+   still tilted. The raised card widens to full and squares up. The veil goes:
+   the overlap here is vertical and slight, so nothing is sliced. */
+@media (max-width: 47.99rem) {
+  .deck,
+  .deck.is-square {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .deck__card,
+  .deck.is-square .deck__card {
+    position: relative;
+    left: 0;
+    width: 86%;
+    height: auto;
+    min-height: var(--deck-h);
+    transition:
+      transform var(--duration-base) var(--ease-out),
+      width var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+  }
+
+  .deck__card::after {
+    opacity: 0;
+  }
+
+  .deck__card + .deck__card {
+    margin-top: -4%;
+  }
+
+  .deck__card:hover,
+  .deck__card:focus-within,
+  .deck.is-square .deck__card.is-active {
+    width: 100%;
+    transform: none;
+  }
+
+  .deck.is-square .deck__card {
+    width: 100%;
+    margin-top: var(--space-4);
+    transform: none;
+  }
+
+  .deck.is-square .deck__card:first-child {
+    margin-top: 0;
+  }
+}
+
+/* Reduced motion. A stack that cannot animate is a pile, so the deck becomes
+   an ordinary grid: no overlap, no tilt, no lift, no veil, nothing hidden
+   behind anything else. */
+@media (prefers-reduced-motion: reduce) {
+  .deck,
+  .deck.is-square {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    height: auto;
+  }
+
+  .deck__card,
+  .deck__card:hover,
+  .deck__card:focus-within,
+  .deck.is-square .deck__card,
+  .deck.is-square .deck__card.is-active {
+    position: relative;
+    left: 0;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin-top: 0;
+    transform: none;
+  }
+
+  .deck__card::after {
+    opacity: 0;
+  }
+
+  .deck__detail,
+  .deck.is-square .deck__detail {
+    display: block;
+    -webkit-line-clamp: none;
+    line-clamp: none;
+    overflow: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 48rem) {
+  .deck,
+  .deck.is-square {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 72rem) {
+  .deck,
+  .deck.is-square {
+    grid-template-columns: repeat(var(--deck-count), 1fr);
+  }
 }
 
 /* Mint chip, the reference's pill badge for location, role and status. */
@@ -894,6 +1210,72 @@ a.card:focus-visible .card__arrow {
   color: var(--color-text-muted);
 }
 
+
+/* ---------- workbench tab strip ----------
+ * Two diagrams behind a standard tablist. The selected tab is marked by a 2px
+ * accent rule on its underside and by weight, never by colour alone, so it
+ * survives a greyscale render and does not depend on hue perception. */
+
+.wbt__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  border-bottom: var(--border-hairline);
+}
+
+.wbt__tab {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.wbt__tab-name {
+  font-family: var(--font-mono);
+  font-size: var(--scale-sm);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.wbt__tab-note {
+  font-family: var(--font-mono);
+  font-size: var(--scale-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.wbt__tab:hover {
+  color: var(--color-text);
+}
+
+.wbt__tab[aria-selected='true'] {
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
+}
+
+.wbt__tab[aria-selected='true'] .wbt__tab-name {
+  font-weight: 700;
+}
+
+.wbt__tab:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+.wbt__panel[hidden] {
+  display: none;
+}
 
 /* ---------- architecture workbench ----------
  * A pannable, zoomable node graph. The reference is React Flow inside Next.js;
